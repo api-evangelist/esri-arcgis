@@ -1,0 +1,19 @@
+aid: esri-arcgis
+url: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/apis.yml
+apis:
+- aid: esri-arcgis:esri-arcgis-api
+  name: ESRI ArcGIS Platform API
+  tags:
+  - GIS
+  - Geospatial
+  - Mapping
+  - Location
+  - Spatial Analysis
+  image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
+  humanURL: https://developers.arcgis.com/
+  baseURL: https://www.arcgis.com/sharing/rest
+  properties:
+  - url: https://developers.arcgis.com/
+    type: Documentation
+  description: >-
+    ESRI ArcGIS provides geospatial data platform APIs for mapping, spatial analysis, geocoding, routing, and feature services. APIs enable access to hosted feature layers, imagery, elevation data, and spatial analytics for infrastructure, asset management, and environmental monitoring.
