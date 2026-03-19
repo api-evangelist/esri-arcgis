@@ -1,0 +1,795 @@
+openapi: 3.1.0
+info:
+  title: ESRI ArcGIS Platform API
+  description: >-
+    ESRI ArcGIS Platform REST API for sharing, managing, and accessing GIS content
+    including feature services, maps, layers, users, and portal items. The API enables
+    geospatial data management, spatial analysis, geocoding, routing, and organizational
+    administration for ArcGIS Online and ArcGIS Enterprise deployments.
+  version: 1.0.0
+  contact:
+    name: ESRI Developer Support
+    url: https://community.esri.com/t5/developers/ct-p/developers
+  license:
+    name: Esri Master Agreement
+    url: https://www.esri.com/en-us/legal/terms/master-agreement
+externalDocs:
+  description: ArcGIS REST API Reference
+  url: https://developers.arcgis.com/rest/
+
+servers:
+  - url: https://www.arcgis.com/sharing/rest
+    description: ArcGIS Online production
+  - url: https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
+    description: ArcGIS Geocoding Service
+  - url: https://route.arcgis.com/arcgis/rest/services
+    description: ArcGIS Routing Service
+  - url: https://places-api.arcgis.com/arcgis/rest/services/v1
+    description: ArcGIS Places Service
+
+security:
+  - ApiKeyAuth: []
+  - OAuth2: [openid]
+
+tags:
+  - name: Portal
+    description: Portal items, users, groups, and organizational management
+  - name: Feature Services
+    description: Hosted feature layers and spatial data management
+  - name: Geocoding
+    description: Address search, reverse geocoding, and batch geocoding
+  - name: Routing
+    description: Route calculation, directions, and service areas
+  - name: Places
+    description: Points of interest search and retrieval
+
+paths:
+  /portals/self:
+    get:
+      operationId: getPortalSelf
+      summary: Get portal information
+      description: Returns information about the organization's portal including available resources, helpers, and members. The response includes information about the portal's name, description, and thumbnail.
+      tags: [Portal]
+      parameters:
+        - name: f
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [json, pjson, html]
+            default: json
+          description: Output format
+        - name: token
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Authentication token (alternative to Authorization header)
+      responses:
+        '200':
+          description: Portal information returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Portal'
+        '401':
+          description: Unauthorized – valid token required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /community/users/{username}:
+    get:
+      operationId: getUser
+      summary: Get user profile
+      description: Returns the profile information of a specified user within the portal organization.
+      tags: [Portal]
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Username of the ArcGIS Online user
+        - name: f
+          in: query
+          schema:
+            type: string
+            enum: [json, pjson]
+            default: json
+      responses:
+        '200':
+          description: User profile returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+  /content/users/{username}/items:
+    get:
+      operationId: getUserItems
+      summary: List user content items
+      description: Returns items owned by the specified user. Supports pagination, sorting, and filtering.
+      tags: [Portal]
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: num
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 100
+          description: Number of results to return
+        - name: start
+          in: query
+          schema:
+            type: integer
+            default: 1
+          description: Index of the first entry in the result set (1-based)
+        - name: sortField
+          in: query
+          schema:
+            type: string
+            enum: [created, modified, title, type]
+        - name: sortOrder
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: f
+          in: query
+          schema:
+            type: string
+            enum: [json, pjson]
+            default: json
+      responses:
+        '200':
+          description: User items returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemCollection'
+
+  /content/items/{itemId}:
+    get:
+      operationId: getItem
+      summary: Get portal item
+      description: Returns information about a specific portal item (map, layer, application, etc.).
+      tags: [Portal]
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the portal item
+        - name: f
+          in: query
+          schema:
+            type: string
+            enum: [json, pjson]
+            default: json
+      responses:
+        '200':
+          description: Item information returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Item not found
+
+  /search:
+    get:
+      operationId: searchPortal
+      summary: Search portal content
+      description: Searches for portal items, groups, and users using ArcGIS query syntax. Supports spatial, temporal, and attribute filtering.
+      tags: [Portal]
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Query string using ArcGIS search syntax (e.g., "type:Feature Service owner:jsmith")
+        - name: num
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 100
+        - name: start
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: sortField
+          in: query
+          schema:
+            type: string
+            enum: [title, created, modified, type, relevance]
+        - name: sortOrder
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: f
+          in: query
+          schema:
+            type: string
+            enum: [json, pjson]
+            default: json
+      responses:
+        '200':
+          description: Search results returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+
+  /findAddressCandidates:
+    get:
+      operationId: findAddressCandidates
+      summary: Geocode an address
+      description: Converts address text into geographic coordinates (forward geocoding). Returns a list of address candidates with location coordinates and match scores.
+      tags: [Geocoding]
+      servers:
+        - url: https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
+      parameters:
+        - name: SingleLine
+          in: query
+          schema:
+            type: string
+          description: Single-line address string (e.g., "380 New York St, Redlands, CA 92373")
+        - name: Address
+          in: query
+          schema:
+            type: string
+          description: Street address component
+        - name: City
+          in: query
+          schema:
+            type: string
+        - name: Region
+          in: query
+          schema:
+            type: string
+          description: State or province
+        - name: Postal
+          in: query
+          schema:
+            type: string
+        - name: CountryCode
+          in: query
+          schema:
+            type: string
+          description: ISO 3166-1 alpha-2 or alpha-3 country code
+        - name: maxLocations
+          in: query
+          schema:
+            type: integer
+            default: 1
+            maximum: 50
+        - name: outFields
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of output fields (* for all)
+        - name: outSR
+          in: query
+          schema:
+            type: integer
+            default: 4326
+          description: Output spatial reference WKID
+        - name: token
+          in: query
+          schema:
+            type: string
+        - name: f
+          in: query
+          schema:
+            type: string
+            enum: [json, pjson]
+            default: json
+      responses:
+        '200':
+          description: Address candidates returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeocodeResponse'
+
+  /reverseGeocode:
+    get:
+      operationId: reverseGeocode
+      summary: Reverse geocode coordinates
+      description: Converts geographic coordinates to a readable address (reverse geocoding).
+      tags: [Geocoding]
+      servers:
+        - url: https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
+      parameters:
+        - name: location
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Point location as JSON (e.g., {"x":-117.2,"y":34.06,"spatialReference":{"wkid":4326}})
+        - name: distance
+          in: query
+          schema:
+            type: number
+          description: Distance in meters to search from the input location
+        - name: outSR
+          in: query
+          schema:
+            type: integer
+            default: 4326
+        - name: token
+          in: query
+          schema:
+            type: string
+        - name: f
+          in: query
+          schema:
+            type: string
+            enum: [json, pjson]
+            default: json
+      responses:
+        '200':
+          description: Reverse geocode result returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseGeocodeResponse'
+
+  /places/near-point:
+    get:
+      operationId: findPlacesNearPoint
+      summary: Find places near a point
+      description: Returns points of interest near a specified geographic location. Supports filtering by category, search radius, and pagination.
+      tags: [Places]
+      servers:
+        - url: https://places-api.arcgis.com/arcgis/rest/services/v1
+      parameters:
+        - name: x
+          in: query
+          required: true
+          schema:
+            type: number
+          description: Longitude of the center point (WGS84)
+        - name: y
+          in: query
+          required: true
+          schema:
+            type: number
+          description: Latitude of the center point (WGS84)
+        - name: radius
+          in: query
+          schema:
+            type: number
+            default: 1000
+          description: Search radius in meters (max 10000)
+        - name: categoryIds
+          in: query
+          schema:
+            type: string
+          description: Comma-separated category IDs to filter results
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 20
+        - name: token
+          in: query
+          schema:
+            type: string
+        - name: f
+          in: query
+          schema:
+            type: string
+            enum: [json, pjson]
+            default: json
+      responses:
+        '200':
+          description: Places returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlacesResponse'
+
+  /places/{placeId}:
+    get:
+      operationId: getPlaceDetails
+      summary: Get place details
+      description: Returns detailed attributes for a specific place including name, address, phone number, hours of operation, and category information.
+      tags: [Places]
+      servers:
+        - url: https://places-api.arcgis.com/arcgis/rest/services/v1
+      parameters:
+        - name: placeId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the place
+        - name: requestedFields
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of attribute fields to return
+        - name: token
+          in: query
+          schema:
+            type: string
+        - name: f
+          in: query
+          schema:
+            type: string
+            enum: [json, pjson]
+            default: json
+      responses:
+        '200':
+          description: Place details returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Place'
+        '404':
+          description: Place not found
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: ArcGIS API key or token
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.arcgis.com/sharing/rest/oauth2/authorize
+          tokenUrl: https://www.arcgis.com/sharing/rest/oauth2/token
+          scopes:
+            openid: OpenID Connect identity
+            urn:arcgis:scope:root: Full access to ArcGIS Online
+
+  schemas:
+    Portal:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Portal organization ID
+        name:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+          format: uri
+        thumbnail:
+          type: string
+        culture:
+          type: string
+          description: Default language/locale (e.g., "en")
+        region:
+          type: string
+        created:
+          type: integer
+          description: Creation timestamp (milliseconds since epoch)
+        modified:
+          type: integer
+
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        fullName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        description:
+          type: string
+        role:
+          type: string
+          enum: [org_admin, org_publisher, org_user, account_admin]
+        level:
+          type: string
+        created:
+          type: integer
+        modified:
+          type: integer
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupRef'
+
+    GroupRef:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        access:
+          type: string
+
+    Item:
+      type: object
+      properties:
+        id:
+          type: string
+        owner:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+          description: Item type (e.g., "Feature Service", "Web Map", "CSV")
+        typeKeywords:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        snippet:
+          type: string
+        thumbnail:
+          type: string
+        url:
+          type: string
+          format: uri
+        tags:
+          type: array
+          items:
+            type: string
+        created:
+          type: integer
+        modified:
+          type: integer
+        numViews:
+          type: integer
+        size:
+          type: integer
+        access:
+          type: string
+          enum: [private, shared, org, public]
+        extent:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+          description: Bounding box [[xmin,ymin],[xmax,ymax]]
+
+    ItemCollection:
+      type: object
+      properties:
+        total:
+          type: integer
+        start:
+          type: integer
+        num:
+          type: integer
+        nextStart:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+
+    SearchResults:
+      type: object
+      properties:
+        query:
+          type: string
+        total:
+          type: integer
+        start:
+          type: integer
+        num:
+          type: integer
+        nextStart:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+
+    GeocodeCandidate:
+      type: object
+      properties:
+        address:
+          type: string
+        location:
+          $ref: '#/components/schemas/Point'
+        score:
+          type: number
+          description: Match quality score (0-100)
+        attributes:
+          type: object
+          additionalProperties: true
+
+    GeocodeResponse:
+      type: object
+      properties:
+        spatialReference:
+          $ref: '#/components/schemas/SpatialReference'
+        candidates:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeocodeCandidate'
+
+    ReverseGeocodeResponse:
+      type: object
+      properties:
+        address:
+          type: object
+          properties:
+            Match_addr:
+              type: string
+            LongLabel:
+              type: string
+            ShortLabel:
+              type: string
+            Addr_type:
+              type: string
+            AddNum:
+              type: string
+            Address:
+              type: string
+            City:
+              type: string
+            Region:
+              type: string
+            RegionAbbr:
+              type: string
+            Postal:
+              type: string
+            CountryCode:
+              type: string
+        location:
+          $ref: '#/components/schemas/Point'
+
+    PlacesResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaceSummary'
+        pagination:
+          type: object
+          properties:
+            previousUrl:
+              type: string
+            nextUrl:
+              type: string
+
+    PlaceSummary:
+      type: object
+      properties:
+        placeId:
+          type: string
+        name:
+          type: string
+        location:
+          $ref: '#/components/schemas/Point'
+        distance:
+          type: number
+          description: Distance from search point in meters
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+
+    Place:
+      type: object
+      properties:
+        placeId:
+          type: string
+        name:
+          type: string
+        location:
+          $ref: '#/components/schemas/Point'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        address:
+          type: object
+          properties:
+            streetAddress:
+              type: string
+            extended:
+              type: string
+            locality:
+              type: string
+            designatedMarketArea:
+              type: string
+            region:
+              type: string
+            postcode:
+              type: string
+            poBox:
+              type: string
+            country:
+              type: string
+            adminRegion:
+              type: string
+            censusBlockId:
+              type: string
+        contactInfo:
+          type: object
+          properties:
+            telephone:
+              type: string
+            website:
+              type: string
+              format: uri
+        hours:
+          type: object
+          properties:
+            openingText:
+              type: string
+            open:
+              type: boolean
+
+    Category:
+      type: object
+      properties:
+        categoryId:
+          type: string
+        label:
+          type: string
+
+    Point:
+      type: object
+      properties:
+        x:
+          type: number
+          description: Longitude
+        y:
+          type: number
+          description: Latitude
+        spatialReference:
+          $ref: '#/components/schemas/SpatialReference'
+
+    SpatialReference:
+      type: object
+      properties:
+        wkid:
+          type: integer
+          description: Well-known ID for the spatial reference (e.g., 4326 for WGS84)
+        latestWkid:
+          type: integer
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: string

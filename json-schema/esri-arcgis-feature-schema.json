@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/esri-arcgis/json-schema/esri-arcgis-feature-schema.json",
+  "title": "ArcGIS Feature",
+  "description": "JSON Schema for an ArcGIS feature as returned by feature services. Represents a geographic feature with geometry and attributes.",
+  "type": "object",
+  "properties": {
+    "attributes": {
+      "type": "object",
+      "description": "Feature attributes as key-value pairs corresponding to layer field definitions",
+      "additionalProperties": true
+    },
+    "geometry": {
+      "description": "The geometry of the feature. Type depends on the layer geometry type.",
+      "oneOf": [
+        { "$ref": "#/$defs/Point" },
+        { "$ref": "#/$defs/Polyline" },
+        { "$ref": "#/$defs/Polygon" }
+      ]
+    }
+  },
+  "required": ["attributes"],
+  "$defs": {
+    "SpatialReference": {
+      "type": "object",
+      "description": "Coordinate reference system definition",
+      "properties": {
+        "wkid": {
+          "type": "integer",
+          "description": "Well-Known ID of the spatial reference (e.g. 4326 for WGS84, 102100 for Web Mercator)"
+        },
+        "latestWkid": {
+          "type": "integer"
+        },
+        "wkt": {
+          "type": "string",
+          "description": "Well-Known Text representation of the spatial reference"
+        }
+      }
+    },
+    "Point": {
+      "type": "object",
+      "description": "A single geographic point",
+      "properties": {
+        "x": { "type": "number", "description": "X coordinate (longitude for geographic)" },
+        "y": { "type": "number", "description": "Y coordinate (latitude for geographic)" },
+        "z": { "type": "number", "description": "Z coordinate (elevation)" },
+        "m": { "type": "number", "description": "Measure value" },
+        "spatialReference": { "$ref": "#/$defs/SpatialReference" }
+      },
+      "required": ["x", "y"]
+    },
+    "Polyline": {
+      "type": "object",
+      "description": "A geographic polyline consisting of one or more paths",
+      "properties": {
+        "paths": {
+          "type": "array",
+          "description": "Array of paths, each path is an array of coordinate pairs",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 2,
+              "maxItems": 4
+            }
+          }
+        },
+        "spatialReference": { "$ref": "#/$defs/SpatialReference" }
+      },
+      "required": ["paths"]
+    },
+    "Polygon": {
+      "type": "object",
+      "description": "A geographic polygon consisting of one or more rings",
+      "properties": {
+        "rings": {
+          "type": "array",
+          "description": "Array of rings; first ring is exterior, additional rings are interior (holes)",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 2,
+              "maxItems": 4
+            },
+            "minItems": 4
+          }
+        },
+        "spatialReference": { "$ref": "#/$defs/SpatialReference" }
+      },
+      "required": ["rings"]
+    },
+    "FeatureServiceLayer": {
+      "type": "object",
+      "description": "Metadata for a feature service layer",
+      "properties": {
+        "id": { "type": "integer" },
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["Feature Layer", "Table"]
+        },
+        "geometryType": {
+          "type": "string",
+          "enum": ["esriGeometryPoint", "esriGeometryPolyline", "esriGeometryPolygon", "esriGeometryMultipoint", "esriGeometryEnvelope"]
+        },
+        "objectIdField": { "type": "string" },
+        "globalIdField": { "type": "string" },
+        "fields": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Field" }
+        },
+        "extent": { "$ref": "#/$defs/Envelope" },
+        "spatialReference": { "$ref": "#/$defs/SpatialReference" }
+      }
+    },
+    "Field": {
+      "type": "object",
+      "description": "Field definition for a feature layer",
+      "properties": {
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "esriFieldTypeSmallInteger",
+            "esriFieldTypeInteger",
+            "esriFieldTypeSingle",
+            "esriFieldTypeDouble",
+            "esriFieldTypeString",
+            "esriFieldTypeDate",
+            "esriFieldTypeOID",
+            "esriFieldTypeGeometry",
+            "esriFieldTypeBlob",
+            "esriFieldTypeRaster",
+            "esriFieldTypeGUID",
+            "esriFieldTypeGlobalID"
+          ]
+        },
+        "alias": { "type": "string" },
+        "length": { "type": "integer" },
+        "nullable": { "type": "boolean" },
+        "editable": { "type": "boolean" },
+        "domain": {
+          "type": ["object", "null"]
+        }
+      },
+      "required": ["name", "type"]
+    },
+    "Envelope": {
+      "type": "object",
+      "description": "Bounding box (envelope) for a geographic extent",
+      "properties": {
+        "xmin": { "type": "number" },
+        "ymin": { "type": "number" },
+        "xmax": { "type": "number" },
+        "ymax": { "type": "number" },
+        "spatialReference": { "$ref": "#/$defs/SpatialReference" }
+      },
+      "required": ["xmin", "ymin", "xmax", "ymax"]
+    }
+  }
+}

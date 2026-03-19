@@ -1,0 +1,93 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "geonames": "http://www.geonames.org/ontology#",
+    "esri": "https://developers.arcgis.com/rest/vocabulary/",
+    "dct": "http://purl.org/dc/terms/",
+
+    "Feature": "esri:Feature",
+    "FeatureService": "esri:FeatureService",
+    "PortalItem": "esri:PortalItem",
+    "Place": {
+      "@id": "schema:Place",
+      "@type": "@id"
+    },
+    "User": {
+      "@id": "schema:Person",
+      "@type": "@id"
+    },
+    "Organization": {
+      "@id": "schema:Organization",
+      "@type": "@id"
+    },
+
+    "placeId": "@id",
+    "itemId": "@id",
+    "username": "schema:identifier",
+    "name": "schema:name",
+    "title": "schema:name",
+    "description": "schema:description",
+    "thumbnail": "schema:image",
+    "url": "schema:url",
+    "email": "schema:email",
+    "fullName": "schema:name",
+    "firstName": "schema:givenName",
+    "lastName": "schema:familyName",
+    "created": "schema:dateCreated",
+    "modified": "schema:dateModified",
+    "tags": "schema:keywords",
+
+    "location": {
+      "@id": "schema:geo",
+      "@type": "schema:GeoCoordinates"
+    },
+    "x": {
+      "@id": "schema:longitude",
+      "@type": "xsd:decimal"
+    },
+    "y": {
+      "@id": "schema:latitude",
+      "@type": "xsd:decimal"
+    },
+    "z": {
+      "@id": "schema:elevation",
+      "@type": "xsd:decimal"
+    },
+
+    "address": {
+      "@id": "schema:address",
+      "@type": "schema:PostalAddress"
+    },
+    "streetAddress": "schema:streetAddress",
+    "locality": "schema:addressLocality",
+    "region": "schema:addressRegion",
+    "postcode": "schema:postalCode",
+    "country": "schema:addressCountry",
+
+    "categories": {
+      "@id": "schema:additionalType",
+      "@type": "@id"
+    },
+    "categoryId": "@id",
+    "label": "schema:name",
+
+    "telephone": "schema:telephone",
+    "website": "schema:url",
+
+    "distance": {
+      "@id": "schema:distance",
+      "@type": "xsd:decimal"
+    },
+    "score": "esri:matchScore",
+    "access": "schema:accessibilityFeature",
+    "numViews": "schema:interactionCount",
+
+    "extent": "schema:spatialCoverage",
+    "spatialReference": "esri:spatialReference",
+    "wkid": "esri:wkid",
+
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  }
+}

@@ -21,6 +21,8 @@ apis:
     type: Authentication
   - url: https://developers.arcgis.com/rest/
     type: Reference
+  - url: openapi/esri-arcgis-platform-openapi.yml
+    type: OpenAPI
   description: >-
     ESRI ArcGIS provides geospatial data platform APIs for mapping, spatial analysis, geocoding, routing, and feature services. APIs enable access to hosted feature layers, imagery, elevation data, and spatial analytics for infrastructure, asset management, and environmental monitoring.
 
@@ -151,6 +153,12 @@ common:
     type: Website
   - url: https://github.com/Esri
     type: GitHub Organization
+  - url: openapi/esri-arcgis-platform-openapi.yml
+    type: OpenAPI
+  - url: json-schema/esri-arcgis-feature-schema.json
+    type: JSONSchema
+  - url: json-ld/esri-arcgis-context.jsonld
+    type: JSONLDContext
 maintainer:
   name: Kin Lane
   email: kin@apievangelist.com
