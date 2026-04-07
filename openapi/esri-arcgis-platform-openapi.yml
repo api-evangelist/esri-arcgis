@@ -32,17 +32,13 @@ security:
   - OAuth2: [openid]
 
 tags:
-  - name: Portal
-    description: Portal items, users, groups, and organizational management
-  - name: Feature Services
-    description: Hosted feature layers and spatial data management
   - name: Geocoding
     description: Address search, reverse geocoding, and batch geocoding
-  - name: Routing
-    description: Route calculation, directions, and service areas
   - name: Places
     description: Points of interest search and retrieval
 
+  - name: Portal
+    description: Portal items, users, groups, and organizational management
 paths:
   /portals/self:
     get:

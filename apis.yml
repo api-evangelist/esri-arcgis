@@ -1,17 +1,15 @@
 aid: esri-arcgis
-url: 
-  https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/apis.yml
 apis:
   - aid: esri-arcgis:esri-arcgis-platform-api
     name: ESRI ArcGIS Platform API
     tags:
-      - GIS
       - Geospatial
-      - Mapping
+      - GIS
       - Location
+      - Mapping
       - Spatial Analysis
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
+    image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
     humanURL: https://developers.arcgis.com/
     baseURL: https://www.arcgis.com/sharing/rest
     properties:
@@ -19,8 +17,7 @@ apis:
         type: Portal
       - url: https://developers.arcgis.com/documentation/
         type: Documentation
-      - url: 
-          https://developers.arcgis.com/documentation/security-and-authentication/
+      - url: https://developers.arcgis.com/documentation/security-and-authentication/
         type: Authentication
       - url: https://developers.arcgis.com/rest/
         type: Reference
@@ -35,13 +32,12 @@ apis:
   - aid: esri-arcgis:esri-arcgis-maps-sdk-javascript
     name: ArcGIS Maps SDK for JavaScript
     tags:
-      - GIS
       - Geospatial
+      - GIS
       - JavaScript
       - Mapping
       - SDK
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
+    image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
     humanURL: https://developers.arcgis.com/javascript/latest/
     baseURL: https://js.arcgis.com
     properties:
@@ -58,13 +54,12 @@ apis:
   - aid: esri-arcgis:esri-arcgis-api-for-python
     name: ArcGIS API for Python
     tags:
-      - GIS
       - Geospatial
+      - GIS
       - Python
       - Scripting
       - SDK
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
+    image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
     humanURL: https://developers.arcgis.com/python/latest/
     baseURL: https://www.arcgis.com
     properties:
@@ -74,8 +69,7 @@ apis:
         type: Getting Started
       - url: https://developers.arcgis.com/python/latest/api-reference/
         type: Reference
-      - url: 
-          https://developers.arcgis.com/python/latest/guide/release-notes-242/
+      - url: https://developers.arcgis.com/python/latest/guide/release-notes-242/
         type: Change Log
     description: >-
       The ArcGIS API for Python provides a Pythonic interface for GIS capabilities
@@ -85,18 +79,15 @@ apis:
   - aid: esri-arcgis:esri-arcgis-geocoding-service
     name: ArcGIS Geocoding Service
     tags:
-      - GIS
-      - Geocoding
       - Address
+      - Geocoding
+      - GIS
       - Location
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
-    humanURL: 
-      https://developers.arcgis.com/documentation/mapping-and-location-services/geocoding/
+    image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
+    humanURL: https://developers.arcgis.com/documentation/mapping-and-location-services/geocoding/
     baseURL: https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
     properties:
-      - url: 
-          https://developers.arcgis.com/documentation/mapping-and-location-services/geocoding/
+      - url: https://developers.arcgis.com/documentation/mapping-and-location-services/geocoding/
         type: Documentation
     description: >-
       The ArcGIS Geocoding Service provides address search, reverse geocoding, address
@@ -105,18 +96,15 @@ apis:
   - aid: esri-arcgis:esri-arcgis-routing-service
     name: ArcGIS Routing Service
     tags:
+      - Directions
       - GIS
       - Routing
-      - Directions
       - Transportation
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
-    humanURL: 
-      https://developers.arcgis.com/documentation/mapping-and-location-services/routing-and-directions/
+    image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
+    humanURL: https://developers.arcgis.com/documentation/mapping-and-location-services/routing-and-directions/
     baseURL: https://route.arcgis.com/arcgis/rest/services
     properties:
-      - url: 
-          https://developers.arcgis.com/documentation/mapping-and-location-services/routing-and-directions/
+      - url: https://developers.arcgis.com/documentation/mapping-and-location-services/routing-and-directions/
         type: Documentation
     description: >-
       The ArcGIS Routing Service provides route optimization, turn-by-turn directions,
@@ -126,17 +114,14 @@ apis:
     name: ArcGIS Places Service
     tags:
       - GIS
+      - Location
       - Places
       - Points of Interest
-      - Location
-    image: 
-      https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
-    humanURL: 
-      https://developers.arcgis.com/documentation/mapping-and-location-services/place-finding/
+    image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
+    humanURL: https://developers.arcgis.com/documentation/mapping-and-location-services/place-finding/
     baseURL: https://places-api.arcgis.com/arcgis/rest/services
     properties:
-      - url: 
-          https://developers.arcgis.com/documentation/mapping-and-location-services/place-finding/
+      - url: https://developers.arcgis.com/documentation/mapping-and-location-services/place-finding/
         type: Documentation
     description: >-
       The ArcGIS Places Service provides search and retrieval of global points of
@@ -150,8 +135,7 @@ common:
     analysis, and location intelligence APIs and SDKs. The developer platform includes
     REST APIs, multiple language SDKs, and cloud services for GIS professionals and
     developers building location-enabled applications.
-  image: 
-    https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
+  image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
   tags:
     - GIS
     - Geospatial
@@ -163,11 +147,9 @@ common:
       type: Portal
     - url: https://developers.arcgis.com/documentation/
       type: Documentation
-    - url: 
-        https://developers.arcgis.com/documentation/security-and-authentication/
+    - url: https://developers.arcgis.com/documentation/security-and-authentication/
       type: Authentication
-    - url: 
-        https://developers.arcgis.com/documentation/mapping-and-location-services/
+    - url: https://developers.arcgis.com/documentation/mapping-and-location-services/
       type: Getting Started
     - url: https://developers.arcgis.com/rest/
       type: Reference
