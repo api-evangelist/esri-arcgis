@@ -1,107 +1,77 @@
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: esri-arcgis
+provider: Esri ArcGIS
 providerId: esri-arcgis
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the esri-arcgis API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - GIS
+  - Location Services
+  - Mapping
+description: ArcGIS Location Platform and ArcGIS Online enforce service-specific request and concurrency
+  limits. Most consumption is governed by the monthly free-tier ceilings (e.g. 2M tiles, 20K geocodes,
+  20K routes) above which usage is billed; per-second/per-minute throttle numbers are not centrally published
+  and vary per service. Enterprise customers can negotiate higher limits.
+sources:
+  - https://location.arcgis.com/pricing/
+  - https://developers.arcgis.com/documentation/security-and-authentication/api-keys/
+notes: Per-second / per-minute rate-limit numbers are not centrally published; the platform documents
+  monthly inclusion ceilings rather than RPS quotas. Replace with service-specific values when documented.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
+  - name: Basemap tiles — monthly inclusion
     scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - ESRI ArcGIS Platform API
-      - ArcGIS Maps SDK for JavaScript
-      - ArcGIS API for Python
-      - ArcGIS Geocoding Service
-      - ArcGIS Routing Service
-      - ArcGIS Places Service
-  - tier: free
-    name: Free Tier Monthly Quota
+    metric: tiles_per_month
+    limit: 2000000
+    timeFrame: month
+    notes: Above 2M tiles/month, billed at $0.15/1,000.
+  - name: Geocoding — monthly inclusion
+    scope: api-key
+    metric: geocodes_per_month
+    limit: 20000
+    timeFrame: month
+    notes: Above 20K/month, billed at $0.50/1,000.
+  - name: Routing — monthly inclusion
+    scope: api-key
+    metric: routes_per_month
+    limit: 20000
+    timeFrame: month
+    notes: Above 20K/month, billed at $0.50/1,000.
+  - name: Elevation — monthly inclusion
+    scope: api-key
+    metric: points_per_month
+    limit: 50000
+    timeFrame: month
+    notes: Above 50K/month, billed at $1.00/1,000.
+  - name: Places — nearby/extent search inclusion
     scope: api-key
     metric: requests_per_month
-    limit: 1000
+    limit: 500
     timeFrame: month
-    applies:
-      - ESRI ArcGIS Platform API
-      - ArcGIS Maps SDK for JavaScript
-      - ArcGIS API for Python
-      - ArcGIS Geocoding Service
-      - ArcGIS Routing Service
-      - ArcGIS Places Service
-  - tier: professional
-    name: Professional Tier Default
+  - name: Places — attributes inclusion
     scope: api-key
-    metric: requests_per_minute
+    metric: places_per_month
     limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - ESRI ArcGIS Platform API
-      - ArcGIS Maps SDK for JavaScript
-      - ArcGIS API for Python
-      - ArcGIS Geocoding Service
-      - ArcGIS Routing Service
-      - ArcGIS Places Service
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
     timeFrame: month
-    applies:
-      - ESRI ArcGIS Platform API
-      - ArcGIS Maps SDK for JavaScript
-      - ArcGIS API for Python
-      - ArcGIS Geocoding Service
-      - ArcGIS Routing Service
-      - ArcGIS Places Service
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - ESRI ArcGIS Platform API
-      - ArcGIS Maps SDK for JavaScript
-      - ArcGIS API for Python
-      - ArcGIS Geocoding Service
-      - ArcGIS Routing Service
-      - ArcGIS Places Service
+  - name: Per-service request throttle
+    scope: api-key
+    metric: varies
+    limit: see service-specific documentation
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers: []
+  - name: API-key scoping
+    description: Quotas and metering are tracked per API key; rotate or scope keys per application to
+      isolate consumption.
+  - name: Soft caps via monthly free tiers
+    description: Inclusion ceilings are soft — exceeding them flips usage from free to per-1,000 billed
+      rather than blocking; absolute hard caps require contact-sales agreements.
+  - name: ArcGIS Online credits
+    description: Credit-based services (geocoding, routing, analysis from ArcGIS Online) deplete the
+      annual user-bundled credits before incurring credit-block top-ups.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

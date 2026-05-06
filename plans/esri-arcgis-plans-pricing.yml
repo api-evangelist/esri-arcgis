@@ -1,191 +1,394 @@
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: esri-arcgis
+provider: Esri ArcGIS
 providerId: esri-arcgis
 created: '2026-05-04'
-modified: '2026-05-04'
-tags: []
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - GIS
+  - Location Services
+  - Geocoding
+  - Routing
+  - Mapping
+description: 'Esri ArcGIS prices on two distinct surfaces: (1) ArcGIS Location Platform — a developer-oriented
+  pay-as-you-go service for location APIs (basemaps, geocoding, routing, places, enrichment) with a generous
+  monthly free tier and per-1,000-transaction pricing; and (2) ArcGIS Online — a per-named-user subscription
+  with credit-based consumption for geocoding/routing/storage/analysis. Additional credits for ArcGIS
+  Online sell in 1,000-credit blocks valid 24 months. Volume and enterprise terms are negotiated with
+  Esri sales.'
+sources:
+  - https://location.arcgis.com/pricing/
+  - https://www.esri.com/en-us/arcgis/products/arcgis-online/buy
+  - https://www.esri.com/en-us/arcgis/products/arcgis-online/pricing/credits
 plans:
-  - id: esri-arcgis-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the esri-arcgis API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: esri-arcgis-location-platform-payg
+    name: ArcGIS Location Platform — Pay-As-You-Go
+    type: usage-based
+    description: Developer-friendly per-transaction pricing with monthly free tiers across location services.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://www.arcgis.com/sharing/rest
-          - https://js.arcgis.com
-          - https://www.arcgis.com
-          - https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
-          - https://route.arcgis.com/arcgis/rest/services
-          - https://places-api.arcgis.com/arcgis/rest/services
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://www.arcgis.com/sharing/rest
-          - https://js.arcgis.com
-          - https://www.arcgis.com
-          - https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
-          - https://route.arcgis.com/arcgis/rest/services
-          - https://places-api.arcgis.com/arcgis/rest/services
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: ESRI ArcGIS Platform API
-      - name: ArcGIS Maps SDK for JavaScript
-      - name: ArcGIS API for Python
-      - name: ArcGIS Geocoding Service
-      - name: ArcGIS Routing Service
-      - name: ArcGIS Places Service
-  - id: esri-arcgis-pro
-    name: Professional
-    type: paid
-    description: Production tier for esri-arcgis. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://www.arcgis.com/sharing/rest
-          - https://js.arcgis.com
-          - https://www.arcgis.com
-          - https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
-          - https://route.arcgis.com/arcgis/rest/services
-          - https://places-api.arcgis.com/arcgis/rest/services
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://www.arcgis.com/sharing/rest
-          - https://js.arcgis.com
-          - https://www.arcgis.com
-          - https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
-          - https://route.arcgis.com/arcgis/rest/services
-          - https://places-api.arcgis.com/arcgis/rest/services
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Basemap tiles (after 2M free/mo)
+        name: basemap_tiles
         type: metered
-        metric: requests
-        limit: -1
+        metric: tile
+        limit: 2000000
         timeFrame: month
         geo: global
-        domains:
-          - https://www.arcgis.com/sharing/rest
-          - https://js.arcgis.com
-          - https://www.arcgis.com
-          - https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
-          - https://route.arcgis.com/arcgis/rest/services
-          - https://places-api.arcgis.com/arcgis/rest/services
         unit: 1000
-        price: TBD
+        price: '0.15'
         userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: ESRI ArcGIS Platform API
-      - name: ArcGIS Maps SDK for JavaScript
-      - name: ArcGIS API for Python
-      - name: ArcGIS Geocoding Service
-      - name: ArcGIS Routing Service
-      - name: ArcGIS Places Service
-  - id: esri-arcgis-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for esri-arcgis. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
+      - label: Geocoding (after 20K free/mo)
+        name: geocodes
+        type: metered
+        metric: geocode
+        limit: 20000
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://www.arcgis.com/sharing/rest
-          - https://js.arcgis.com
-          - https://www.arcgis.com
-          - https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
-          - https://route.arcgis.com/arcgis/rest/services
-          - https://places-api.arcgis.com/arcgis/rest/services
-        unit: 1
-        price: custom
+        geo: global
+        unit: 1000
+        price: '0.50'
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://www.arcgis.com/sharing/rest
-          - https://js.arcgis.com
-          - https://www.arcgis.com
-          - https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
-          - https://route.arcgis.com/arcgis/rest/services
-          - https://places-api.arcgis.com/arcgis/rest/services
+      - label: Routing — basic (after 20K free/mo)
+        name: routes_basic
+        type: metered
+        metric: route
+        limit: 20000
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: '0.50'
+        userMultiplied: false
+      - label: Elevation (after 50K free/mo)
+        name: elevation_points
+        type: metered
+        metric: point
+        limit: 50000
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: '1.00'
+        userMultiplied: false
+      - label: Places — nearby/extent search (after 500 free/mo)
+        name: places_search
+        type: metered
+        metric: request
+        limit: 500
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: '8.00'
+        userMultiplied: false
+      - label: Places — attributes (after 100 free/mo)
+        name: places_attributes
+        type: metered
+        metric: place
+        limit: 100
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: '0.05'
+        userMultiplied: false
+      - label: Stop-optimized routes
+        name: routes_optimized
+        type: metered
+        metric: route
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: '50.00'
+        userMultiplied: false
+      - label: Fleet routes
+        name: routes_fleet
+        type: metered
+        metric: route
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: '100.00'
+        userMultiplied: false
+      - label: Last-mile delivery orders
+        name: routes_last_mile
+        type: metered
+        metric: order
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: '25.00'
+        userMultiplied: false
+      - label: Data enrichment attributes
+        name: enrichment_attributes
+        type: metered
+        metric: attribute
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: '1.00'
+        userMultiplied: false
+      - label: Demographic reports
+        name: demographic_reports
+        type: metered
+        metric: report
+        limit: -1
+        timeFrame: usage
+        geo: global
         unit: 1
-        price: custom
+        price: '1.00'
+        userMultiplied: false
+      - label: Spatial analysis operations
+        name: spatial_analysis
+        type: metered
+        metric: feature
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: '0.10'
+        userMultiplied: false
+      - label: Feature data storage
+        name: feature_storage
+        type: quota
+        metric: MB
+        limit: 250
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Feature query/edit bandwidth
+        name: feature_bandwidth
+        type: quota
+        metric: MB
+        limit: 125
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Tile bandwidth
+        name: tile_bandwidth
+        type: quota
+        metric: GB
+        limit: 25
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: ESRI ArcGIS Platform API
-      - name: ArcGIS Maps SDK for JavaScript
-      - name: ArcGIS API for Python
-      - name: ArcGIS Geocoding Service
-      - name: ArcGIS Routing Service
-      - name: ArcGIS Places Service
-maintainers: []
+      - name: Basemap styles
+      - name: Geocoding service
+      - name: Routing service
+      - name: Places service
+      - name: Elevation service
+      - name: Data enrichment
+      - name: Spatial analysis
+  - id: esri-arcgis-platform-support
+    name: ArcGIS Location Platform — Technical Support
+    type: subscription
+    description: Optional technical support starting at $2,500/year with phone, chat, and email; premium
+      24/7 options via sales.
+    entries:
+      - label: Annual support
+        name: support_annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: '2500.00'
+        userMultiplied: false
+    elements:
+      - name: Phone support
+      - name: Chat support
+      - name: Email support
+  - id: esri-arcgis-online-creator
+    name: ArcGIS Online — Creator
+    type: subscription
+    description: Named-user subscription bundling ArcGIS Pro Basic, web GIS, and 500 credits/year.
+    entries:
+      - label: Per-user annual subscription
+        name: creator_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+      - label: Included credits
+        name: included_credits
+        type: quota
+        metric: credit
+        limit: 500
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: true
+    elements:
+      - name: ArcGIS Pro Basic
+      - name: 500 credits/year
+      - name: Map and app authoring
+      - name: Basic spatial analysis
+  - id: esri-arcgis-online-professional
+    name: ArcGIS Online — Professional
+    type: subscription
+    description: Includes everything in Creator plus ArcGIS Pro Standard, advanced editing, imagery
+      analysis. 500 credits/year.
+    entries:
+      - label: Per-user annual subscription
+        name: professional_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+      - label: Included credits
+        name: included_credits
+        type: quota
+        metric: credit
+        limit: 500
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: true
+    elements:
+      - name: ArcGIS Pro Standard
+      - name: Imagery / raster analysis
+      - name: Advanced editing
+      - name: Data validation
+  - id: esri-arcgis-online-professional-plus
+    name: ArcGIS Online — Professional Plus
+    type: subscription
+    description: Everything in Professional plus ArcGIS Pro Advanced and all Pro extension products.
+    entries:
+      - label: Per-user annual subscription
+        name: professional_plus_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+      - label: Included credits
+        name: included_credits
+        type: quota
+        metric: credit
+        limit: 500
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: true
+    elements:
+      - name: ArcGIS Pro Advanced + extensions
+      - name: 3D Analyst, Network Analyst, Spatial Analyst, etc.
+      - name: AI workflows / big data analysis
+  - id: esri-arcgis-online-mobile-worker
+    name: ArcGIS Online — Mobile Worker
+    type: subscription
+    description: Field-worker user type with 250 credits/year.
+    entries:
+      - label: Per-user annual subscription
+        name: mobile_worker_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+      - label: Included credits
+        name: included_credits
+        type: quota
+        metric: credit
+        limit: 250
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: true
+    elements:
+      - name: Field navigation
+      - name: Data collection / editing
+      - name: Location sharing
+  - id: esri-arcgis-online-contributor
+    name: ArcGIS Online — Contributor
+    type: subscription
+    description: Lightweight editing/annotation user type with 250 credits/year.
+    entries:
+      - label: Per-user annual subscription
+        name: contributor_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+      - label: Included credits
+        name: included_credits
+        type: quota
+        metric: credit
+        limit: 250
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: true
+    elements:
+      - name: Basic editing / annotation
+      - name: Collaboration / viewing
+  - id: esri-arcgis-online-viewer
+    name: ArcGIS Online — Viewer
+    type: subscription
+    description: Read-only viewer user type; no included credits.
+    entries:
+      - label: Per-user annual subscription
+        name: viewer_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: true
+    elements:
+      - name: Read-only map / app access
+      - name: Dashboard access
+  - id: esri-arcgis-credit-block
+    name: ArcGIS Online — Additional Credits
+    type: usage-based
+    description: Top-up credits sold in 1,000-credit blocks; valid 24 months.
+    entries:
+      - label: 1,000-credit block
+        name: credit_block
+        type: metered
+        metric: credit
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: contact sales
+        userMultiplied: false
+    elements:
+      - name: 1,000 credits per block
+      - name: 24-month expiration
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
