@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ESRI ArcGIS Platform API — Places
+  description: 'ESRI ArcGIS Platform API — Places. 2 operations. Lead operation: Find places near a point. Self-contained
+    Naftiko capability covering one Esri Arcgis business surface.'
+  tags:
+  - Esri Arcgis
+  - Places
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ESRI_ARCGIS_API_KEY: ESRI_ARCGIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-places
+    baseUri: https://www.arcgis.com/sharing/rest
+    description: ESRI ArcGIS Platform API — Places business capability. Self-contained, no shared references.
+    resources:
+    - name: places-near-point
+      path: /places/near-point
+      operations:
+      - name: findplacesnearpoint
+        method: GET
+        description: Find places near a point
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: x
+          in: query
+          type: number
+          description: Longitude of the center point (WGS84)
+          required: true
+        - name: y
+          in: query
+          type: number
+          description: Latitude of the center point (WGS84)
+          required: true
+        - name: radius
+          in: query
+          type: number
+          description: Search radius in meters (max 10000)
+        - name: categoryIds
+          in: query
+          type: string
+          description: Comma-separated category IDs to filter results
+        - name: pageSize
+          in: query
+          type: integer
+        - name: token
+          in: query
+          type: string
+        - name: f
+          in: query
+          type: string
+    - name: places-placeId
+      path: /places/{placeId}
+      operations:
+      - name: getplacedetails
+        method: GET
+        description: Get place details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: placeId
+          in: path
+          type: string
+          description: Unique identifier for the place
+          required: true
+        - name: requestedFields
+          in: query
+          type: string
+          description: Comma-separated list of attribute fields to return
+        - name: token
+          in: query
+          type: string
+        - name: f
+          in: query
+          type: string
+    authentication:
+      type: bearer
+      token: '{{env.ESRI_ARCGIS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-places-rest
+    port: 8080
+    description: REST adapter for ESRI ArcGIS Platform API — Places. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/places/near-point
+      name: places-near-point
+      description: REST surface for places-near-point.
+      operations:
+      - method: GET
+        name: findplacesnearpoint
+        description: Find places near a point
+        call: platform-places.findplacesnearpoint
+        with:
+          x: rest.x
+          y: rest.y
+          radius: rest.radius
+          categoryIds: rest.categoryIds
+          pageSize: rest.pageSize
+          token: rest.token
+          f: rest.f
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/places/{placeid}
+      name: places-placeid
+      description: REST surface for places-placeId.
+      operations:
+      - method: GET
+        name: getplacedetails
+        description: Get place details
+        call: platform-places.getplacedetails
+        with:
+          placeId: rest.placeId
+          requestedFields: rest.requestedFields
+          token: rest.token
+          f: rest.f
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-places-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ESRI ArcGIS Platform API — Places. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: find-places-near-point
+      description: Find places near a point
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-places.findplacesnearpoint
+      with:
+        x: tools.x
+        y: tools.y
+        radius: tools.radius
+        categoryIds: tools.categoryIds
+        pageSize: tools.pageSize
+        token: tools.token
+        f: tools.f
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-place-details
+      description: Get place details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-places.getplacedetails
+      with:
+        placeId: tools.placeId
+        requestedFields: tools.requestedFields
+        token: tools.token
+        f: tools.f
+      outputParameters:
+      - type: object
+        mapping: $.

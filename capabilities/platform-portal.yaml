@@ -1,0 +1,314 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ESRI ArcGIS Platform API — Portal
+  description: 'ESRI ArcGIS Platform API — Portal. 5 operations. Lead operation: Get user profile. Self-contained Naftiko
+    capability covering one Esri Arcgis business surface.'
+  tags:
+  - Esri Arcgis
+  - Portal
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ESRI_ARCGIS_API_KEY: ESRI_ARCGIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-portal
+    baseUri: https://www.arcgis.com/sharing/rest
+    description: ESRI ArcGIS Platform API — Portal business capability. Self-contained, no shared references.
+    resources:
+    - name: community-users-username
+      path: /community/users/{username}
+      operations:
+      - name: getuser
+        method: GET
+        description: Get user profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: Username of the ArcGIS Online user
+          required: true
+        - name: f
+          in: query
+          type: string
+    - name: content-items-itemId
+      path: /content/items/{itemId}
+      operations:
+      - name: getitem
+        method: GET
+        description: Get portal item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: itemId
+          in: path
+          type: string
+          description: Unique identifier of the portal item
+          required: true
+        - name: f
+          in: query
+          type: string
+    - name: content-users-username-items
+      path: /content/users/{username}/items
+      operations:
+      - name: getuseritems
+        method: GET
+        description: List user content items
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          required: true
+        - name: num
+          in: query
+          type: integer
+          description: Number of results to return
+        - name: start
+          in: query
+          type: integer
+          description: Index of the first entry in the result set (1-based)
+        - name: sortField
+          in: query
+          type: string
+        - name: sortOrder
+          in: query
+          type: string
+        - name: f
+          in: query
+          type: string
+    - name: portals-self
+      path: /portals/self
+      operations:
+      - name: getportalself
+        method: GET
+        description: Get portal information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: f
+          in: query
+          type: string
+          description: Output format
+        - name: token
+          in: query
+          type: string
+          description: Authentication token (alternative to Authorization header)
+    - name: search
+      path: /search
+      operations:
+      - name: searchportal
+        method: GET
+        description: Search portal content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          description: Query string using ArcGIS search syntax (e.g., "type:Feature Service owner:jsmith")
+          required: true
+        - name: num
+          in: query
+          type: integer
+        - name: start
+          in: query
+          type: integer
+        - name: sortField
+          in: query
+          type: string
+        - name: sortOrder
+          in: query
+          type: string
+        - name: f
+          in: query
+          type: string
+    authentication:
+      type: bearer
+      token: '{{env.ESRI_ARCGIS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-portal-rest
+    port: 8080
+    description: REST adapter for ESRI ArcGIS Platform API — Portal. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/community/users/{username}
+      name: community-users-username
+      description: REST surface for community-users-username.
+      operations:
+      - method: GET
+        name: getuser
+        description: Get user profile
+        call: platform-portal.getuser
+        with:
+          username: rest.username
+          f: rest.f
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/content/items/{itemid}
+      name: content-items-itemid
+      description: REST surface for content-items-itemId.
+      operations:
+      - method: GET
+        name: getitem
+        description: Get portal item
+        call: platform-portal.getitem
+        with:
+          itemId: rest.itemId
+          f: rest.f
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/content/users/{username}/items
+      name: content-users-username-items
+      description: REST surface for content-users-username-items.
+      operations:
+      - method: GET
+        name: getuseritems
+        description: List user content items
+        call: platform-portal.getuseritems
+        with:
+          username: rest.username
+          num: rest.num
+          start: rest.start
+          sortField: rest.sortField
+          sortOrder: rest.sortOrder
+          f: rest.f
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/portals/self
+      name: portals-self
+      description: REST surface for portals-self.
+      operations:
+      - method: GET
+        name: getportalself
+        description: Get portal information
+        call: platform-portal.getportalself
+        with:
+          f: rest.f
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/search
+      name: search
+      description: REST surface for search.
+      operations:
+      - method: GET
+        name: searchportal
+        description: Search portal content
+        call: platform-portal.searchportal
+        with:
+          q: rest.q
+          num: rest.num
+          start: rest.start
+          sortField: rest.sortField
+          sortOrder: rest.sortOrder
+          f: rest.f
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-portal-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ESRI ArcGIS Platform API — Portal. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-user-profile
+      description: Get user profile
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-portal.getuser
+      with:
+        username: tools.username
+        f: tools.f
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-portal-item
+      description: Get portal item
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-portal.getitem
+      with:
+        itemId: tools.itemId
+        f: tools.f
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-user-content-items
+      description: List user content items
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-portal.getuseritems
+      with:
+        username: tools.username
+        num: tools.num
+        start: tools.start
+        sortField: tools.sortField
+        sortOrder: tools.sortOrder
+        f: tools.f
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-portal-information
+      description: Get portal information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-portal.getportalself
+      with:
+        f: tools.f
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-portal-content
+      description: Search portal content
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-portal.searchportal
+      with:
+        q: tools.q
+        num: tools.num
+        start: tools.start
+        sortField: tools.sortField
+        sortOrder: tools.sortOrder
+        f: tools.f
+      outputParameters:
+      - type: object
+        mapping: $.

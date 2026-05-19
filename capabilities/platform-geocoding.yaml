@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ESRI ArcGIS Platform API — Geocoding
+  description: 'ESRI ArcGIS Platform API — Geocoding. 2 operations. Lead operation: Geocode an address. Self-contained Naftiko
+    capability covering one Esri Arcgis business surface.'
+  tags:
+  - Esri Arcgis
+  - Geocoding
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ESRI_ARCGIS_API_KEY: ESRI_ARCGIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-geocoding
+    baseUri: https://www.arcgis.com/sharing/rest
+    description: ESRI ArcGIS Platform API — Geocoding business capability. Self-contained, no shared references.
+    resources:
+    - name: findAddressCandidates
+      path: /findAddressCandidates
+      operations:
+      - name: findaddresscandidates
+        method: GET
+        description: Geocode an address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: SingleLine
+          in: query
+          type: string
+          description: Single-line address string (e.g., "380 New York St, Redlands, CA 92373")
+        - name: Address
+          in: query
+          type: string
+          description: Street address component
+        - name: City
+          in: query
+          type: string
+        - name: Region
+          in: query
+          type: string
+          description: State or province
+        - name: Postal
+          in: query
+          type: string
+        - name: CountryCode
+          in: query
+          type: string
+          description: ISO 3166-1 alpha-2 or alpha-3 country code
+        - name: maxLocations
+          in: query
+          type: integer
+        - name: outFields
+          in: query
+          type: string
+          description: Comma-separated list of output fields (* for all)
+        - name: outSR
+          in: query
+          type: integer
+          description: Output spatial reference WKID
+        - name: token
+          in: query
+          type: string
+        - name: f
+          in: query
+          type: string
+    - name: reverseGeocode
+      path: /reverseGeocode
+      operations:
+      - name: reversegeocode
+        method: GET
+        description: Reverse geocode coordinates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: location
+          in: query
+          type: string
+          description: Point location as JSON (e.g., {"x":-117.2,"y":34.06,"spatialReference":{"wkid":4326}})
+          required: true
+        - name: distance
+          in: query
+          type: number
+          description: Distance in meters to search from the input location
+        - name: outSR
+          in: query
+          type: integer
+        - name: token
+          in: query
+          type: string
+        - name: f
+          in: query
+          type: string
+    authentication:
+      type: bearer
+      token: '{{env.ESRI_ARCGIS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-geocoding-rest
+    port: 8080
+    description: REST adapter for ESRI ArcGIS Platform API — Geocoding. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/findaddresscandidates
+      name: findaddresscandidates
+      description: REST surface for findAddressCandidates.
+      operations:
+      - method: GET
+        name: findaddresscandidates
+        description: Geocode an address
+        call: platform-geocoding.findaddresscandidates
+        with:
+          SingleLine: rest.SingleLine
+          Address: rest.Address
+          City: rest.City
+          Region: rest.Region
+          Postal: rest.Postal
+          CountryCode: rest.CountryCode
+          maxLocations: rest.maxLocations
+          outFields: rest.outFields
+          outSR: rest.outSR
+          token: rest.token
+          f: rest.f
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reversegeocode
+      name: reversegeocode
+      description: REST surface for reverseGeocode.
+      operations:
+      - method: GET
+        name: reversegeocode
+        description: Reverse geocode coordinates
+        call: platform-geocoding.reversegeocode
+        with:
+          location: rest.location
+          distance: rest.distance
+          outSR: rest.outSR
+          token: rest.token
+          f: rest.f
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-geocoding-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ESRI ArcGIS Platform API — Geocoding. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: geocode-address
+      description: Geocode an address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-geocoding.findaddresscandidates
+      with:
+        SingleLine: tools.SingleLine
+        Address: tools.Address
+        City: tools.City
+        Region: tools.Region
+        Postal: tools.Postal
+        CountryCode: tools.CountryCode
+        maxLocations: tools.maxLocations
+        outFields: tools.outFields
+        outSR: tools.outSR
+        token: tools.token
+        f: tools.f
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reverse-geocode-coordinates
+      description: Reverse geocode coordinates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-geocoding.reversegeocode
+      with:
+        location: tools.location
+        distance: tools.distance
+        outSR: tools.outSR
+        token: tools.token
+        f: tools.f
+      outputParameters:
+      - type: object
+        mapping: $.
