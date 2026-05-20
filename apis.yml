@@ -130,51 +130,51 @@ apis:
 common:
   - type: LinkedIn
     url: https://www.linkedin.com/company/esri-arcgis
-  aid: esri-arcgis
-  name: ESRI ArcGIS
-  description: >-
-    ESRI ArcGIS is the world's leading geospatial platform providing mapping, spatial
-    analysis, and location intelligence APIs and SDKs. The developer platform includes
-    REST APIs, multiple language SDKs, and cloud services for GIS professionals and
-    developers building location-enabled applications.
-  image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
-  tags:
-    - GIS
-    - Geospatial
-    - Mapping
-    - Location
-    - Spatial Analysis
-  properties:
-    - url: https://developers.arcgis.com/
-      type: Portal
-    - url: https://developers.arcgis.com/documentation/
-      type: Documentation
-    - url: https://developers.arcgis.com/documentation/security-and-authentication/
-      type: Authentication
-    - url: https://developers.arcgis.com/documentation/mapping-and-location-services/
-      type: GettingStarted
-    - url: https://developers.arcgis.com/rest/
-      type: Reference
-    - url: https://www.esri.com/en-us/legal/terms/master-agreement
-      type: TermsOfService
-    - url: https://www.esri.com/en-us/privacy/overview
-      type: PrivacyPolicy
-    - url: https://trust.arcgis.com/en/
-      type: StatusPage
-    - url: https://community.esri.com/t5/developers/ct-p/developers
-      type: Support
-    - url: https://www.esri.com/arcgis-blog/
-      type: Blog
-    - url: https://www.esri.com/
-      type: Website
-    - url: https://github.com/Esri
-      type: GitHubOrganization
-    - url: openapi/esri-arcgis-platform-openapi.yml
-      type: OpenAPI
-    - url: json-schema/esri-arcgis-feature-schema.json
-      type: JSONSchema
-    - url: json-ld/esri-arcgis-context.jsonld
-      type: JSONLDContext
+aid: esri-arcgis
+name: ESRI ArcGIS
+description: >-
+  ESRI ArcGIS is the world's leading geospatial platform providing mapping, spatial
+  analysis, and location intelligence APIs and SDKs. The developer platform includes
+  REST APIs, multiple language SDKs, and cloud services for GIS professionals and
+  developers building location-enabled applications.
+image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
+tags:
+  - GIS
+  - Geospatial
+  - Mapping
+  - Location
+  - Spatial Analysis
+properties:
+  - url: https://developers.arcgis.com/
+    type: Portal
+  - url: https://developers.arcgis.com/documentation/
+    type: Documentation
+  - url: https://developers.arcgis.com/documentation/security-and-authentication/
+    type: Authentication
+  - url: https://developers.arcgis.com/documentation/mapping-and-location-services/
+    type: GettingStarted
+  - url: https://developers.arcgis.com/rest/
+    type: Reference
+  - url: https://www.esri.com/en-us/legal/terms/master-agreement
+    type: TermsOfService
+  - url: https://www.esri.com/en-us/privacy/overview
+    type: PrivacyPolicy
+  - url: https://trust.arcgis.com/en/
+    type: StatusPage
+  - url: https://community.esri.com/t5/developers/ct-p/developers
+    type: Support
+  - url: https://www.esri.com/arcgis-blog/
+    type: Blog
+  - url: https://www.esri.com/
+    type: Website
+  - url: https://github.com/Esri
+    type: GitHubOrganization
+  - url: openapi/esri-arcgis-platform-openapi.yml
+    type: OpenAPI
+  - url: json-schema/esri-arcgis-feature-schema.json
+    type: JSONSchema
+  - url: json-ld/esri-arcgis-context.jsonld
+    type: JSONLDContext
 maintainer:
   name: Kin Lane
   email: kin@apievangelist.com
