@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchResults",
+  "title": "SearchResults",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string"
+    },
+    "total": {
+      "type": "integer"
+    },
+    "start": {
+      "type": "integer"
+    },
+    "num": {
+      "type": "integer"
+    },
+    "nextStart": {
+      "type": "integer"
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Item"
+      }
+    }
+  }
+}

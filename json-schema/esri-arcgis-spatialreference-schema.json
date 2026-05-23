@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SpatialReference",
+  "title": "SpatialReference",
+  "type": "object",
+  "properties": {
+    "wkid": {
+      "type": "integer",
+      "description": "Well-known ID for the spatial reference (e.g., 4326 for WGS84)"
+    },
+    "latestWkid": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PlaceSummary",
+  "title": "PlaceSummary",
+  "type": "object",
+  "properties": {
+    "placeId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "$ref": "#/components/schemas/Point"
+    },
+    "distance": {
+      "type": "number",
+      "description": "Distance from search point in meters"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Category"
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Item",
+  "title": "Item",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "description": "Item type (e.g., \"Feature Service\", \"Web Map\", \"CSV\")"
+    },
+    "typeKeywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "snippet": {
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created": {
+      "type": "integer"
+    },
+    "modified": {
+      "type": "integer"
+    },
+    "numViews": {
+      "type": "integer"
+    },
+    "size": {
+      "type": "integer"
+    },
+    "access": {
+      "type": "string",
+      "enum": [
+        "private",
+        "shared",
+        "org",
+        "public"
+      ]
+    },
+    "extent": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "description": "Bounding box [[xmin,ymin],[xmax,ymax]]"
+    }
+  }
+}

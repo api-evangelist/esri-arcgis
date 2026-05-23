@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ReverseGeocodeResponse",
+  "title": "ReverseGeocodeResponse",
+  "type": "object",
+  "properties": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "Match_addr": {
+          "type": "string"
+        },
+        "LongLabel": {
+          "type": "string"
+        },
+        "ShortLabel": {
+          "type": "string"
+        },
+        "Addr_type": {
+          "type": "string"
+        },
+        "AddNum": {
+          "type": "string"
+        },
+        "Address": {
+          "type": "string"
+        },
+        "City": {
+          "type": "string"
+        },
+        "Region": {
+          "type": "string"
+        },
+        "RegionAbbr": {
+          "type": "string"
+        },
+        "Postal": {
+          "type": "string"
+        },
+        "CountryCode": {
+          "type": "string"
+        }
+      }
+    },
+    "location": {
+      "$ref": "#/components/schemas/Point"
+    }
+  }
+}

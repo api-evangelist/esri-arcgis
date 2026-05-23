@@ -1,0 +1,189 @@
+{
+  "provider": "ESRI ArcGIS",
+  "providerId": "esri-arcgis",
+  "kind": "json-structure",
+  "description": "Structural overview of the ESRI ArcGIS API surface; extracted from openapi/.",
+  "schemaCount": 16,
+  "operationCount": 9,
+  "schemas": [
+    {
+      "name": "Portal",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "User",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "GroupRef",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Item",
+      "type": "object",
+      "propertyCount": 16,
+      "required": []
+    },
+    {
+      "name": "ItemCollection",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "SearchResults",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "GeocodeCandidate",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "GeocodeResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ReverseGeocodeResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "PlacesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "PlaceSummary",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Place",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "Category",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Point",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "SpatialReference",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/portals/self",
+      "operationId": "getPortalSelf",
+      "summary": "Get portal information",
+      "tags": [
+        "Portal"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/community/users/{username}",
+      "operationId": "getUser",
+      "summary": "Get user profile",
+      "tags": [
+        "Portal"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/content/users/{username}/items",
+      "operationId": "getUserItems",
+      "summary": "List user content items",
+      "tags": [
+        "Portal"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/content/items/{itemId}",
+      "operationId": "getItem",
+      "summary": "Get portal item",
+      "tags": [
+        "Portal"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/search",
+      "operationId": "searchPortal",
+      "summary": "Search portal content",
+      "tags": [
+        "Portal"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/findAddressCandidates",
+      "operationId": "findAddressCandidates",
+      "summary": "Geocode an address",
+      "tags": [
+        "Geocoding"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reverseGeocode",
+      "operationId": "reverseGeocode",
+      "summary": "Reverse geocode coordinates",
+      "tags": [
+        "Geocoding"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/places/near-point",
+      "operationId": "findPlacesNearPoint",
+      "summary": "Find places near a point",
+      "tags": [
+        "Places"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/places/{placeId}",
+      "operationId": "getPlaceDetails",
+      "summary": "Get place details",
+      "tags": [
+        "Places"
+      ]
+    }
+  ]
+}

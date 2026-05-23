@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Place",
+  "title": "Place",
+  "type": "object",
+  "properties": {
+    "placeId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "$ref": "#/components/schemas/Point"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Category"
+      }
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "streetAddress": {
+          "type": "string"
+        },
+        "extended": {
+          "type": "string"
+        },
+        "locality": {
+          "type": "string"
+        },
+        "designatedMarketArea": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "poBox": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "adminRegion": {
+          "type": "string"
+        },
+        "censusBlockId": {
+          "type": "string"
+        }
+      }
+    },
+    "contactInfo": {
+      "type": "object",
+      "properties": {
+        "telephone": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "hours": {
+      "type": "object",
+      "properties": {
+        "openingText": {
+          "type": "string"
+        },
+        "open": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

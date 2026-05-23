@@ -1,0 +1,11 @@
+name: ESRI ArcGIS Domain Vocabulary
+provider: ESRI ArcGIS
+providerId: esri-arcgis
+description: Tag-derived vocabulary for the ESRI ArcGIS API surface; sourced from openapi/ tags.
+terms:
+- term: Geocoding
+  description: Address search, reverse geocoding, and batch geocoding
+- term: Places
+  description: Points of interest search and retrieval
+- term: Portal
+  description: Portal items, users, groups, and organizational management

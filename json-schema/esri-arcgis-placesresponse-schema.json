@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PlacesResponse",
+  "title": "PlacesResponse",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PlaceSummary"
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "properties": {
+        "previousUrl": {
+          "type": "string"
+        },
+        "nextUrl": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GeocodeCandidate",
+  "title": "GeocodeCandidate",
+  "type": "object",
+  "properties": {
+    "address": {
+      "type": "string"
+    },
+    "location": {
+      "$ref": "#/components/schemas/Point"
+    },
+    "score": {
+      "type": "number",
+      "description": "Match quality score (0-100)"
+    },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

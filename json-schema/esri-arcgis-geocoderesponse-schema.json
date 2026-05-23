@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GeocodeResponse",
+  "title": "GeocodeResponse",
+  "type": "object",
+  "properties": {
+    "spatialReference": {
+      "$ref": "#/components/schemas/SpatialReference"
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/GeocodeCandidate"
+      }
+    }
+  }
+}
