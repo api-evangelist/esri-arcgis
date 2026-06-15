@@ -1,0 +1,405 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ESRI ArcGIS Platform API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get portal information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/portals/self",
+            "params": [
+              {
+                "name": "f",
+                "value": "",
+                "type": "query",
+                "description": "Output format"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token (alternative to Authorization header)"
+              }
+            ]
+          },
+          "docs": "Returns information about the organization's portal including available resources, helpers, and members. The response includes information about the portal's name, description, and thumbnail."
+        },
+        {
+          "info": {
+            "name": "Get user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/community/users/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "Username of the ArcGIS Online user"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the profile information of a specified user within the portal organization."
+        },
+        {
+          "info": {
+            "name": "List user content items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/content/users/:username/items",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "num",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first entry in the result set (1-based)"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns items owned by the specified user. Supports pagination, sorting, and filtering."
+        },
+        {
+          "info": {
+            "name": "Get portal item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/content/items/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the portal item"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns information about a specific portal item (map, layer, application, etc.)."
+        },
+        {
+          "info": {
+            "name": "Search portal content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query string using ArcGIS search syntax (e.g., \"type:Feature Service owner:jsmith\")"
+              },
+              {
+                "name": "num",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches for portal items, groups, and users using ArcGIS query syntax. Supports spatial, temporal, and attribute filtering."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Geocoding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Geocode an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/findAddressCandidates",
+            "params": [
+              {
+                "name": "SingleLine",
+                "value": "",
+                "type": "query",
+                "description": "Single-line address string (e.g., \"380 New York St, Redlands, CA 92373\")"
+              },
+              {
+                "name": "Address",
+                "value": "",
+                "type": "query",
+                "description": "Street address component"
+              },
+              {
+                "name": "City",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Region",
+                "value": "",
+                "type": "query",
+                "description": "State or province"
+              },
+              {
+                "name": "Postal",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "CountryCode",
+                "value": "",
+                "type": "query",
+                "description": "ISO 3166-1 alpha-2 or alpha-3 country code"
+              },
+              {
+                "name": "maxLocations",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "outFields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of output fields (* for all)"
+              },
+              {
+                "name": "outSR",
+                "value": "",
+                "type": "query",
+                "description": "Output spatial reference WKID"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Converts address text into geographic coordinates (forward geocoding). Returns a list of address candidates with location coordinates and match scores."
+        },
+        {
+          "info": {
+            "name": "Reverse geocode coordinates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/reverseGeocode",
+            "params": [
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Point location as JSON (e.g., {\"x\":-117.2,\"y\":34.06,\"spatialReference\":{\"wkid\":4326}})"
+              },
+              {
+                "name": "distance",
+                "value": "",
+                "type": "query",
+                "description": "Distance in meters to search from the input location"
+              },
+              {
+                "name": "outSR",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Converts geographic coordinates to a readable address (reverse geocoding)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Places",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find places near a point",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/places/near-point",
+            "params": [
+              {
+                "name": "x",
+                "value": "",
+                "type": "query",
+                "description": "Longitude of the center point (WGS84)"
+              },
+              {
+                "name": "y",
+                "value": "",
+                "type": "query",
+                "description": "Latitude of the center point (WGS84)"
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query",
+                "description": "Search radius in meters (max 10000)"
+              },
+              {
+                "name": "categoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated category IDs to filter results"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns points of interest near a specified geographic location. Supports filtering by category, search radius, and pagination."
+        },
+        {
+          "info": {
+            "name": "Get place details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/places/:placeId",
+            "params": [
+              {
+                "name": "placeId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the place"
+              },
+              {
+                "name": "requestedFields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of attribute fields to return"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns detailed attributes for a specific place including name, address, phone number, hours of operation, and category information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

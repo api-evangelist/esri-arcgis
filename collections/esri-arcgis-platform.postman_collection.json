@@ -1,0 +1,1493 @@
+{
+  "item": [
+    {
+      "id": "c3b3a0c3-5e70-4dea-a111-547a976d54d6",
+      "name": "Geocoding",
+      "description": {
+        "content": "Address search, reverse geocoding, and batch geocoding",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "55de2ea2-b7fa-40bc-ab98-efaa9e56df45",
+          "name": "Geocode an address",
+          "request": {
+            "name": "Geocode an address",
+            "description": {
+              "content": "Converts address text into geographic coordinates (forward geocoding). Returns a list of address candidates with location coordinates and match scores.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "World",
+                "GeocodeServer",
+                "findAddressCandidates"
+              ],
+              "host": [
+                "geocode",
+                "arcgis",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "SingleLine",
+                  "value": "<string>",
+                  "description": "Single-line address string (e.g., \"380 New York St, Redlands, CA 92373\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "Address",
+                  "value": "<string>",
+                  "description": "Street address component"
+                },
+                {
+                  "disabled": false,
+                  "key": "City",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "Region",
+                  "value": "<string>",
+                  "description": "State or province"
+                },
+                {
+                  "disabled": false,
+                  "key": "Postal",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "CountryCode",
+                  "value": "<string>",
+                  "description": "ISO 3166-1 alpha-2 or alpha-3 country code"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxLocations",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "outFields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of output fields (* for all)"
+                },
+                {
+                  "disabled": false,
+                  "key": "outSR",
+                  "value": "4326",
+                  "description": "Output spatial reference WKID"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ddea8d1e-ac27-4bcb-8932-224f88900458",
+              "name": "Address candidates returned",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "World",
+                    "GeocodeServer",
+                    "findAddressCandidates"
+                  ],
+                  "host": [
+                    "geocode",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "SingleLine",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "City",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Postal",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxLocations",
+                      "value": "1"
+                    },
+                    {
+                      "key": "outFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "outSR",
+                      "value": "4326"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"spatialReference\": {\n    \"wkid\": 578,\n    \"latestWkid\": 9157\n  },\n  \"candidates\": [\n    {\n      \"address\": \"string\",\n      \"location\": {\n        \"x\": 2435.553882022019,\n        \"y\": 1282.938778971966,\n        \"spatialReference\": {\n          \"wkid\": 1779,\n          \"latestWkid\": 5902\n        }\n      },\n      \"score\": 7829.234906584634,\n      \"attributes\": {\n        \"key_0\": 7211,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"address\": \"string\",\n      \"location\": {\n        \"x\": 4832.036907821771,\n        \"y\": 7001.442296266506,\n        \"spatialReference\": {\n          \"wkid\": 9635,\n          \"latestWkid\": 1444\n        }\n      },\n      \"score\": 6067.5295209620635,\n      \"attributes\": {\n        \"key_0\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8932bdf-f772-42ef-a296-0182fee3a1c1",
+          "name": "Reverse geocode coordinates",
+          "request": {
+            "name": "Reverse geocode coordinates",
+            "description": {
+              "content": "Converts geographic coordinates to a readable address (reverse geocoding).",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "World",
+                "GeocodeServer",
+                "reverseGeocode"
+              ],
+              "host": [
+                "geocode",
+                "arcgis",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "(Required) Point location as JSON (e.g., {\"x\":-117.2,\"y\":34.06,\"spatialReference\":{\"wkid\":4326}})"
+                },
+                {
+                  "disabled": false,
+                  "key": "distance",
+                  "value": "<number>",
+                  "description": "Distance in meters to search from the input location"
+                },
+                {
+                  "disabled": false,
+                  "key": "outSR",
+                  "value": "4326"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c83b399-c552-480d-822e-6a0611385fbe",
+              "name": "Reverse geocode result returned",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "World",
+                    "GeocodeServer",
+                    "reverseGeocode"
+                  ],
+                  "host": [
+                    "geocode",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "distance",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "outSR",
+                      "value": "4326"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"Match_addr\": \"string\",\n    \"LongLabel\": \"string\",\n    \"ShortLabel\": \"string\",\n    \"Addr_type\": \"string\",\n    \"AddNum\": \"string\",\n    \"Address\": \"string\",\n    \"City\": \"string\",\n    \"Region\": \"string\",\n    \"RegionAbbr\": \"string\",\n    \"Postal\": \"string\",\n    \"CountryCode\": \"string\"\n  },\n  \"location\": {\n    \"x\": 3998.325658028307,\n    \"y\": 7567.593743971831,\n    \"spatialReference\": {\n      \"wkid\": 907,\n      \"latestWkid\": 6908\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9ecc07f9-1482-4ef4-bd6e-9097754300e1",
+      "name": "Places",
+      "description": {
+        "content": "Points of interest search and retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "337d8281-a68c-4f63-80ac-75cb28fa2eba",
+          "name": "Find places near a point",
+          "request": {
+            "name": "Find places near a point",
+            "description": {
+              "content": "Returns points of interest near a specified geographic location. Supports filtering by category, search radius, and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "v1",
+                "places",
+                "near-point"
+              ],
+              "host": [
+                "places-api",
+                "arcgis",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "x",
+                  "value": "<number>",
+                  "description": "(Required) Longitude of the center point (WGS84)"
+                },
+                {
+                  "disabled": false,
+                  "key": "y",
+                  "value": "<number>",
+                  "description": "(Required) Latitude of the center point (WGS84)"
+                },
+                {
+                  "disabled": false,
+                  "key": "radius",
+                  "value": "1000",
+                  "description": "Search radius in meters (max 10000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "categoryIds",
+                  "value": "<string>",
+                  "description": "Comma-separated category IDs to filter results"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "99aa4b06-926b-4532-b599-3d31331c357a",
+              "name": "Places returned",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "v1",
+                    "places",
+                    "near-point"
+                  ],
+                  "host": [
+                    "places-api",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "x",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "y",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "categoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"placeId\": \"string\",\n      \"name\": \"string\",\n      \"location\": {\n        \"x\": 8729.642950084837,\n        \"y\": 2355.7501563370765,\n        \"spatialReference\": {\n          \"wkid\": 5797,\n          \"latestWkid\": 4425\n        }\n      },\n      \"distance\": 7318.301080554053,\n      \"categories\": [\n        {\n          \"categoryId\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"categoryId\": \"string\",\n          \"label\": \"string\"\n        }\n      ]\n    },\n    {\n      \"placeId\": \"string\",\n      \"name\": \"string\",\n      \"location\": {\n        \"x\": 4165.983414829755,\n        \"y\": 9113.736614521864,\n        \"spatialReference\": {\n          \"wkid\": 8017,\n          \"latestWkid\": 6562\n        }\n      },\n      \"distance\": 7753.366576839189,\n      \"categories\": [\n        {\n          \"categoryId\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"categoryId\": \"string\",\n          \"label\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"previousUrl\": \"string\",\n    \"nextUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "525d3503-14e1-4471-aaa9-92e1c5ee1376",
+          "name": "Get place details",
+          "request": {
+            "name": "Get place details",
+            "description": {
+              "content": "Returns detailed attributes for a specific place including name, address, phone number, hours of operation, and category information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "v1",
+                "places",
+                ":placeId"
+              ],
+              "host": [
+                "places-api",
+                "arcgis",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "requestedFields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of attribute fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "placeId",
+                  "description": "(Required) Unique identifier for the place"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54963c8b-9cf4-4e70-bdfb-76d1b5fac887",
+              "name": "Place details returned",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "v1",
+                    "places",
+                    ":placeId"
+                  ],
+                  "host": [
+                    "places-api",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "requestedFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) Unique identifier for the place"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"placeId\": \"string\",\n  \"name\": \"string\",\n  \"location\": {\n    \"x\": 3704.5402992790764,\n    \"y\": 4645.222066010355,\n    \"spatialReference\": {\n      \"wkid\": 27,\n      \"latestWkid\": 5791\n    }\n  },\n  \"categories\": [\n    {\n      \"categoryId\": \"string\",\n      \"label\": \"string\"\n    },\n    {\n      \"categoryId\": \"string\",\n      \"label\": \"string\"\n    }\n  ],\n  \"address\": {\n    \"streetAddress\": \"string\",\n    \"extended\": \"string\",\n    \"locality\": \"string\",\n    \"designatedMarketArea\": \"string\",\n    \"region\": \"string\",\n    \"postcode\": \"string\",\n    \"poBox\": \"string\",\n    \"country\": \"string\",\n    \"adminRegion\": \"string\",\n    \"censusBlockId\": \"string\"\n  },\n  \"contactInfo\": {\n    \"telephone\": \"string\",\n    \"website\": \"http://UVAuaxMDWsHuNV.dooelrYfjFGwd4njytGKGrp-mkomVovm2Xn89\"\n  },\n  \"hours\": {\n    \"openingText\": \"string\",\n    \"open\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74e1f549-e670-4c40-9669-458f27d74929",
+              "name": "Place not found",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "v1",
+                    "places",
+                    ":placeId"
+                  ],
+                  "host": [
+                    "places-api",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "requestedFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) Unique identifier for the place"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8d440205-59d1-49df-adce-eb2fa8cd7223",
+      "name": "Portal",
+      "description": {
+        "content": "Portal items, users, groups, and organizational management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "60bce263-edbe-491f-ae3e-700b084543a9",
+          "name": "Get portal information",
+          "request": {
+            "name": "Get portal information",
+            "description": {
+              "content": "Returns information about the organization's portal including available resources, helpers, and members. The response includes information about the portal's name, description, and thumbnail.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portals",
+                "self"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json",
+                  "description": "Output format"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token (alternative to Authorization header)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2db4630-cf55-4be3-a00c-22088a58abfd",
+              "name": "Portal information returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    "self"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"https://mRCeyEdzOvkRXalKASMODTjUL.hynrko-Rk45gOEqk5xHIvDfUMFz\",\n  \"thumbnail\": \"string\",\n  \"culture\": \"string\",\n  \"region\": \"string\",\n  \"created\": 8546,\n  \"modified\": 212\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85daa6e9-aac1-4120-afb2-032c3e9c648c",
+              "name": "Unauthorized – valid token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portals",
+                    "self"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 2868,\n    \"message\": \"string\",\n    \"details\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9822313-8c9a-4665-b412-51c9a6b411fe",
+          "name": "Get user profile",
+          "request": {
+            "name": "Get user profile",
+            "description": {
+              "content": "Returns the profile information of a specified user within the portal organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "community",
+                "users",
+                ":username"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) Username of the ArcGIS Online user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "712bc0a9-ef90-4e8e-966a-18fae2c11564",
+              "name": "User profile returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "community",
+                    "users",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) Username of the ArcGIS Online user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"username\": \"string\",\n  \"fullName\": \"string\",\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"email\": \"3r4HcyMrau@lSNUgmDFeiJzXEghyUayE.sev\",\n  \"description\": \"string\",\n  \"role\": \"org_publisher\",\n  \"level\": \"string\",\n  \"created\": 5104,\n  \"modified\": 8833,\n  \"groups\": [\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"access\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"access\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a626887f-c72f-415b-b73e-dfae8140b8a9",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "community",
+                    "users",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) Username of the ArcGIS Online user"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c363f5a-b46d-4e5a-a257-7ac08b5eb393",
+          "name": "List user content items",
+          "request": {
+            "name": "List user content items",
+            "description": {
+              "content": "Returns items owned by the specified user. Supports pagination, sorting, and filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "content",
+                "users",
+                ":username",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "num",
+                  "value": "10",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "1",
+                  "description": "Index of the first entry in the result set (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "084ed0a9-ba82-43c9-8ce7-96551799c702",
+              "name": "User items returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "users",
+                    ":username",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "num",
+                      "value": "10"
+                    },
+                    {
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 3591,\n  \"start\": 1927,\n  \"num\": 7458,\n  \"nextStart\": 4273,\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"owner\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"typeKeywords\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"snippet\": \"string\",\n      \"thumbnail\": \"string\",\n      \"url\": \"https://reljCkC.dwJa5qFSedLGpIaRfak-sox1+SoADdjtpSv.a\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created\": 9980,\n      \"modified\": 2735,\n      \"numViews\": 8383,\n      \"size\": 8864,\n      \"access\": \"shared\",\n      \"extent\": [\n        [\n          5923.534105652561,\n          3593.04722721045\n        ],\n        [\n          4352.807063497486,\n          7012.444581301968\n        ]\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"owner\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"typeKeywords\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"snippet\": \"string\",\n      \"thumbnail\": \"string\",\n      \"url\": \"http://GbrEGaRqi.sxbJ2JCX-0qwfOSDTs68VtYhSdEVCqAQCF04f3GcWkCvhYebJfIISBKbezsPkLLpAXB3WiIdVbdbgT473Ts7RQq\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created\": 9253,\n      \"modified\": 1453,\n      \"numViews\": 4114,\n      \"size\": 7878,\n      \"access\": \"private\",\n      \"extent\": [\n        [\n          2538.7932318694816,\n          2921.0985591701997\n        ],\n        [\n          685.058931642396,\n          2183.4247439310316\n        ]\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef22b12d-4e59-4562-823c-6f17da6581ad",
+          "name": "Get portal item",
+          "request": {
+            "name": "Get portal item",
+            "description": {
+              "content": "Returns information about a specific portal item (map, layer, application, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "content",
+                "items",
+                ":itemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) Unique identifier of the portal item"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04e3f937-c2a5-4973-ba6d-d44e1a108119",
+              "name": "Item information returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "items",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) Unique identifier of the portal item"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"owner\": \"string\",\n  \"title\": \"string\",\n  \"type\": \"string\",\n  \"typeKeywords\": [\n    \"string\",\n    \"string\"\n  ],\n  \"description\": \"string\",\n  \"snippet\": \"string\",\n  \"thumbnail\": \"string\",\n  \"url\": \"https://eOijEZtEcwOdSEwRMVCTjcEKf.cxzdjdG\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created\": 1866,\n  \"modified\": 4711,\n  \"numViews\": 5287,\n  \"size\": 6579,\n  \"access\": \"shared\",\n  \"extent\": [\n    [\n      4391.325481046143,\n      847.1704977948491\n    ],\n    [\n      6583.724601884341,\n      8047.051589314633\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7838023-f465-4c53-a93f-5572b3a76ba4",
+              "name": "Item not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "items",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) Unique identifier of the portal item"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b22cd98-2566-4bac-8221-7bb4ae56007c",
+          "name": "Search portal content",
+          "request": {
+            "name": "Search portal content",
+            "description": {
+              "content": "Searches for portal items, groups, and users using ArcGIS query syntax. Supports spatial, temporal, and attribute filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Query string using ArcGIS search syntax (e.g., \"type:Feature Service owner:jsmith\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "num",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortField",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1dd8879f-107b-43bd-a617-8a257d59c54c",
+              "name": "Search results returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "10"
+                    },
+                    {
+                      "key": "start",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sortField",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"query\": \"string\",\n  \"total\": 8823,\n  \"start\": 6004,\n  \"num\": 4870,\n  \"nextStart\": 4515,\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"owner\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"typeKeywords\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"snippet\": \"string\",\n      \"thumbnail\": \"string\",\n      \"url\": \"http://wnUsuiAZJXxjICGhYCAkSHBgbIGWrKa.hqfTX+TyPUVWLtA8DNwb48Ug9YUpLFNS6FnGa5TMkaYHb1SIpkw+XyS0UdCAi+p\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created\": 3748,\n      \"modified\": 9124,\n      \"numViews\": 2019,\n      \"size\": 5444,\n      \"access\": \"private\",\n      \"extent\": [\n        [\n          7850.059314673362,\n          3146.4182065316204\n        ],\n        [\n          3630.382232592845,\n          8439.107527373539\n        ]\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"owner\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"typeKeywords\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"snippet\": \"string\",\n      \"thumbnail\": \"string\",\n      \"url\": \"http://EqqvUCGYfckmLbQWOxGCCwdyZg.nzfpE,8oTEmPAUDdS4WN.CsbaRQQ,XzLNUNzYqA7wmFGakiF5Lj.-cQdc4LYt+Pu\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created\": 7789,\n      \"modified\": 3230,\n      \"numViews\": 2826,\n      \"size\": 2028,\n      \"access\": \"public\",\n      \"extent\": [\n        [\n          8345.35079591766,\n          2930.8580307145494\n        ],\n        [\n          1431.4170374271096,\n          9554.136931751815\n        ]\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.arcgis.com/sharing/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4fe85103-ebcc-43d8-9102-d1fd9214e6f9",
+    "name": "ESRI ArcGIS Platform API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ESRI ArcGIS Platform REST API for sharing, managing, and accessing GIS content including feature services, maps, layers, users, and portal items. The API enables geospatial data management, spatial analysis, geocoding, routing, and organizational administration for ArcGIS Online and ArcGIS Enterprise deployments.\n\nContact Support:\n Name: ESRI Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
