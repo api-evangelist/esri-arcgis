@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/esri-arcgis-platform-openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/esri-arcgis-platform-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.arcgis.com/sharing/rest/oauth2/authorize
+    tokenUrl: https://www.arcgis.com/sharing/rest/oauth2/token
+scopes:
+- scope: openid
+  description: OpenID Connect identity
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/esri-arcgis-platform-openapi.yml
+- scope: urn:arcgis:scope:root
+  description: Full access to ArcGIS Online
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/esri-arcgis-platform-openapi.yml
