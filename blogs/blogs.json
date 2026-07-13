@@ -3,10 +3,9 @@
   "feeds": [
     {
       "source": "https://www.esri.com/arcgis-blog/",
-      "saved": 0,
-      "error": "HTTP 403 Forbidden"
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T12:40:16Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0
 }
