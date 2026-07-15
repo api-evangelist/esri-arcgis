@@ -128,6 +128,8 @@ apis:
     interest spanning over 1,000 feature categories for location-aware applications.
 
 common:
+- type: AgenticAccess
+  url: agentic-access/esri-arcgis-agentic-access.yml
 - type: DomainSecurity
   url: security/esri-arcgis-domain-security.yml
 - type: Authentication
