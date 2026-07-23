@@ -1,0 +1,255 @@
+openapi: 3.1.0
+info:
+  title: ESRI ArcGIS Platform Geocoding Places API
+  description: ESRI ArcGIS Platform REST API for sharing, managing, and accessing GIS content including feature services, maps, layers, users, and portal items. The API enables geospatial data management, spatial analysis, geocoding, routing, and organizational administration for ArcGIS Online and ArcGIS Enterprise deployments.
+  version: 1.0.0
+  contact:
+    name: ESRI Developer Support
+    url: https://community.esri.com/t5/developers/ct-p/developers
+  license:
+    name: Esri Master Agreement
+    url: https://www.esri.com/en-us/legal/terms/master-agreement
+servers:
+- url: https://www.arcgis.com/sharing/rest
+  description: ArcGIS Online production
+- url: https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
+  description: ArcGIS Geocoding Service
+- url: https://route.arcgis.com/arcgis/rest/services
+  description: ArcGIS Routing Service
+- url: https://places-api.arcgis.com/arcgis/rest/services/v1
+  description: ArcGIS Places Service
+security:
+- ApiKeyAuth: []
+- OAuth2:
+  - openid
+tags:
+- name: Places
+  description: Points of interest search and retrieval
+paths:
+  /places/near-point:
+    get:
+      operationId: findPlacesNearPoint
+      summary: Find places near a point
+      description: Returns points of interest near a specified geographic location. Supports filtering by category, search radius, and pagination.
+      tags:
+      - Places
+      servers:
+      - url: https://places-api.arcgis.com/arcgis/rest/services/v1
+      parameters:
+      - name: x
+        in: query
+        required: true
+        schema:
+          type: number
+        description: Longitude of the center point (WGS84)
+      - name: y
+        in: query
+        required: true
+        schema:
+          type: number
+        description: Latitude of the center point (WGS84)
+      - name: radius
+        in: query
+        schema:
+          type: number
+          default: 1000
+        description: Search radius in meters (max 10000)
+      - name: categoryIds
+        in: query
+        schema:
+          type: string
+        description: Comma-separated category IDs to filter results
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          default: 10
+          maximum: 20
+      - name: token
+        in: query
+        schema:
+          type: string
+      - name: f
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - pjson
+          default: json
+      responses:
+        '200':
+          description: Places returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlacesResponse'
+  /places/{placeId}:
+    get:
+      operationId: getPlaceDetails
+      summary: Get place details
+      description: Returns detailed attributes for a specific place including name, address, phone number, hours of operation, and category information.
+      tags:
+      - Places
+      servers:
+      - url: https://places-api.arcgis.com/arcgis/rest/services/v1
+      parameters:
+      - name: placeId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Unique identifier for the place
+      - name: requestedFields
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of attribute fields to return
+      - name: token
+        in: query
+        schema:
+          type: string
+      - name: f
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - pjson
+          default: json
+      responses:
+        '200':
+          description: Place details returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Place'
+        '404':
+          description: Place not found
+components:
+  schemas:
+    SpatialReference:
+      type: object
+      properties:
+        wkid:
+          type: integer
+          description: Well-known ID for the spatial reference (e.g., 4326 for WGS84)
+        latestWkid:
+          type: integer
+    Point:
+      type: object
+      properties:
+        x:
+          type: number
+          description: Longitude
+        y:
+          type: number
+          description: Latitude
+        spatialReference:
+          $ref: '#/components/schemas/SpatialReference'
+    PlaceSummary:
+      type: object
+      properties:
+        placeId:
+          type: string
+        name:
+          type: string
+        location:
+          $ref: '#/components/schemas/Point'
+        distance:
+          type: number
+          description: Distance from search point in meters
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+    Category:
+      type: object
+      properties:
+        categoryId:
+          type: string
+        label:
+          type: string
+    Place:
+      type: object
+      properties:
+        placeId:
+          type: string
+        name:
+          type: string
+        location:
+          $ref: '#/components/schemas/Point'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        address:
+          type: object
+          properties:
+            streetAddress:
+              type: string
+            extended:
+              type: string
+            locality:
+              type: string
+            designatedMarketArea:
+              type: string
+            region:
+              type: string
+            postcode:
+              type: string
+            poBox:
+              type: string
+            country:
+              type: string
+            adminRegion:
+              type: string
+            censusBlockId:
+              type: string
+        contactInfo:
+          type: object
+          properties:
+            telephone:
+              type: string
+            website:
+              type: string
+              format: uri
+        hours:
+          type: object
+          properties:
+            openingText:
+              type: string
+            open:
+              type: boolean
+    PlacesResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaceSummary'
+        pagination:
+          type: object
+          properties:
+            previousUrl:
+              type: string
+            nextUrl:
+              type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: ArcGIS API key or token
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.arcgis.com/sharing/rest/oauth2/authorize
+          tokenUrl: https://www.arcgis.com/sharing/rest/oauth2/token
+          scopes:
+            openid: OpenID Connect identity
+            urn:arcgis:scope:root: Full access to ArcGIS Online
+externalDocs:
+  description: ArcGIS REST API Reference
+  url: https://developers.arcgis.com/rest/

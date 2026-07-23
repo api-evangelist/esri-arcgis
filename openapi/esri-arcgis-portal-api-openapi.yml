@@ -1,0 +1,426 @@
+openapi: 3.1.0
+info:
+  title: ESRI ArcGIS Platform Geocoding Portal API
+  description: ESRI ArcGIS Platform REST API for sharing, managing, and accessing GIS content including feature services, maps, layers, users, and portal items. The API enables geospatial data management, spatial analysis, geocoding, routing, and organizational administration for ArcGIS Online and ArcGIS Enterprise deployments.
+  version: 1.0.0
+  contact:
+    name: ESRI Developer Support
+    url: https://community.esri.com/t5/developers/ct-p/developers
+  license:
+    name: Esri Master Agreement
+    url: https://www.esri.com/en-us/legal/terms/master-agreement
+servers:
+- url: https://www.arcgis.com/sharing/rest
+  description: ArcGIS Online production
+- url: https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer
+  description: ArcGIS Geocoding Service
+- url: https://route.arcgis.com/arcgis/rest/services
+  description: ArcGIS Routing Service
+- url: https://places-api.arcgis.com/arcgis/rest/services/v1
+  description: ArcGIS Places Service
+security:
+- ApiKeyAuth: []
+- OAuth2:
+  - openid
+tags:
+- name: Portal
+  description: Portal items, users, groups, and organizational management
+paths:
+  /portals/self:
+    get:
+      operationId: getPortalSelf
+      summary: Get portal information
+      description: Returns information about the organization's portal including available resources, helpers, and members. The response includes information about the portal's name, description, and thumbnail.
+      tags:
+      - Portal
+      parameters:
+      - name: f
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - pjson
+          - html
+          default: json
+        description: Output format
+      - name: token
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Authentication token (alternative to Authorization header)
+      responses:
+        '200':
+          description: Portal information returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Portal'
+        '401':
+          description: Unauthorized – valid token required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /community/users/{username}:
+    get:
+      operationId: getUser
+      summary: Get user profile
+      description: Returns the profile information of a specified user within the portal organization.
+      tags:
+      - Portal
+      parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Username of the ArcGIS Online user
+      - name: f
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - pjson
+          default: json
+      responses:
+        '200':
+          description: User profile returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+  /content/users/{username}/items:
+    get:
+      operationId: getUserItems
+      summary: List user content items
+      description: Returns items owned by the specified user. Supports pagination, sorting, and filtering.
+      tags:
+      - Portal
+      parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: num
+        in: query
+        schema:
+          type: integer
+          default: 10
+          maximum: 100
+        description: Number of results to return
+      - name: start
+        in: query
+        schema:
+          type: integer
+          default: 1
+        description: Index of the first entry in the result set (1-based)
+      - name: sortField
+        in: query
+        schema:
+          type: string
+          enum:
+          - created
+          - modified
+          - title
+          - type
+      - name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: f
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - pjson
+          default: json
+      responses:
+        '200':
+          description: User items returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemCollection'
+  /content/items/{itemId}:
+    get:
+      operationId: getItem
+      summary: Get portal item
+      description: Returns information about a specific portal item (map, layer, application, etc.).
+      tags:
+      - Portal
+      parameters:
+      - name: itemId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Unique identifier of the portal item
+      - name: f
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - pjson
+          default: json
+      responses:
+        '200':
+          description: Item information returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Item not found
+  /search:
+    get:
+      operationId: searchPortal
+      summary: Search portal content
+      description: Searches for portal items, groups, and users using ArcGIS query syntax. Supports spatial, temporal, and attribute filtering.
+      tags:
+      - Portal
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Query string using ArcGIS search syntax (e.g., "type:Feature Service owner:jsmith")
+      - name: num
+        in: query
+        schema:
+          type: integer
+          default: 10
+          maximum: 100
+      - name: start
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: sortField
+        in: query
+        schema:
+          type: string
+          enum:
+          - title
+          - created
+          - modified
+          - type
+          - relevance
+      - name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: f
+        in: query
+        schema:
+          type: string
+          enum:
+          - json
+          - pjson
+          default: json
+      responses:
+        '200':
+          description: Search results returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        fullName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        description:
+          type: string
+        role:
+          type: string
+          enum:
+          - org_admin
+          - org_publisher
+          - org_user
+          - account_admin
+        level:
+          type: string
+        created:
+          type: integer
+        modified:
+          type: integer
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupRef'
+    ItemCollection:
+      type: object
+      properties:
+        total:
+          type: integer
+        start:
+          type: integer
+        num:
+          type: integer
+        nextStart:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+    Item:
+      type: object
+      properties:
+        id:
+          type: string
+        owner:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+          description: Item type (e.g., "Feature Service", "Web Map", "CSV")
+        typeKeywords:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        snippet:
+          type: string
+        thumbnail:
+          type: string
+        url:
+          type: string
+          format: uri
+        tags:
+          type: array
+          items:
+            type: string
+        created:
+          type: integer
+        modified:
+          type: integer
+        numViews:
+          type: integer
+        size:
+          type: integer
+        access:
+          type: string
+          enum:
+          - private
+          - shared
+          - org
+          - public
+        extent:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+          description: Bounding box [[xmin,ymin],[xmax,ymax]]
+    SearchResults:
+      type: object
+      properties:
+        query:
+          type: string
+        total:
+          type: integer
+        start:
+          type: integer
+        num:
+          type: integer
+        nextStart:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: string
+    Portal:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Portal organization ID
+        name:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+          format: uri
+        thumbnail:
+          type: string
+        culture:
+          type: string
+          description: Default language/locale (e.g., "en")
+        region:
+          type: string
+        created:
+          type: integer
+          description: Creation timestamp (milliseconds since epoch)
+        modified:
+          type: integer
+    GroupRef:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        access:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: ArcGIS API key or token
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.arcgis.com/sharing/rest/oauth2/authorize
+          tokenUrl: https://www.arcgis.com/sharing/rest/oauth2/token
+          scopes:
+            openid: OpenID Connect identity
+            urn:arcgis:scope:root: Full access to ArcGIS Online
+externalDocs:
+  description: ArcGIS REST API Reference
+  url: https://developers.arcgis.com/rest/
