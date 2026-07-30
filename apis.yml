@@ -1,34 +1,6 @@
 aid: esri-arcgis
 url: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/apis.yml
 apis:
-- aid: esri-arcgis:esri-arcgis-platform-api
-  name: ESRI ArcGIS Platform API
-  tags:
-  - Geospatial
-  - GIS
-  - Location
-  - Mapping
-  - Spatial Analysis
-  image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
-  humanURL: https://developers.arcgis.com/
-  baseURL: https://www.arcgis.com/sharing/rest
-  properties:
-  - url: https://developers.arcgis.com/
-    type: Portal
-  - url: https://developers.arcgis.com/documentation/
-    type: Documentation
-  - url: https://developers.arcgis.com/documentation/security-and-authentication/
-    type: Authentication
-  - url: https://developers.arcgis.com/rest/
-    type: Reference
-  - url: openapi/esri-arcgis-platform-openapi.yml
-    type: OpenAPI
-  description: >-
-    ESRI ArcGIS provides geospatial data platform APIs for mapping, spatial analysis,
-    geocoding, routing, and feature services. APIs enable access to hosted feature
-    layers, imagery, elevation data, and spatial analytics for infrastructure, asset
-    management, and environmental monitoring.
-
 - aid: esri-arcgis:esri-arcgis-maps-sdk-javascript
   name: ArcGIS Maps SDK for JavaScript
   tags:
@@ -46,11 +18,9 @@ apis:
   - url: https://developers.arcgis.com/javascript/latest/
     type: GettingStarted
   description: >-
-    The ArcGIS Maps SDK for JavaScript enables web developers to build compelling
-    2D and 3D mapping applications with interactive visualizations, spatial analysis
-    tools, geocoding, routing, and portal content management for ArcGIS Online and
-    ArcGIS Enterprise.
-
+    The ArcGIS Maps SDK for JavaScript enables web developers to build compelling 2D and 3D mapping applications
+    with interactive visualizations, spatial analysis tools, geocoding, routing, and portal content management
+    for ArcGIS Online and ArcGIS Enterprise.
 - aid: esri-arcgis:esri-arcgis-api-for-python
   name: ArcGIS API for Python
   tags:
@@ -72,10 +42,8 @@ apis:
   - url: https://developers.arcgis.com/python/latest/guide/release-notes-242/
     type: ChangeLog
   description: >-
-    The ArcGIS API for Python provides a Pythonic interface for GIS capabilities
-    including data management, spatial analysis, geocoding, routing, and administration
-    of ArcGIS Online and ArcGIS Enterprise deployments.
-
+    The ArcGIS API for Python provides a Pythonic interface for GIS capabilities including data management,
+    spatial analysis, geocoding, routing, and administration of ArcGIS Online and ArcGIS Enterprise deployments.
 - aid: esri-arcgis:esri-arcgis-geocoding-service
   name: ArcGIS Geocoding Service
   tags:
@@ -90,9 +58,8 @@ apis:
   - url: https://developers.arcgis.com/documentation/mapping-and-location-services/geocoding/
     type: Documentation
   description: >-
-    The ArcGIS Geocoding Service provides address search, reverse geocoding, address
-    suggestions, and batch geocoding capabilities using the World Geocoding Service.
-
+    The ArcGIS Geocoding Service provides address search, reverse geocoding, address suggestions, and
+    batch geocoding capabilities using the World Geocoding Service.
 - aid: esri-arcgis:esri-arcgis-routing-service
   name: ArcGIS Routing Service
   tags:
@@ -101,15 +68,16 @@ apis:
   - Routing
   - Transportation
   image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
-  humanURL: https://developers.arcgis.com/documentation/mapping-and-location-services/routing-and-directions/
+  humanURL: >-
+    https://developers.arcgis.com/documentation/mapping-and-location-services/routing-and-directions/
   baseURL: https://route.arcgis.com/arcgis/rest/services
   properties:
-  - url: https://developers.arcgis.com/documentation/mapping-and-location-services/routing-and-directions/
+  - url: >-
+      https://developers.arcgis.com/documentation/mapping-and-location-services/routing-and-directions/
     type: Documentation
   description: >-
-    The ArcGIS Routing Service provides route optimization, turn-by-turn directions,
-    nearest facility finding, service area definition, and fleet management capabilities.
-
+    The ArcGIS Routing Service provides route optimization, turn-by-turn directions, nearest facility
+    finding, service area definition, and fleet management capabilities.
 - aid: esri-arcgis:esri-arcgis-places-service
   name: ArcGIS Places Service
   tags:
@@ -124,9 +92,62 @@ apis:
   - url: https://developers.arcgis.com/documentation/mapping-and-location-services/place-finding/
     type: Documentation
   description: >-
-    The ArcGIS Places Service provides search and retrieval of global points of
-    interest spanning over 1,000 feature categories for location-aware applications.
-
+    The ArcGIS Places Service provides search and retrieval of global points of interest spanning over
+    1,000 feature categories for location-aware applications.
+- aid: esri-arcgis:esri-arcgis-geocoding-api
+  name: ESRI ArcGIS Geocoding API
+  description: Address search, reverse geocoding, and batch geocoding
+  humanURL: https://developers.arcgis.com/
+  baseURL: https://www.arcgis.com/sharing/rest
+  tags:
+  - Geocoding
+  properties:
+  - type: OpenAPI
+    url: openapi/esri-arcgis-geocoding-api-openapi.yml
+  - type: Portal
+    url: https://developers.arcgis.com/
+  - type: Documentation
+    url: https://developers.arcgis.com/documentation/
+  - type: Authentication
+    url: https://developers.arcgis.com/documentation/security-and-authentication/
+  - type: Reference
+    url: https://developers.arcgis.com/rest/
+- aid: esri-arcgis:esri-arcgis-places-api
+  name: ESRI ArcGIS Places API
+  description: Points of interest search and retrieval
+  humanURL: https://developers.arcgis.com/
+  baseURL: https://www.arcgis.com/sharing/rest
+  tags:
+  - Places
+  properties:
+  - type: OpenAPI
+    url: openapi/esri-arcgis-places-api-openapi.yml
+  - type: Portal
+    url: https://developers.arcgis.com/
+  - type: Documentation
+    url: https://developers.arcgis.com/documentation/
+  - type: Authentication
+    url: https://developers.arcgis.com/documentation/security-and-authentication/
+  - type: Reference
+    url: https://developers.arcgis.com/rest/
+- aid: esri-arcgis:esri-arcgis-portal-api
+  name: ESRI ArcGIS Portal API
+  description: Portal items, users, groups, and organizational management
+  humanURL: https://developers.arcgis.com/
+  baseURL: https://www.arcgis.com/sharing/rest
+  tags:
+  - Portal
+  properties:
+  - type: OpenAPI
+    url: openapi/esri-arcgis-portal-api-openapi.yml
+  - type: Portal
+    url: https://developers.arcgis.com/
+  - type: Documentation
+    url: https://developers.arcgis.com/documentation/
+  - type: Authentication
+    url: https://developers.arcgis.com/documentation/security-and-authentication/
+  - type: Reference
+    url: https://developers.arcgis.com/rest/
 common:
 - type: AgenticAccess
   url: agentic-access/esri-arcgis-agentic-access.yml
@@ -144,6 +165,19 @@ description: >-
   analysis, and location intelligence APIs and SDKs. The developer platform includes
   REST APIs, multiple language SDKs, and cloud services for GIS professionals and
   developers building location-enabled applications.
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/image.png
 tags:
 - GIS
