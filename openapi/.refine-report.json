@@ -1,0 +1,18 @@
+{
+  "provider": "esri-arcgis",
+  "sources": [
+    "esri-arcgis-geocoding-api-openapi.yml",
+    "esri-arcgis-places-api-openapi.yml",
+    "esri-arcgis-portal-api-openapi.yml"
+  ],
+  "outputs": [
+    "esri-arcgis-geocoding-api-openapi.yml",
+    "esri-arcgis-places-api-openapi.yml",
+    "esri-arcgis-portal-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
