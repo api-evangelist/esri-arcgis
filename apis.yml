@@ -1,5 +1,6 @@
 aid: esri-arcgis
 url: https://raw.githubusercontent.com/api-evangelist/esri-arcgis/refs/heads/main/apis.yml
+specificationVersion: '0.23'
 apis:
 - aid: esri-arcgis:esri-arcgis-maps-sdk-javascript
   name: ArcGIS Maps SDK for JavaScript
