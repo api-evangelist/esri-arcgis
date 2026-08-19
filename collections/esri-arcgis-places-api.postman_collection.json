@@ -1,0 +1,406 @@
+{
+  "item": [
+    {
+      "id": "3fc134d3-c4bd-4b9c-bb27-54a1e9c665c6",
+      "name": "Places",
+      "description": {
+        "content": "Points of interest search and retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ceb20dd9-9a98-4f5f-86ec-9f8b05e84a95",
+          "name": "Find places near a point",
+          "request": {
+            "name": "Find places near a point",
+            "description": {
+              "content": "Returns points of interest near a specified geographic location. Supports filtering by category, search radius, and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "v1",
+                "places",
+                "near-point"
+              ],
+              "host": [
+                "places-api",
+                "arcgis",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "x",
+                  "value": "<number>",
+                  "description": "(Required) Longitude of the center point (WGS84)"
+                },
+                {
+                  "disabled": false,
+                  "key": "y",
+                  "value": "<number>",
+                  "description": "(Required) Latitude of the center point (WGS84)"
+                },
+                {
+                  "disabled": false,
+                  "key": "radius",
+                  "value": "1000",
+                  "description": "Search radius in meters (max 10000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "categoryIds",
+                  "value": "<string>",
+                  "description": "Comma-separated category IDs to filter results"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3433290b-a45b-4a8c-8d23-d1fc13e5ce1f",
+              "name": "Places returned",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "v1",
+                    "places",
+                    "near-point"
+                  ],
+                  "host": [
+                    "places-api",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "x",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "y",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "categoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"placeId\": \"string\",\n      \"name\": \"string\",\n      \"location\": {\n        \"x\": 3719.4548437294175,\n        \"y\": 6296.196026074471,\n        \"spatialReference\": {\n          \"wkid\": 3209,\n          \"latestWkid\": 8543\n        }\n      },\n      \"distance\": 1008.3938438138396,\n      \"categories\": [\n        {\n          \"categoryId\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"categoryId\": \"string\",\n          \"label\": \"string\"\n        }\n      ]\n    },\n    {\n      \"placeId\": \"string\",\n      \"name\": \"string\",\n      \"location\": {\n        \"x\": 7896.652471168625,\n        \"y\": 2805.703439538507,\n        \"spatialReference\": {\n          \"wkid\": 2398,\n          \"latestWkid\": 1605\n        }\n      },\n      \"distance\": 1158.5599662704583,\n      \"categories\": [\n        {\n          \"categoryId\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"categoryId\": \"string\",\n          \"label\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"previousUrl\": \"string\",\n    \"nextUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e00d6e88-de04-4027-aba9-1919833eee78",
+          "name": "Get place details",
+          "request": {
+            "name": "Get place details",
+            "description": {
+              "content": "Returns detailed attributes for a specific place including name, address, phone number, hours of operation, and category information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "v1",
+                "places",
+                ":placeId"
+              ],
+              "host": [
+                "places-api",
+                "arcgis",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "requestedFields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of attribute fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "placeId",
+                  "description": "(Required) Unique identifier for the place"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6fa94160-b599-404d-b56c-dc0227b845b4",
+              "name": "Place details returned",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "v1",
+                    "places",
+                    ":placeId"
+                  ],
+                  "host": [
+                    "places-api",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "requestedFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) Unique identifier for the place"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"placeId\": \"string\",\n  \"name\": \"string\",\n  \"location\": {\n    \"x\": 308.58989201755224,\n    \"y\": 4676.08385757638,\n    \"spatialReference\": {\n      \"wkid\": 5617,\n      \"latestWkid\": 9403\n    }\n  },\n  \"categories\": [\n    {\n      \"categoryId\": \"string\",\n      \"label\": \"string\"\n    },\n    {\n      \"categoryId\": \"string\",\n      \"label\": \"string\"\n    }\n  ],\n  \"address\": {\n    \"streetAddress\": \"string\",\n    \"extended\": \"string\",\n    \"locality\": \"string\",\n    \"designatedMarketArea\": \"string\",\n    \"region\": \"string\",\n    \"postcode\": \"string\",\n    \"poBox\": \"string\",\n    \"country\": \"string\",\n    \"adminRegion\": \"string\",\n    \"censusBlockId\": \"string\"\n  },\n  \"contactInfo\": {\n    \"telephone\": \"string\",\n    \"website\": \"https://Euglw.jdloTEaLgUIbAc7P1y+JIONt3\"\n  },\n  \"hours\": {\n    \"openingText\": \"string\",\n    \"open\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55a3dbbb-affe-4eb8-b8d8-b5c8a0aa6e39",
+              "name": "Place not found",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "v1",
+                    "places",
+                    ":placeId"
+                  ],
+                  "host": [
+                    "places-api",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "requestedFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) Unique identifier for the place"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.arcgis.com/sharing/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e2c51b69-31fa-45cc-b107-237a55747149",
+    "name": "ESRI ArcGIS Platform Geocoding Places API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ESRI ArcGIS Platform REST API for sharing, managing, and accessing GIS content including feature services, maps, layers, users, and portal items. The API enables geospatial data management, spatial analysis, geocoding, routing, and organizational administration for ArcGIS Online and ArcGIS Enterprise deployments.\n\nContact Support:\n Name: ESRI Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

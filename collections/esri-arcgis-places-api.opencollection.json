@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ESRI ArcGIS Platform Geocoding Places API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Places",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find places near a point",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/places/near-point",
+            "params": [
+              {
+                "name": "x",
+                "value": "",
+                "type": "query",
+                "description": "Longitude of the center point (WGS84)"
+              },
+              {
+                "name": "y",
+                "value": "",
+                "type": "query",
+                "description": "Latitude of the center point (WGS84)"
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query",
+                "description": "Search radius in meters (max 10000)"
+              },
+              {
+                "name": "categoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated category IDs to filter results"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns points of interest near a specified geographic location. Supports filtering by category, search radius, and pagination."
+        },
+        {
+          "info": {
+            "name": "Get place details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.arcgis.com/sharing/rest/places/:placeId",
+            "params": [
+              {
+                "name": "placeId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the place"
+              },
+              {
+                "name": "requestedFields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of attribute fields to return"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "f",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns detailed attributes for a specific place including name, address, phone number, hours of operation, and category information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,385 @@
+{
+  "item": [
+    {
+      "id": "36c662ad-59bc-4441-b743-2e8460d0039c",
+      "name": "Geocoding",
+      "description": {
+        "content": "Address search, reverse geocoding, and batch geocoding",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a536fda-4712-4561-9801-5dc7006bd7a3",
+          "name": "Geocode an address",
+          "request": {
+            "name": "Geocode an address",
+            "description": {
+              "content": "Converts address text into geographic coordinates (forward geocoding). Returns a list of address candidates with location coordinates and match scores.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "World",
+                "GeocodeServer",
+                "findAddressCandidates"
+              ],
+              "host": [
+                "geocode",
+                "arcgis",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "SingleLine",
+                  "value": "<string>",
+                  "description": "Single-line address string (e.g., \"380 New York St, Redlands, CA 92373\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "Address",
+                  "value": "<string>",
+                  "description": "Street address component"
+                },
+                {
+                  "disabled": false,
+                  "key": "City",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "Region",
+                  "value": "<string>",
+                  "description": "State or province"
+                },
+                {
+                  "disabled": false,
+                  "key": "Postal",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "CountryCode",
+                  "value": "<string>",
+                  "description": "ISO 3166-1 alpha-2 or alpha-3 country code"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxLocations",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "outFields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of output fields (* for all)"
+                },
+                {
+                  "disabled": false,
+                  "key": "outSR",
+                  "value": "4326",
+                  "description": "Output spatial reference WKID"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "45cfa8fb-92fa-4205-bab6-5494ec3d19cd",
+              "name": "Address candidates returned",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "World",
+                    "GeocodeServer",
+                    "findAddressCandidates"
+                  ],
+                  "host": [
+                    "geocode",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "SingleLine",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "City",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Postal",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxLocations",
+                      "value": "1"
+                    },
+                    {
+                      "key": "outFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "outSR",
+                      "value": "4326"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"spatialReference\": {\n    \"wkid\": 4983,\n    \"latestWkid\": 2594\n  },\n  \"candidates\": [\n    {\n      \"address\": \"string\",\n      \"location\": {\n        \"x\": 9274.971453540966,\n        \"y\": 3269.0531739421504,\n        \"spatialReference\": {\n          \"wkid\": 980,\n          \"latestWkid\": 8697\n        }\n      },\n      \"score\": 6172.999257068989,\n      \"attributes\": {\n        \"key_0\": 4950,\n        \"key_1\": false\n      }\n    },\n    {\n      \"address\": \"string\",\n      \"location\": {\n        \"x\": 4912.841101227194,\n        \"y\": 8892.617109677713,\n        \"spatialReference\": {\n          \"wkid\": 421,\n          \"latestWkid\": 6166\n        }\n      },\n      \"score\": 6735.13688824463,\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd719dca-7c01-468f-bb7e-9669263dc659",
+          "name": "Reverse geocode coordinates",
+          "request": {
+            "name": "Reverse geocode coordinates",
+            "description": {
+              "content": "Converts geographic coordinates to a readable address (reverse geocoding).",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "arcgis",
+                "rest",
+                "services",
+                "World",
+                "GeocodeServer",
+                "reverseGeocode"
+              ],
+              "host": [
+                "geocode",
+                "arcgis",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "(Required) Point location as JSON (e.g., {\"x\":-117.2,\"y\":34.06,\"spatialReference\":{\"wkid\":4326}})"
+                },
+                {
+                  "disabled": false,
+                  "key": "distance",
+                  "value": "<number>",
+                  "description": "Distance in meters to search from the input location"
+                },
+                {
+                  "disabled": false,
+                  "key": "outSR",
+                  "value": "4326"
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "f",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1be31c67-9766-4814-95cc-9d2e70fe1bab",
+              "name": "Reverse geocode result returned",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "arcgis",
+                    "rest",
+                    "services",
+                    "World",
+                    "GeocodeServer",
+                    "reverseGeocode"
+                  ],
+                  "host": [
+                    "geocode",
+                    "arcgis",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "distance",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "outSR",
+                      "value": "4326"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "f",
+                      "value": "json"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"Match_addr\": \"string\",\n    \"LongLabel\": \"string\",\n    \"ShortLabel\": \"string\",\n    \"Addr_type\": \"string\",\n    \"AddNum\": \"string\",\n    \"Address\": \"string\",\n    \"City\": \"string\",\n    \"Region\": \"string\",\n    \"RegionAbbr\": \"string\",\n    \"Postal\": \"string\",\n    \"CountryCode\": \"string\"\n  },\n  \"location\": {\n    \"x\": 8043.184641430015,\n    \"y\": 1438.396089363957,\n    \"spatialReference\": {\n      \"wkid\": 8903,\n      \"latestWkid\": 1635\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.arcgis.com/sharing/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c9559743-1c03-4979-9111-2e8e4b7de10b",
+    "name": "ESRI ArcGIS Platform Geocoding API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ESRI ArcGIS Platform REST API for sharing, managing, and accessing GIS content including feature services, maps, layers, users, and portal items. The API enables geospatial data management, spatial analysis, geocoding, routing, and organizational administration for ArcGIS Online and ArcGIS Enterprise deployments.\n\nContact Support:\n Name: ESRI Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
