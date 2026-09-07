@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: ESRI ArcGIS Platform Geocoding Portal API
   description: ESRI ArcGIS Platform REST API for sharing, managing, and accessing GIS content including feature services, maps, layers, users, and portal items. The API enables geospatial data management, spatial analysis, geocoding, routing, and organizational administration for ArcGIS Online and ArcGIS Enterprise deployments.
@@ -242,42 +242,11 @@ paths:
                 $ref: '#/components/schemas/SearchResults'
 components:
   schemas:
-    User:
+    SearchResults:
       type: object
       properties:
-        username:
+        query:
           type: string
-        fullName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-          format: email
-        description:
-          type: string
-        role:
-          type: string
-          enum:
-          - org_admin
-          - org_publisher
-          - org_user
-          - account_admin
-        level:
-          type: string
-        created:
-          type: integer
-        modified:
-          type: integer
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupRef'
-    ItemCollection:
-      type: object
-      properties:
         total:
           type: integer
         start:
@@ -286,10 +255,58 @@ components:
           type: integer
         nextStart:
           type: integer
-        items:
+        results:
           type: array
           items:
             $ref: '#/components/schemas/Item'
+    Portal:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Portal organization ID
+        name:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+          format: uri
+        thumbnail:
+          type: string
+        culture:
+          type: string
+          description: Default language/locale (e.g., "en")
+        region:
+          type: string
+        created:
+          type: integer
+          description: Creation timestamp (milliseconds since epoch)
+        modified:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: string
+    GroupRef:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        access:
+          type: string
     Item:
       type: object
       properties:
@@ -341,11 +358,42 @@ components:
             items:
               type: number
           description: Bounding box [[xmin,ymin],[xmax,ymax]]
-    SearchResults:
+    User:
       type: object
       properties:
-        query:
+        username:
           type: string
+        fullName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        description:
+          type: string
+        role:
+          type: string
+          enum:
+          - org_admin
+          - org_publisher
+          - org_user
+          - account_admin
+        level:
+          type: string
+        created:
+          type: integer
+        modified:
+          type: integer
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupRef'
+    ItemCollection:
+      type: object
+      properties:
         total:
           type: integer
         start:
@@ -354,58 +402,10 @@ components:
           type: integer
         nextStart:
           type: integer
-        results:
+        items:
           type: array
           items:
             $ref: '#/components/schemas/Item'
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-            details:
-              type: array
-              items:
-                type: string
-    Portal:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Portal organization ID
-        name:
-          type: string
-        description:
-          type: string
-        url:
-          type: string
-          format: uri
-        thumbnail:
-          type: string
-        culture:
-          type: string
-          description: Default language/locale (e.g., "en")
-        region:
-          type: string
-        created:
-          type: integer
-          description: Creation timestamp (milliseconds since epoch)
-        modified:
-          type: integer
-    GroupRef:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        access:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

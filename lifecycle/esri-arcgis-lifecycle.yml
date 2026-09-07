@@ -1,0 +1,78 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://content.esri.com/support/techarticles/product-life-cycle.pdf,
+  https://support.esri.com/en-us/products/arcgis-online/life-cycle,
+  https://status.arcgis.com/,
+  https://developers.arcgis.com/rest/geocode/whats-new-world-geocoding-service/
+provider: Esri ArcGIS
+providerId: esri-arcgis
+versioning:
+  scheme: >-
+    Two schemes coexist. ArcGIS Location Services version the path segment per service
+    (for example .../styles/v2/, .../places-service/v1/); the ArcGIS REST API for Online and Enterprise
+    is versioned by product release (a "Version Introduced" field is stamped on each REST resource,
+    e.g. "Version Introduced: 10.7" on the webhooks resource).
+  in: path-and-product-release
+  current:
+    location_services:
+      places: v1
+      basemap_styles: v2
+      static_maps: v1
+    arcgis_enterprise: '12.1'
+  breaking_change_policy: >-
+    Breaking changes ride the product release train; the REST reference marks each resource with the
+    release that introduced it and each release carries a What's New page.
+deprecation:
+  policy_published: true
+  policy_url: https://content.esri.com/support/techarticles/product-life-cycle.pdf
+  policy_name: Esri Product Life Cycle Support Policy
+  phases:
+    - name: General Availability
+      description: Supported, receives regular updates, ready for production use; patched for security issues.
+    - name: Mature Support
+      description: >-
+        Esri no longer plans to update the item but it remains available; no further patches are
+        provided. (Being replaced by an Extended phase for some products from ArcGIS Pro 3.8, Nov 2026.)
+    - name: Extended Support
+      description: Limited support window before retirement; security patches still provided.
+    - name: Retired
+      description: No longer supported and no longer patched; customers must upgrade.
+  security_patch_rule: >-
+    "Patches are provided for software in General availability and Extended support under Esri's product
+    life cycle. Patches are not provided for software in mature support or retired status."
+    (https://trust.arcgis.com/en/security-concern/)
+  per_product_pages:
+    - product: ArcGIS Online
+      url: https://support.esri.com/en-us/products/arcgis-online/life-cycle
+    - product: ArcGIS Enterprise
+      url: https://support.esri.com/en-us/products/arcgis-enterprise/life-cycle
+  sunset_headers:
+    rfc8594: false
+    note: >-
+      No Sunset or Deprecation response header is documented for the ArcGIS REST APIs. Deprecation is
+      communicated through the product life cycle documents, release notes and blog announcements, not
+      through runtime HTTP signalling - an agent cannot detect an impending retirement from a response.
+  deprecated_operations:
+    derived_from: openapi/
+    count: 0
+    note: "No operation in this repo's OpenAPI files carries deprecated: true."
+  observed_removals:
+    - change: The ArcGIS Geocoding service no longer supports communication over HTTP; HTTPS is enforced.
+      source: https://developers.arcgis.com/rest/geocode/whats-new-world-geocoding-service/
+status_page:
+  published: true
+  url: https://status.arcgis.com/
+  name: ArcGIS Online Health Dashboard
+  http_status: 200
+  machine_readable_feed: unknown
+  note: >-
+    Linked from the ArcGIS Trust Center as "ArcGIS Online Health". The Trust Center itself
+    (trust.arcgis.com) is a compliance surface, not the status page - they were previously conflated in
+    this record.
+sla:
+  published: false
+  note: >-
+    No public uptime SLA percentage was found on the developer or trust surfaces; service commitments
+    are carried in the Esri Master Agreement (https://www.esri.com/en-us/legal/terms/master-agreement)
+    and negotiated per subscription.

@@ -13,6 +13,11 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "esri-arcgis-geocoding-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "esri-arcgis-places-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "esri-arcgis-portal-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

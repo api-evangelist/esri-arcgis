@@ -1,0 +1,90 @@
+generated: '2026-09-07'
+method: derived
+source: >-
+  mcp/esri-arcgis-mcp.yml (tool names from https://developers.arcgis.com/ai/mcp-arcgis-location-services/tools/),
+  openapi/esri-arcgis-geocoding-api-openapi.yml, openapi/esri-arcgis-places-api-openapi.yml,
+  openapi/esri-arcgis-portal-api-openapi.yml, graphql/esri-arcgis-urban-api.graphql
+provider: Esri ArcGIS
+providerId: esri-arcgis
+description: >-
+  Binds each published MCP tool to the ArcGIS REST operation it fronts. The live MCP tools/list is
+  auth-gated (HTTP 401 Token Required), so bindings are mapped by name and by the "underlying service"
+  link Esri publishes on each tool, not by comparing inputSchema to OpenAPI parameters - confidence is
+  recorded accordingly.
+surfaces:
+  - kind: mcp
+    url: https://location-services-mcp.arcgis.com/beta/mcp
+    gated: true
+    note: 401 Token Required on anonymous tools/list.
+  - kind: openapi
+    files:
+      - openapi/esri-arcgis-geocoding-api-openapi.yml
+      - openapi/esri-arcgis-places-api-openapi.yml
+      - openapi/esri-arcgis-portal-api-openapi.yml
+    gated: false
+    note: >-
+      API Evangelist-authored specs covering a subset of the ArcGIS REST surface; Esri publishes no
+      first-party OpenAPI for these services (see conformance/ and the coverage note in apis.yml).
+  - kind: graphql
+    url: https://urban-api.arcgis.com/graphql
+    gated: false
+    note: Anonymous introspection succeeded (HTTP 200); 441 types, 7 queries, 96 mutations.
+crosswalk:
+  - tool: find_address_candidates
+    category: geocoding
+    rest: [findAddressCandidates]
+    binding: openapi/esri-arcgis-geocoding-api-openapi.yml#/paths/~1findAddressCandidates/get
+    confidence: high
+    note: >-
+      Esri's tool page links this tool to the ArcGIS Geocoding service findAddressCandidates operation.
+  - tool: reverse_geocode
+    category: geocoding
+    rest: [reverseGeocode]
+    binding: openapi/esri-arcgis-geocoding-api-openapi.yml#/paths/~1reverseGeocode/get
+    confidence: high
+mcp_only:
+  - tool: solve_route
+    reason: >-
+      Fronts the ArcGIS Routing service (route.arcgis.com .../Route/NAServer/Route_World/solve);
+      no operation for it exists in this repo's OpenAPI files.
+  - tool: elevation_at_locations
+    reason: >-
+      Fronts the ArcGIS Elevation service (elevation-api.arcgis.com); not covered by any OpenAPI here.
+  - tool: map_with_overlay
+    reason: >-
+      Fronts the ArcGIS Static Maps service (static-map-tiles-api.arcgis.com); not covered by any OpenAPI here.
+  - tool: get_topic_fields
+    reason: Fronts the ArcGIS GeoEnrichment service (geoenrich.arcgis.com); not covered by any OpenAPI here.
+  - tool: describe_location
+    reason: Fronts the ArcGIS GeoEnrichment service (geoenrich.arcgis.com); not covered by any OpenAPI here.
+rest_only:
+  - operationId: findPlacesNearPoint
+    reason: The Places service has no MCP tool in the beta server.
+  - operationId: getPlaceDetails
+    reason: The Places service has no MCP tool in the beta server.
+  - operationId: getPortalSelf
+    reason: Portal/content management is out of scope for the Location Services MCP server.
+  - operationId: getUser
+    reason: Portal/content management is out of scope for the Location Services MCP server.
+  - operationId: getUserItems
+    reason: Portal/content management is out of scope for the Location Services MCP server.
+  - operationId: getItem
+    reason: Portal/content management is out of scope for the Location Services MCP server.
+  - operationId: searchPortal
+    reason: Portal/content management is out of scope for the Location Services MCP server.
+graphql_only:
+  - surface: ArcGIS Urban API
+    endpoint: https://urban-api.arcgis.com/graphql
+    queries: 7
+    mutations: 96
+    reason: >-
+      Urban planning models, plans, parcels, zones, indicators and scenario analyses are exposed only as
+      GraphQL; there is no MCP tool and no REST operation for them in this repo.
+coverage:
+  mcp_tools: 7
+  mcp_tools_bound_to_rest: 2
+  mcp_only: 5
+  rest_operations: 9
+  rest_only: 7
+  graphql_query_fields: 7
+  graphql_mutation_fields: 96

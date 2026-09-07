@@ -1,0 +1,51 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ESRI ArcGIS Platform Geocoding Places API
+  version: 1.0.0
+extends: ../openapi/esri-arcgis-places-api-openapi.yml
+x-generated: '2026-09-07'
+x-method: derived
+x-source: openapi/esri-arcgis-places-api-openapi.yml plus conventions/, errors/, lifecycle/, rate-limits/, plans/,
+  mcp/ in this repo
+actions:
+- target: $.info
+  description: Record the ArcGIS error envelope and the f= response-format convention that the base spec does not
+    state.
+  update:
+    x-error-envelope: '{"error":{"code":<int>,"message":"<string>","details":[...]}} - error.code is an ArcGIS status
+      code and does not track the HTTP status; see errors/esri-arcgis-problem-types.yml'
+    x-response-format-parameter: f (json | pjson | html | geojson) - the default on many sharing/rest resources
+      is html
+    x-idempotency: none - no Idempotency-Key header is documented for any ArcGIS REST surface (conventions/esri-arcgis-conventions.yml)
+    x-rate-limit-headers: none published - Esri documents monthly inclusion ceilings, not per-second quotas (rate-limits/esri-arcgis-rate-limits.yml)
+    x-status-page: https://status.arcgis.com/
+    x-lifecycle: lifecycle/esri-arcgis-lifecycle.yml
+- target: $
+  description: Attach API Evangelist artifact cross-links so an agent reading only the spec can find the derived
+    contracts.
+  update:
+    x-apievangelist-artifacts:
+      authentication: authentication/esri-arcgis-authentication.yml
+      scopes: scopes/esri-arcgis-scopes.yml
+      conventions: conventions/esri-arcgis-conventions.yml
+      errors: errors/esri-arcgis-problem-types.yml
+      conformance: conformance/esri-arcgis-conformance.yml
+      data_model: data-model/esri-arcgis-data-model.yml
+      mcp: mcp/esri-arcgis-mcp.yml
+      tool_crosswalk: mcp/esri-arcgis-tool-crosswalk.yml
+      webhooks: asyncapi/esri-arcgis-webhooks.yml
+      packages: packages/esri-arcgis-packages.yml
+- target: $.paths['/places/near-point'].get
+  description: Annotate findPlacesNearPoint with runtime semantics derived from the ArcGIS documentation.
+  update:
+    x-auth-required: true
+    x-token-transport: 'query parameter token, or Authorization: Bearer'
+    x-idempotent: true
+- target: $.paths['/places/{placeId}'].get
+  description: Annotate getPlaceDetails with runtime semantics derived from the ArcGIS documentation.
+  update:
+    x-auth-required: true
+    x-token-transport: 'query parameter token, or Authorization: Bearer'
+    x-idempotent: true
+    x-billing-note: Billed per requested attribute set (address, details, location) - requestedFields changes the
+      price, not only the payload. See plans/esri-arcgis-plans-pricing.yml.

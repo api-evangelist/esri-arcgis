@@ -1,0 +1,53 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://developers.arcgis.com/javascript/latest/components/,
+  https://developers.arcgis.com/javascript/latest/references/map-components/,
+  https://developers.arcgis.com/javascript/latest/charts-components/,
+  https://developers.arcgis.com/calcite-design-system/,
+  npm registry metadata (see packages/esri-arcgis-packages.yml)
+provider: Esri ArcGIS
+providerId: esri-arcgis
+summary: >-
+  Esri ships three first-party web-component families - map components, chart components and the Calcite
+  Design System - as custom elements that render ArcGIS content client side. They are distinct from the
+  SDKs in packages/: a developer drops a tag into HTML rather than calling a service.
+families:
+  - name: ArcGIS Map Components
+    kind: web-components
+    docs: https://developers.arcgis.com/javascript/latest/references/map-components/
+    package: "@arcgis/map-components"
+    version: 5.1.22
+    published: '2026-09-03'
+    element_prefix: arcgis-
+    description: >-
+      Custom elements for maps, scenes, layer lists, legends, search, sketch, editors, basemap galleries,
+      time sliders and print - the interactive UI surface of the ArcGIS Maps SDK for JavaScript.
+  - name: ArcGIS Charts Components
+    kind: web-components
+    docs: https://developers.arcgis.com/javascript/latest/charts-components/
+    package: "@arcgis/charts-components"
+    version: 5.1.22
+    published: '2026-09-03'
+    element_prefix: arcgis-charts-
+    description: Reusable charting elements bound to ArcGIS feature data.
+  - name: Calcite Design System
+    kind: web-components
+    docs: https://developers.arcgis.com/calcite-design-system/
+    package: "@esri/calcite-components"
+    version: 5.1.2
+    published: '2026-09-03'
+    element_prefix: calcite-
+    description: >-
+      Esri's open design system - the general-purpose UI element library (buttons, panels, shells,
+      notices, blocks) that ArcGIS apps and the map components are composed with.
+loaders:
+  - name: ES modules from npm
+    note: Install the package and import the component's define function.
+  - name: CDN script tag
+    url_pattern: https://js.arcgis.com/<branch>/
+    note: >-
+      Esri serves pinned CDN branches (https://js.arcgis.com/4.34/ and https://js.arcgis.com/5.1/ both
+      return HTTP 200). Consumers pin the branch themselves; see the cdn entry in
+      packages/esri-arcgis-packages.yml.
+overview_docs: https://developers.arcgis.com/javascript/latest/components/

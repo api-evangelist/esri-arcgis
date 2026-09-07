@@ -1,6 +1,8 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/esri-arcgis-platform-openapi.yml
+generated: '2026-09-07'
+method: searched
+source: https://developers.arcgis.com/documentation/security-and-authentication/, https://www.arcgis.com/.well-known/oauth-authorization-server
+  (HTTP 200), https://location-services-mcp.arcgis.com/.well-known/oauth-protected-resource (HTTP 200); baseline
+  derived from openapi/ securitySchemes
 summary:
   types:
   - apiKey
@@ -16,7 +18,9 @@ schemes:
   parameter: token
   description: ArcGIS API key or token
   sources:
-  - openapi/esri-arcgis-platform-openapi.yml
+  - openapi/esri-arcgis-geocoding-api-openapi.yml
+  - openapi/esri-arcgis-places-api-openapi.yml
+  - openapi/esri-arcgis-portal-api-openapi.yml
 - name: OAuth2
   type: oauth2
   flows:
@@ -25,4 +29,61 @@ schemes:
     tokenUrl: https://www.arcgis.com/sharing/rest/oauth2/token
     scopes: 2
   sources:
-  - openapi/esri-arcgis-platform-openapi.yml
+  - openapi/esri-arcgis-geocoding-api-openapi.yml
+  - openapi/esri-arcgis-places-api-openapi.yml
+  - openapi/esri-arcgis-portal-api-openapi.yml
+docs: https://developers.arcgis.com/documentation/security-and-authentication/
+models:
+- name: API key authentication
+  type: api-key
+  docs: https://developers.arcgis.com/documentation/security-and-authentication/api-key-authentication/
+  transport:
+  - query parameter token
+  - 'Authorization: Bearer <key>'
+  note: An ArcGIS API key credential is a long-lived access token scoped by PRIVILEGE, chosen when the credential
+    is created. There is no OAuth scope string on this path.
+- name: User authentication (OAuth 2.0)
+  type: oauth2
+  docs: https://developers.arcgis.com/documentation/security-and-authentication/user-authentication/
+  flow: authorizationCode
+  pkce: S256
+  authorizationUrl: https://www.arcgis.com/sharing/rest/oauth2/authorize
+  tokenUrl: https://www.arcgis.com/sharing/rest/oauth2/token
+  note: An app acts on behalf of a signed-in ArcGIS user; the resulting token carries that user’s privileges.
+- name: App authentication
+  type: oauth2
+  docs: https://developers.arcgis.com/documentation/security-and-authentication/app-authentication/
+  flow: clientCredentials
+  tokenUrl: https://www.arcgis.com/sharing/rest/oauth2/token
+  note: App-only token for services that do not need a user identity.
+discovery:
+  rfc8414:
+    url: https://www.arcgis.com/.well-known/oauth-authorization-server
+    http_status: 200
+    issuer: https://www.arcgis.com
+    grant_types_supported:
+    - authorization_code
+    - implicit
+    response_types_supported:
+    - code
+    - token
+    code_challenge_methods_supported:
+    - S256
+    file: well-known/esri-arcgis-www-arcgis-com-oauth-authorization-server.json
+  rfc9728:
+    url: https://location-services-mcp.arcgis.com/.well-known/oauth-protected-resource
+    http_status: 200
+    resource: https://location-services-mcp.arcgis.com/
+    authorization_servers:
+    - https://arcgis.com/
+    file: well-known/esri-arcgis-location-services-mcp-oauth-protected-resource.json
+  openid_configuration:
+    url: https://www.arcgis.com/.well-known/openid-configuration
+    http_status: 404
+token_reference: https://developers.arcgis.com/documentation/security-and-authentication/reference/access-tokens/
+privileges_reference: https://developers.arcgis.com/documentation/security-and-authentication/reference/privileges/
+notes:
+- ArcGIS authorizes by PRIVILEGE, not by OAuth scope string. The scope values in the spec (openid, urn:arcgis:scope:root)
+  are coarse; the real permission surface is the privilege list attached to the credential. See scopes/esri-arcgis-scopes.yml.
+- A credential that authenticates but lacks the required privilege returns HTTP 200 with error.code 403 in the body
+  - not a 403 status. See errors/esri-arcgis-problem-types.yml.

@@ -1,9 +1,22 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/esri-arcgis-platform-openapi.yml
+generated: '2026-09-07'
+method: searched
+source: https://developers.arcgis.com/documentation/security-and-authentication/reference/privileges/, https://developers.arcgis.com/ai/mcp-arcgis-location-services/get-started/,
+  https://www.arcgis.com/.well-known/oauth-authorization-server; baseline derived from openapi/ securitySchemes
 schemes:
 - name: OAuth2
-  source: openapi/esri-arcgis-platform-openapi.yml
+  source: openapi/esri-arcgis-geocoding-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.arcgis.com/sharing/rest/oauth2/authorize
+    tokenUrl: https://www.arcgis.com/sharing/rest/oauth2/token
+- name: OAuth2
+  source: openapi/esri-arcgis-places-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.arcgis.com/sharing/rest/oauth2/authorize
+    tokenUrl: https://www.arcgis.com/sharing/rest/oauth2/token
+- name: OAuth2
+  source: openapi/esri-arcgis-portal-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://www.arcgis.com/sharing/rest/oauth2/authorize
@@ -14,10 +27,45 @@ scopes:
   flows:
   - authorizationCode
   sources:
-  - openapi/esri-arcgis-platform-openapi.yml
+  - openapi/esri-arcgis-geocoding-api-openapi.yml
+  - openapi/esri-arcgis-places-api-openapi.yml
+  - openapi/esri-arcgis-portal-api-openapi.yml
 - scope: urn:arcgis:scope:root
   description: Full access to ArcGIS Online
   flows:
   - authorizationCode
   sources:
-  - openapi/esri-arcgis-platform-openapi.yml
+  - openapi/esri-arcgis-geocoding-api-openapi.yml
+  - openapi/esri-arcgis-places-api-openapi.yml
+  - openapi/esri-arcgis-portal-api-openapi.yml
+docs: https://developers.arcgis.com/documentation/security-and-authentication/reference/privileges/
+model:
+  kind: privileges
+  note: ArcGIS does not use a granular OAuth scope vocabulary. OAuth credentials request coarse scopes (openid,
+    urn:arcgis:scope:root) and the effective permission set is the PRIVILEGE list attached to the credential. Privileges
+    divide into standard scope (usable by public apps) and personal scope (requires additional account permission;
+    only for personal/private apps).
+  reference: https://developers.arcgis.com/documentation/security-and-authentication/reference/privileges/
+privileges_observed:
+- privilege: Portal service > General privileges > Apps and capabilities > Allow beta access
+  required_for: MCP for ArcGIS Location Services (beta)
+  source: https://developers.arcgis.com/ai/mcp-arcgis-location-services/get-started/
+- privilege: Location services > Geocoding > Geocode (stored)
+  required_for: find_address_candidates, reverse_geocode (MCP); findAddressCandidates with forStorage=true (REST)
+  source: https://developers.arcgis.com/ai/mcp-arcgis-location-services/get-started/
+  note: Only available for ArcGIS Location Platform accounts with pay-as-you-go enabled.
+- privilege: Location services > Routing > Simple routing
+  required_for: solve_route (MCP); routing service solve (REST)
+  source: https://developers.arcgis.com/ai/mcp-arcgis-location-services/get-started/
+- privilege: Location services > Elevation > Elevation service
+  required_for: elevation_at_locations (MCP)
+  source: https://developers.arcgis.com/ai/mcp-arcgis-location-services/get-started/
+- privilege: Location services > Static maps > Static maps service
+  required_for: map_with_overlay (MCP)
+  source: https://developers.arcgis.com/ai/mcp-arcgis-location-services/get-started/
+- privilege: Location services > Data Enrichment > GeoEnrichment service
+  required_for: get_topic_fields, describe_location (MCP)
+  source: https://developers.arcgis.com/ai/mcp-arcgis-location-services/get-started/
+gaps:
+- Esri publishes no machine-readable list of privilege identifiers; the privileges reference page renders client-side
+  and gives human labels, so an agent cannot enumerate the permission surface programmatically.

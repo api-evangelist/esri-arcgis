@@ -1,0 +1,67 @@
+generated: '2026-09-07'
+method: searched
+source: https://trust.arcgis.com/en/
+provider: Esri ArcGIS
+providerId: esri-arcgis
+trust_center:
+  published: true
+  url: https://trust.arcgis.com/en/
+  name: ArcGIS Trust Center
+  sections:
+    - name: Overview
+      url: https://trust.arcgis.com/en/
+    - name: Security
+      url: https://trust.arcgis.com/en/security/
+    - name: Privacy
+      url: https://trust.arcgis.com/en/privacy/
+    - name: Compliance
+      url: https://trust.arcgis.com/en/compliance/compliance.htm
+    - name: Documents
+      url: https://trust.arcgis.com/en/documents/
+    - name: Report a Security or Privacy Concern
+      url: https://trust.arcgis.com/en/security-concern/
+  tools:
+    - name: ArcGIS Security Adviser
+      url: https://goto.arcgis.com/security-privacy-adviser
+      description: Compares an ArcGIS Online organization's settings against Esri's recommendations.
+  status_link:
+    name: ArcGIS Online Health
+    url: https://status.arcgis.com/
+certifications:
+  - name: FedRAMP Moderate
+    scope: ArcGIS Online
+    status: Agency Authorization
+    url: https://trust.arcgis.com/en/compliance/fedramp.htm
+    note: >-
+      Esri publishes that customer data and supply chain assurance for Online Services is covered by
+      FedRAMP Moderate authorization; assessments are performed annually by a third-party assessor.
+  - name: ISO/IEC 27001:2022
+    scope: >-
+      Esri Information Security Management System, including ArcGIS Online and ArcGIS Location Platform
+      hosted in the EU region (ArcGIS ISO Cloud)
+    status: certified
+    url: https://trust.arcgis.com/en/compliance/iso-information.htm
+  - name: SOC 2
+    scope: select Esri internal / corporate systems only
+    status: certified
+    url: https://trust.arcgis.com/en/compliance/compliance.htm
+    note: >-
+      Esri states explicitly that this SOC 2 "does NOT cover the assurance of our products, their
+      operation, or customer datasets within Esri products." Recorded verbatim so the certification is
+      not over-read.
+privacy_frameworks:
+  - EU GDPR
+  - California CPRA / CCPA
+  - EU-U.S. Data Privacy Framework (DPF)
+data_residency:
+  offered: true
+  note: >-
+    Regional hosting stores hosted geospatial data in a selected region; the EU region is covered by the
+    ISO/IEC 27001:2022 "ArcGIS ISO Cloud" scope.
+x-evidence:
+  - fetched: '2026-09-07'
+    url: https://trust.arcgis.com/en/
+    http_status: 200
+  - fetched: '2026-09-07'
+    url: https://trust.arcgis.com/en/compliance/compliance.htm
+    http_status: 200

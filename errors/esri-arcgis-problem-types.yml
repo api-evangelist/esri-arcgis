@@ -1,0 +1,99 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  live responses observed from places-api.arcgis.com, basemapstyles-api.arcgis.com,
+  elevation-api.arcgis.com, geoenrich.arcgis.com, location-services-mcp.arcgis.com and
+  geocode-api.arcgis.com on 2026-09-07; enriched from
+  https://developers.arcgis.com/documentation/security-and-authentication/ and
+  openapi/ 4xx/5xx responses
+provider: Esri ArcGIS
+providerId: esri-arcgis
+format: proprietary-json
+rfc9457: false
+envelope:
+  content_type: application/json
+  shape: |
+    {"error": {"code": <int>, "message": "<string>", "details": ["<string>", ...]}}
+  fields:
+    - name: error.code
+      type: integer
+      note: >-
+        An ArcGIS status code, NOT necessarily the HTTP status code. 499 (Token Required) and 498
+        (Invalid Token) are returned inside a body whose HTTP status is 401 or even 200 depending on the
+        service and the f= parameter - clients must read the body, not only the status line.
+    - name: error.message
+      type: string
+    - name: error.details
+      type: array of string
+    - name: error.messageCode
+      type: string
+      note: Present on portal/sharing (www.arcgis.com/sharing/rest) responses, e.g. GWM_0003.
+problem_types:
+  - id: token-required
+    code: 499
+    title: Token Required
+    http_status: 401
+    message: The required authentication information is missing. Unable to authorize access without a valid token.
+    remediation: >-
+      Send an ArcGIS access token as ?token=<token> or an Authorization: Bearer <token> header. See
+      authentication/esri-arcgis-authentication.yml.
+    observed_at: https://location-services-mcp.arcgis.com/beta/mcp
+  - id: invalid-token
+    code: 498
+    title: Invalid Token
+    http_status: 200
+    message: Invalid token.
+    remediation: Refresh the token; API keys and OAuth access tokens expire and can be revoked.
+  - id: forbidden
+    code: 403
+    title: Unable to process this request / insufficient privileges
+    http_status: 200
+    message: Unable to process this request.
+    remediation: >-
+      The credential authenticated but lacks the required privilege for the operation (see the required
+      privileges list in mcp/esri-arcgis-mcp.yml and scopes/esri-arcgis-scopes.yml).
+    observed_at: https://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver
+  - id: path-not-found
+    code: 404
+    title: Path not found
+    http_status: 404
+    message: "The path: '<path>' did not match any known endpoints."
+    remediation: Check the service base path and version segment.
+    observed_at: https://places-api.arcgis.com/arcgis/rest/services/places-service/v1
+  - id: invalid-url
+    code: 400
+    title: Invalid URL
+    http_status: 200
+    message: Invalid URL
+    remediation: A malformed or unsupported resource path was requested on a feature/OGC service endpoint.
+    observed_at: https://services.arcgis.com/.../OGCFeatureServer/conformance
+  - id: rate-limited
+    code: 429
+    title: Too Many Requests
+    http_status: 429
+    remediation: >-
+      Back off and retry. See rate-limits/esri-arcgis-rate-limits.yml - Esri publishes monthly inclusion
+      ceilings rather than per-second quotas, and documents no RateLimit-* response headers.
+    note: Documented status, not observed by this pipeline.
+  - id: service-unavailable
+    code: 503
+    title: Service Unavailable
+    http_status: 503
+    remediation: Check https://status.arcgis.com/ (ArcGIS Online Health Dashboard) and retry.
+    note: Documented status, not observed by this pipeline.
+derived_from_openapi:
+  files:
+    - openapi/esri-arcgis-geocoding-api-openapi.yml
+    - openapi/esri-arcgis-places-api-openapi.yml
+    - openapi/esri-arcgis-portal-api-openapi.yml
+  note: >-
+    The OpenAPI files in this repo declare 400/401 responses referencing the shared Error schema
+    (json-schema/esri-arcgis-error-schema.json); they do not enumerate ArcGIS status codes. The codes
+    above come from live responses and Esri's documentation, not from the spec.
+gaps:
+  - >-
+    Esri publishes no single consolidated error-code registry for the ArcGIS REST APIs; codes are
+    documented per operation and per product. An agent cannot fetch a machine-readable error catalogue.
+  - >-
+    HTTP status and error.code diverge - a 200 response can carry error.code 498/403. Any client that
+    branches on the HTTP status alone will silently treat failures as successes.

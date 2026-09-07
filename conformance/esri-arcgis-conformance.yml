@@ -1,0 +1,152 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  live probes recorded in x-evidence below, plus
+  https://trust.arcgis.com/en/compliance/compliance.htm and
+  https://enterprise.arcgis.com/en/server/latest/publish-services/windows/ogc-services-in-arcgis-server.htm
+provider: Esri ArcGIS
+providerId: esri-arcgis
+conformance:
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749) authorization code
+    conforms: true
+    evidence: >-
+      https://www.arcgis.com/.well-known/oauth-authorization-server (HTTP 200) declares
+      authorization_endpoint https://www.arcgis.com/sharing/rest/oauth2/authorize, token_endpoint
+      https://www.arcgis.com/sharing/rest/oauth2/token, grant_types_supported [authorization_code, implicit].
+  - id: rfc8414
+    name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+    conforms: true
+    evidence: https://www.arcgis.com/.well-known/oauth-authorization-server returns HTTP 200 with issuer, authorization_endpoint and token_endpoint.
+  - id: rfc9728
+    name: OAuth 2.0 Protected Resource Metadata (RFC 9728)
+    conforms: true
+    evidence: >-
+      https://location-services-mcp.arcgis.com/.well-known/oauth-protected-resource returns HTTP 200 with
+      resource https://location-services-mcp.arcgis.com/ and authorization_servers ["https://arcgis.com/"].
+  - id: pkce
+    name: PKCE (RFC 7636) with S256
+    conforms: true
+    evidence: code_challenge_methods_supported ["S256"] in the ArcGIS authorization server metadata.
+  - id: oidc
+    name: OpenID Connect Discovery
+    conforms: false
+    evidence: >-
+      /.well-known/openid-configuration returns HTTP 404 on www.arcgis.com and arcgis.com. ArcGIS acts as
+      an OAuth 2.0 authorization server; the openid scope exists on ArcGIS credentials but no OIDC
+      discovery document is published at the standard path.
+  - id: mcp
+    name: Model Context Protocol
+    conforms: true
+    evidence: >-
+      Esri-hosted MCP server at https://location-services-mcp.arcgis.com/beta/mcp (streamable HTTP);
+      anonymous tools/list returns HTTP 401 Token Required, confirming a live, auth-gated MCP endpoint.
+      Status is beta.
+  - id: graphql
+    name: GraphQL (introspection-capable schema)
+    conforms: true
+    evidence: >-
+      https://urban-api.arcgis.com/graphql answers a full introspection query with HTTP 200 -
+      441 types, 7 query fields, 96 mutation fields. SDL saved to graphql/esri-arcgis-urban-api.graphql.
+  - id: rfc9457
+    name: Problem Details for HTTP APIs (RFC 9457)
+    conforms: false
+    evidence: >-
+      ArcGIS REST services return a proprietary JSON envelope
+      {"error":{"code":<n>,"message":"...","details":[...]}} with Content-Type application/json, not
+      application/problem+json. Observed live on places-api, basemapstyles-api, elevation-api,
+      geoenrich.arcgis.com and location-services-mcp.arcgis.com.
+  - id: idempotency
+    name: Idempotency-Key request header
+    conforms: false
+    evidence: >-
+      No Idempotency-Key (or equivalent) header is documented anywhere in the ArcGIS REST API reference or
+      the security-and-authentication guides. See conventions/esri-arcgis-conventions.yml.
+  - id: pagination
+    name: Offset pagination
+    conforms: true
+    evidence: >-
+      Sharing/portal search operations page with start and num parameters and return nextStart/total in
+      the response body (openapi/esri-arcgis-portal-api-openapi.yml, /search).
+  - id: webhooks
+    name: Outbound webhooks
+    conforms: true
+    evidence: >-
+      https://developers.arcgis.com/rest/users-groups-and-items/webhooks/ (HTTP 200) documents
+      organization webhooks with payloadUrl, secret, events[] and a deactivationPolicy. See
+      asyncapi/esri-arcgis-webhooks.yml.
+  - id: geojson
+    name: GeoJSON (RFC 7946) output
+    conforms: true
+    evidence: >-
+      ArcGIS feature services accept f=geojson and return RFC 7946 FeatureCollections
+      (https://developers.arcgis.com/rest/services-reference/online/query-feature-service-layer-.htm).
+domain_standards:
+  - id: ogc-wms
+    name: OGC Web Map Service (WMS) 1.3.0
+    conforms: true
+    evidence: >-
+      GET https://sampleserver6.arcgisonline.com/arcgis/services/SampleWorldCities/MapServer/WMSServer?service=WMS&request=GetCapabilities
+      returned HTTP 200 with an XML root of {http://www.opengis.net/wms}WMS_Capabilities version="1.3.0".
+      Saved verbatim to openapi/esri-arcgis-arcgis-server-wms-capabilities.xml. The document declares the
+      Esri-specific extension namespace xmlns:esri_wms="http://www.esri.com/wms", identifying the
+      implementation as Esri's own.
+    contract: openapi/esri-arcgis-arcgis-server-wms-capabilities.xml
+  - id: ogc-wfs
+    name: OGC Web Feature Service (WFS) 2.0.0
+    conforms: true
+    evidence: >-
+      GET https://sampleserver6.arcgisonline.com/arcgis/services/SampleWorldCities/MapServer/WFSServer?service=WFS&request=GetCapabilities
+      returned HTTP 200 with an XML root of {http://www.opengis.net/wfs/2.0}WFS_Capabilities version="2.0.0".
+      Saved verbatim to openapi/esri-arcgis-arcgis-server-wfs-capabilities.xml.
+    contract: openapi/esri-arcgis-arcgis-server-wfs-capabilities.xml
+  - id: ogc-services-arcgis-server
+    name: OGC service interfaces published by ArcGIS Server
+    conforms: true
+    evidence: >-
+      https://enterprise.arcgis.com/en/server/latest/publish-services/windows/ogc-services-in-arcgis-server.htm
+      (HTTP 200) documents WMS, WFS, WCS, WMTS, KML and OGC API implementations that ArcGIS Server can
+      expose from any published service.
+domain_standards_note: >-
+  The two capabilities documents above were fetched from sampleserver6.arcgisonline.com - Esri's public
+  ArcGIS Server sample deployment on an Esri-owned domain (arcgisonline.com). They are the contract of a
+  demonstration deployment, not of a metered ArcGIS Location Services product, and are recorded as
+  evidence that the ArcGIS Server product implements the OGC interfaces. Every production OGC endpoint
+  in the wild is a CUSTOMER deployment of that product, hosted on the customer's own domain, so no
+  Esri-operated commercial OGC endpoint exists to point at.
+compliance:
+  certifications:
+    - FedRAMP Moderate (ArcGIS Online)
+    - ISO/IEC 27001:2022 (Esri ISMS, incl. ArcGIS Online and ArcGIS Location Platform EU region)
+    - SOC 2 (Esri internal/corporate systems only - explicitly not the products)
+  privacy_frameworks:
+    - EU GDPR
+    - California CPRA / CCPA
+    - EU-U.S. Data Privacy Framework
+  source: https://trust.arcgis.com/en/compliance/compliance.htm
+  detail: security/esri-arcgis-trust-center.yml
+x-evidence:
+  - fetched: '2026-09-07'
+    url: https://www.arcgis.com/.well-known/oauth-authorization-server
+    http_status: 200
+  - fetched: '2026-09-07'
+    url: https://location-services-mcp.arcgis.com/.well-known/oauth-protected-resource
+    http_status: 200
+  - fetched: '2026-09-07'
+    url: https://location-services-mcp.arcgis.com/beta/mcp
+    http_status: 401
+  - fetched: '2026-09-07'
+    url: https://urban-api.arcgis.com/graphql
+    http_status: 200
+  - fetched: '2026-09-07'
+    url: https://sampleserver6.arcgisonline.com/arcgis/services/SampleWorldCities/MapServer/WMSServer?service=WMS&request=GetCapabilities
+    http_status: 200
+  - fetched: '2026-09-07'
+    url: https://sampleserver6.arcgisonline.com/arcgis/services/SampleWorldCities/MapServer/WFSServer?service=WFS&request=GetCapabilities
+    http_status: 200
+  - fetched: '2026-09-07'
+    url: https://trust.arcgis.com/en/compliance/compliance.htm
+    http_status: 200
+  - fetched: '2026-09-07'
+    url: https://www.arcgis.com/.well-known/openid-configuration
+    http_status: 404

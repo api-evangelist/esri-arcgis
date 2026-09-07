@@ -1,0 +1,199 @@
+generated: '2026-09-07'
+method: probed
+source: live GET of the named /.well-known/ paths on every host in apis.yml, every OpenAPI servers[] host, the docs host, and the MCP host
+provider: Esri ArcGIS
+providerId: esri-arcgis
+note: >-
+  Two real documents are served. www.arcgis.com (and the apex arcgis.com) publish RFC 8414 OAuth 2.0
+  Authorization Server Metadata; the Esri-hosted MCP server publishes RFC 9728 OAuth 2.0 Protected
+  Resource Metadata pointing back at arcgis.com as its authorization server. No security.txt,
+  api-catalog, openid-configuration, ai-plugin.json or agent card is served anywhere. A 404 body on
+  developers.arcgis.com / location.arcgis.com is the docs SPA shell; on the *-api.arcgis.com hosts it is
+  the ArcGIS REST JSON error envelope.
+hosts:
+  - host: www.arcgis.com
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: esri-arcgis-www-arcgis-com-oauth-authorization-server.json
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: arcgis.com
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: esri-arcgis-www-arcgis-com-oauth-authorization-server.json
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: location-services-mcp.arcgis.com
+    documents:
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: esri-arcgis-location-services-mcp-oauth-protected-resource.json
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+  - host: developers.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: location.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: www.esri.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: esri.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: places-api.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: geocode-api.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: route-api.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: basemapstyles-api.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: elevation-api.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: js.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: trust.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 300
+      - path: /.well-known/api-catalog
+        status: 300
+      - path: /.well-known/agent-card.json
+        status: 300
+      - path: /.well-known/agent.json
+        status: 300
+    note: >-
+      trust.arcgis.com answers every /.well-known/* path with an Apache mod_negotiation 300 Multiple
+      Choices HTML page - not a document. Treated as a miss.

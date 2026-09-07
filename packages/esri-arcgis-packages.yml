@@ -1,0 +1,225 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org/pypi, api.nuget.org, rubygems.org/api,
+  https://developers.arcgis.com/documentation/mapping-apis-and-services/apis-and-sdks/,
+  https://github.com/Esri
+provider: Esri ArcGIS
+providerId: esri-arcgis
+note: >-
+  Esri's JVM SDKs (ArcGIS Maps SDK for Kotlin / Java) are NOT on Maven Central - a solrsearch for
+  g:com.esri.arcgisruntime returns 0 results. They are distributed from Esri's own Artifactory at
+  https://esri.jfrog.io/artifactory/arcgis (HTTP 200), which exposes no unauthenticated version-metadata
+  endpoint of the shape this pipeline queries, so those entries carry version: null with a note.
+packages:
+  - name: "@arcgis/core"
+    registry: npm
+    url: https://www.npmjs.com/package/@arcgis/core
+    official: true
+    language: javascript
+    version: 5.1.22
+    published: '2026-09-07'
+    description: ArcGIS Maps SDK for JavaScript - ES modules build.
+  - name: "@arcgis/map-components"
+    registry: npm
+    url: https://www.npmjs.com/package/@arcgis/map-components
+    official: true
+    language: javascript
+    version: 5.1.22
+    published: '2026-09-03'
+    description: ArcGIS Map Components - web components for maps and scenes.
+  - name: "@arcgis/charts-components"
+    registry: npm
+    url: https://www.npmjs.com/package/@arcgis/charts-components
+    official: true
+    language: javascript
+    version: 5.1.22
+    published: '2026-09-03'
+    description: Reusable ArcGIS charting web components.
+  - name: "@esri/calcite-components"
+    registry: npm
+    url: https://www.npmjs.com/package/@esri/calcite-components
+    official: true
+    language: javascript
+    version: 5.1.2
+    published: '2026-09-03'
+    description: Calcite Design System web components - Esri's design system component library.
+  - name: "@esri/arcgis-rest-request"
+    registry: npm
+    url: https://www.npmjs.com/package/@esri/arcgis-rest-request
+    official: true
+    language: javascript
+    version: 4.11.0
+    published: '2026-08-12'
+    description: ArcGIS REST JS - core request/authentication module.
+  - name: "@esri/arcgis-rest-geocoding"
+    registry: npm
+    url: https://www.npmjs.com/package/@esri/arcgis-rest-geocoding
+    official: true
+    language: javascript
+    version: 4.11.0
+    published: '2026-08-12'
+    description: ArcGIS REST JS - geocoding service bindings.
+  - name: "@esri/arcgis-rest-routing"
+    registry: npm
+    url: https://www.npmjs.com/package/@esri/arcgis-rest-routing
+    official: true
+    language: javascript
+    version: 4.11.0
+    published: '2026-08-12'
+    description: ArcGIS REST JS - routing service bindings.
+  - name: "@esri/arcgis-rest-places"
+    registry: npm
+    url: https://www.npmjs.com/package/@esri/arcgis-rest-places
+    official: true
+    language: javascript
+    version: 4.11.0
+    published: '2026-08-12'
+    description: ArcGIS REST JS - places service bindings.
+  - name: "@esri/arcgis-rest-portal"
+    registry: npm
+    url: https://www.npmjs.com/package/@esri/arcgis-rest-portal
+    official: true
+    language: javascript
+    version: 4.11.0
+    published: '2026-08-12'
+    description: ArcGIS REST JS - portal, users, groups and items bindings.
+  - name: "@esri/arcgis-rest-feature-service"
+    registry: npm
+    url: https://www.npmjs.com/package/@esri/arcgis-rest-feature-service
+    official: true
+    language: javascript
+    version: 4.11.0
+    published: '2026-08-12'
+    description: ArcGIS REST JS - feature service query and edit bindings.
+  - name: "@esri/arcgis-rest-demographics"
+    registry: npm
+    url: https://www.npmjs.com/package/@esri/arcgis-rest-demographics
+    official: true
+    language: javascript
+    version: 4.11.0
+    published: '2026-08-12'
+    description: ArcGIS REST JS - GeoEnrichment / demographics bindings.
+  - name: "@esri/arcgis-rest-developer-credentials"
+    registry: npm
+    url: https://www.npmjs.com/package/@esri/arcgis-rest-developer-credentials
+    official: true
+    language: javascript
+    version: 4.11.0
+    published: '2026-08-12'
+    description: ArcGIS REST JS - API key and OAuth credential management.
+  - name: esri-leaflet
+    registry: npm
+    url: https://www.npmjs.com/package/esri-leaflet
+    official: true
+    language: javascript
+    version: 3.0.19
+    published: '2025-09-04'
+    description: Esri Leaflet - lightweight ArcGIS service bindings for Leaflet.
+    note: >-
+      Latest release predates the current ArcGIS Location Services surface by roughly a year; Esri
+      positions the ArcGIS Maps SDK for JavaScript as the primary web SDK.
+  - name: arcgis
+    registry: pypi
+    url: https://pypi.org/project/arcgis/
+    official: true
+    language: python
+    version: 2.4.3
+    published: '2026-04-21'
+    description: ArcGIS API for Python - the first-party Python client (author "Esri").
+  - name: arcgis-mapping
+    registry: pypi
+    url: https://pypi.org/project/arcgis-mapping/
+    official: true
+    language: python
+    version: 5.0.0
+    published: '2026-04-21'
+    description: Companion mapping package split out of the ArcGIS API for Python.
+  - name: Esri.ArcGISRuntime
+    registry: nuget
+    url: https://www.nuget.org/packages/Esri.ArcGISRuntime
+    official: true
+    language: dotnet
+    version: 300.1.0
+    published: '2026-08-05'
+    description: ArcGIS Maps SDK for .NET - core runtime.
+  - name: Esri.ArcGISRuntime.WPF
+    registry: nuget
+    url: https://www.nuget.org/packages/Esri.ArcGISRuntime.WPF
+    official: true
+    language: dotnet
+    version: 300.1.0
+    published: '2026-08-05'
+    description: ArcGIS Maps SDK for .NET - WPF views.
+  - name: Esri.ArcGISRuntime.WinUI
+    registry: nuget
+    url: https://www.nuget.org/packages/Esri.ArcGISRuntime.WinUI
+    official: true
+    language: dotnet
+    version: 300.1.0
+    published: '2026-08-05'
+    description: ArcGIS Maps SDK for .NET - WinUI views.
+  - name: Esri.ArcGISRuntime.Maui
+    registry: nuget
+    url: https://www.nuget.org/packages/Esri.ArcGISRuntime.Maui
+    official: true
+    language: dotnet
+    version: 300.1.0
+    published: '2026-08-05'
+    description: ArcGIS Maps SDK for .NET - .NET MAUI views.
+  - name: Esri.ArcGISRuntime.Toolkit.WPF
+    registry: nuget
+    url: https://www.nuget.org/packages/Esri.ArcGISRuntime.Toolkit.WPF
+    official: true
+    language: dotnet
+    version: 300.1.0
+    published: '2026-08-05'
+    description: ArcGIS Maps SDK for .NET - WPF toolkit controls.
+  - name: com.esri.arcgismaps:arcgis-maps-kotlin
+    registry: maven
+    url: https://esri.jfrog.io/artifactory/arcgis
+    repository: https://esri.jfrog.io/artifactory/arcgis
+    official: true
+    language: kotlin
+    version: null
+    published: null
+    note: >-
+      ArcGIS Maps SDK for Kotlin is published to Esri's own Artifactory, not Maven Central
+      (search.maven.org g:com.esri.arcgisruntime -> 0 results). No unauthenticated version-metadata
+      endpoint was found, so version/published are honestly null rather than guessed.
+  - name: com.esri.arcgismaps:arcgis-maps-java
+    registry: maven
+    url: https://esri.jfrog.io/artifactory/arcgis
+    repository: https://esri.jfrog.io/artifactory/arcgis
+    official: true
+    language: java
+    version: null
+    published: null
+    note: Same Artifactory distribution as the Kotlin SDK; no public metadata endpoint.
+  - name: ArcGIS Maps SDK for JavaScript (CDN build)
+    registry: cdn
+    url: https://js.arcgis.com/
+    official: true
+    language: javascript
+    version: null
+    published: null
+    note: >-
+      Esri serves pinned CDN builds (https://js.arcgis.com/4.34/ and https://js.arcgis.com/5.1/ both
+      return HTTP 200). There is no floating "latest" alias documented and no CDN metadata API, so no
+      single version can be recorded for the distribution as a whole - consumers pin the branch in the
+      script tag.
+excluded:
+  - name: arcgis
+    registry: rubygems
+    reason: >-
+      rubygems.org/api/v1/gems/arcgis.json returns a third-party wrapper last released 0.0.15 on
+      2014-09-13 with no homepage and no Esri attribution - not a first-party SDK. Esri publishes no
+      RubyGems, crates.io or Packagist client.
+counts:
+  total: 23
+  official: 24
+  npm: 13
+  pypi: 2
+  nuget: 5
+  maven: 2
+  cdn: 1

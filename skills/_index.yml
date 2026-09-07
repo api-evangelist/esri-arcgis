@@ -1,0 +1,27 @@
+generated: '2026-09-07'
+method: generated
+source: >-
+  openapi/ operationIds in this repo, conventions/esri-arcgis-conventions.yml,
+  errors/esri-arcgis-problem-types.yml, plans/esri-arcgis-plans-pricing.yml,
+  mcp/esri-arcgis-mcp.yml
+provider: Esri ArcGIS
+providerId: esri-arcgis
+note: >-
+  Esri publishes no AGENTS.md or Agent Skills of its own (probed 2026-09-07: developers.arcgis.com/AGENTS.md
+  404, www.esri.com/AGENTS.md 404, Esri/.github AGENTS.md 404, developers.arcgis.com/skills/ 404). These
+  are generated from operationIds that exist in this repo's OpenAPI files - no operation was invented.
+skills:
+  - file: esri-arcgis-geocode-an-address.md
+    name: esri-arcgis-geocode-an-address
+    api: ESRI ArcGIS Geocoding API
+    operations: [findAddressCandidates, reverseGeocode]
+    mcp_tools: [find_address_candidates, reverse_geocode]
+  - file: esri-arcgis-find-places-nearby.md
+    name: esri-arcgis-find-places-nearby
+    api: ESRI ArcGIS Places API
+    operations: [findPlacesNearPoint, getPlaceDetails]
+  - file: esri-arcgis-search-portal-content.md
+    name: esri-arcgis-search-portal-content
+    api: ESRI ArcGIS Portal API
+    operations: [getPortalSelf, searchPortal, getItem, getUserItems, getUser]
+skill_count: 3

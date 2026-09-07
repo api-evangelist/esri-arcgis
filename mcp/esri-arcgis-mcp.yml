@@ -1,0 +1,103 @@
+generated: '2026-09-07'
+method: searched
+source: https://developers.arcgis.com/ai/mcp-arcgis-location-services/
+provider: Esri ArcGIS
+providerId: esri-arcgis
+name: MCP for ArcGIS Location Services (beta)
+status: beta
+description: >-
+  An Esri-hosted, remote Model Context Protocol server that exposes ArcGIS Location Services
+  (geocoding, reverse geocoding, routing, elevation, static maps and GeoEnrichment) to MCP-compliant
+  clients as tools, without the client calling the ArcGIS REST APIs directly. Announced as beta in the
+  ArcGIS Location Platform release and documented in Esri's own developer documentation.
+deployment:
+  mode: remote
+  endpoint: https://location-services-mcp.arcgis.com/beta/mcp
+  auth: oauth
+  verified: probed
+  note: >-
+    Both API-key (Authorization: Bearer <access token>) and OAuth 2.0 user authentication are documented;
+    the protected-resource metadata document names https://arcgis.com/ as the authorization server.
+    There is no first-party stdio/npx package - the only Esri-published surface is the hosted HTTP endpoint.
+transport: streamable-http
+x-evidence:
+  - fetched: '2026-09-07'
+    url: https://location-services-mcp.arcgis.com/beta/mcp
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    response: '{"error":{"code":499,"message":"Token Required.","details":["The required authentication information is missing. Unable to authorize access without a valid token."]}}'
+    note: >-
+      Endpoint is live and gated. The live tools/list schema requires an authenticated introspection;
+      the tool list below is transcribed from Esri's published Tools reference page, so tool NAMES and
+      DESCRIPTIONS are provider-published but inputSchema is not captured.
+  - fetched: '2026-09-07'
+    url: https://location-services-mcp.arcgis.com/.well-known/oauth-protected-resource
+    http_status: 200
+    file: well-known/esri-arcgis-location-services-mcp-oauth-protected-resource.json
+authentication:
+  models:
+    - type: api-key
+      header: Authorization
+      prefix: Bearer
+      note: ArcGIS Location Platform API key credential with beta access privilege.
+    - type: oauth2
+      flow: authorizationCode
+      pkce: S256
+      authorization_endpoint: https://www.arcgis.com/sharing/rest/oauth2/authorize
+      token_endpoint: https://www.arcgis.com/sharing/rest/oauth2/token
+  required_privileges:
+    - Portal service > General privileges > Apps and capabilities > Allow beta access
+    - Location services > Geocoding > Geocode (stored)
+    - Location services > Routing > Simple routing
+    - Location services > Elevation > Elevation service
+    - Location services > Static maps > Static maps service
+    - Location services > Data Enrichment > GeoEnrichment service
+tools_source: https://developers.arcgis.com/ai/mcp-arcgis-location-services/tools/
+tools:
+  - name: find_address_candidates
+    category: geocoding
+    description: Takes an address or place string and returns coordinates.
+    privileges: [Location services > Geocoding > Geocode (stored)]
+  - name: reverse_geocode
+    category: geocoding
+    description: Converts coordinates to the nearest address.
+    privileges: [Location services > Geocoding > Geocode (stored)]
+  - name: solve_route
+    category: routing
+    description: >-
+      Solves a route between a start and end point, with optional intermediate stops and the ability to
+      specify departure time for more accurate results.
+    privileges: [Location services > Routing > Simple routing]
+  - name: elevation_at_locations
+    category: elevation
+    description: Get the elevation for a given point (latitude and longitude) using the WGS84 coordinate system.
+    privileges: [Location services > Elevation]
+  - name: map_with_overlay
+    category: static-maps
+    description: Returns a static map in an ArcGIS Basemap style with points, polylines and/or polygons.
+    privileges: [Location services > Static maps]
+    note: Returns a base64-encoded PNG image; some MCP clients do not decode or render it.
+  - name: get_topic_fields
+    category: data-enrichment
+    description: >-
+      Returns a set of fields for a topic (e.g. "population") that are available for a specified country.
+    privileges: [Location services > Geoenrichment]
+  - name: describe_location
+    category: data-enrichment
+    description: Describes the specified location using the fields obtained from get_topic_fields.
+    privileges: [Location services > Geoenrichment]
+tool_count: 7
+prompts: https://developers.arcgis.com/ai/mcp-arcgis-location-services/prompts/
+clients_documented:
+  - Microsoft Copilot Studio
+  - VS Code with GitHub Copilot
+  - Goose
+  - Claude / Claude Code
+  - AWS Kiro
+  - Postman
+docs:
+  overview: https://developers.arcgis.com/ai/mcp-arcgis-location-services/
+  get_started: https://developers.arcgis.com/ai/mcp-arcgis-location-services/get-started/
+  tools: https://developers.arcgis.com/ai/mcp-arcgis-location-services/tools/
+  early_adopter: https://earlyadopter.esri.com/key/MCPsupportforArcGISLocationServices

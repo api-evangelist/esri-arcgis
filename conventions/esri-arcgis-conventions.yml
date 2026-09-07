@@ -1,0 +1,148 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://developers.arcgis.com/rest/,
+  https://developers.arcgis.com/documentation/security-and-authentication/,
+  https://developers.arcgis.com/rest/users-groups-and-items/recycle-bin-reference/,
+  https://developers.arcgis.com/rest/users-groups-and-items/webhooks/,
+  https://developers.arcgis.com/rest/geocode/whats-new-world-geocoding-service/,
+  plus live responses recorded in errors/esri-arcgis-problem-types.yml
+provider: Esri ArcGIS
+providerId: esri-arcgis
+auth:
+  styles:
+    - name: API key
+      transport: "query parameter ?token=<key> or Authorization: Bearer <key>"
+      note: >-
+        ArcGIS API key credentials are scoped by PRIVILEGE, not by OAuth scope string; privileges are
+        selected when the credential is created.
+    - name: OAuth 2.0 user authentication
+      transport: "Authorization: Bearer <access token>"
+      flow: authorizationCode with PKCE (S256)
+      authorization_endpoint: https://www.arcgis.com/sharing/rest/oauth2/authorize
+      token_endpoint: https://www.arcgis.com/sharing/rest/oauth2/token
+    - name: App authentication (client credentials)
+      transport: token exchange at /sharing/rest/oauth2/token
+  detail: authentication/esri-arcgis-authentication.yml
+request_format:
+  note: >-
+    A distinctive ArcGIS convention - most "GET" operations also accept POST with the same parameters as
+    application/x-www-form-urlencoded, which is the documented way to send long geometry or address
+    payloads. Parameters that are objects (geometry, outSR, features) are passed as JSON-encoded STRINGS
+    inside form/query parameters, not as a JSON request body.
+  response_format_parameter:
+    name: f
+    values: [json, pjson, html, geojson, kmz, image, pbf]
+    default: html
+    warning: >-
+      The default is f=html on many sharing/rest resources. An agent that omits f=json receives an HTML
+      page with HTTP 200.
+pagination:
+  style: offset
+  parameters:
+    - name: start
+      description: 1-based index of the first result.
+    - name: num
+      description: Number of results to return (service-specific maximum).
+  response_fields: [total, start, num, nextStart]
+  note: nextStart is -1 when there are no further results.
+  cursor_pagination:
+    surface: ArcGIS Urban API (GraphQL)
+    note: The GraphQL Query type exposes a `cursor` field; paging there is cursor-based, not offset-based.
+field_expansion:
+  supported: partial
+  note: >-
+    Feature/query operations use outFields to select attributes and returnGeometry to include or omit
+    geometry. The Places service bills by REQUESTED ATTRIBUTE SET (address, details, location), so field
+    selection is a pricing decision as well as a payload one.
+metadata:
+  supported: false
+  note: No general user-defined metadata bag on API objects; portal items carry typeKeywords and tags.
+request_id_tracing:
+  supported: false
+  note: >-
+    No X-Request-Id / correlation-id response header is documented for the ArcGIS REST APIs. An agent
+    cannot quote a request identifier back to Esri support from the response alone.
+versioning:
+  detail: lifecycle/esri-arcgis-lifecycle.yml
+  summary: >-
+    Location Services version in the path (.../places-service/v1/, .../styles/v2/); the sharing/portal
+    REST API versions with the ArcGIS Online / Enterprise product release and stamps each resource with
+    a "Version Introduced" value.
+error_envelope:
+  shape: '{"error":{"code":<int>,"message":"<string>","details":["<string>"]}}'
+  rfc9457: false
+  critical: >-
+    error.code is an ArcGIS status code and does NOT track the HTTP status - a 200 response can carry
+    error.code 498 (Invalid Token) or 403. Clients MUST parse the body.
+  detail: errors/esri-arcgis-problem-types.yml
+rate_limit_signaling:
+  headers_published: false
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header is documented. Esri publishes monthly free-tier
+    ceilings and per-1,000 prices instead of per-second quotas; consumption is observable only through
+    the ArcGIS Location Platform usage dashboard, not from the response.
+  status_on_exhaustion: 429
+  detail: rate-limits/esri-arcgis-rate-limits.yml
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  header: null
+  retention: null
+  note: >-
+    No Idempotency-Key header (or any documented request-deduplication mechanism) appears anywhere in the
+    ArcGIS REST API reference, the security-and-authentication guide, or the ArcGIS Urban API GraphQL
+    schema. A retried addItem / createUrbanModel / createPlans call creates a second object. Writes are
+    made idempotent only by the caller supplying a client-chosen id where the operation accepts one.
+dry_run_mode:
+  supported: false
+  note: >-
+    No preview/validate/dry-run flag is documented for the write surfaces. The routing and analysis
+    services offer a synchronous "solve" versus asynchronous "submitJob" split, but both execute and both
+    are billed - neither is a rehearsal.
+reversibility:
+  grade: verified
+  summary: >-
+    ArcGIS Online publishes one first-class reversal path with a stated window - the organization Recycle
+    Bin - covering item deletion. Other write surfaces (Urban API mutations, webhook deletion, group
+    membership) have no documented undo.
+  surfaces:
+    - write_surface: Delete a portal item (sharing/rest content delete)
+      reversal: Restore from the organization Recycle bin
+      operation: POST /content/users/[userName]/items/[itemID]/restore
+      operationId: null
+      operationId_note: >-
+        The restore operation is not present in this repo's OpenAPI files; it is documented in the ArcGIS
+        REST reference only.
+      window: at least 14 days (336 hours) from the time the item was placed in the recycle bin
+      window_source: https://developers.arcgis.com/rest/users-groups-and-items/recycle-bin-reference/
+      caveats:
+        - Recycle bin is enabled by default only in organizations created after the June 2024 ArcGIS Online update; older organizations must opt in.
+        - Restored items do not retain metadata and are unshared from all groups.
+        - Items in the recycle bin continue to incur storage credit cost.
+    - write_surface: ArcGIS Urban API delete mutations (deletePlans, deleteProjects, deleteZones, deleteParcels, deleteAnalyses, ...)
+      reversal: none documented
+      window: null
+      window_source: null
+      note: >-
+        The GraphQL schema exposes 30 delete* mutations and no restore/undo counterpart
+        (graphql/esri-arcgis-urban-api.graphql).
+    - write_surface: Delete an organization webhook (/portals/[portalID]/webhooks/[webhookID]/delete)
+      reversal: none documented - recreate the webhook
+      window: null
+      window_source: null
+    - write_surface: Geocoding with forStorage=true, routing solves, static map generation
+      reversal: na
+      window: null
+      window_source: null
+      note: >-
+        These are billed reads that produce no server-side object; nothing to reverse, but the
+        transaction is charged and cannot be un-charged.
+cross_links:
+  errors: errors/esri-arcgis-problem-types.yml
+  lifecycle: lifecycle/esri-arcgis-lifecycle.yml
+  authentication: authentication/esri-arcgis-authentication.yml
+  scopes: scopes/esri-arcgis-scopes.yml
+  rate_limits: rate-limits/esri-arcgis-rate-limits.yml
+  webhooks: asyncapi/esri-arcgis-webhooks.yml

@@ -1,0 +1,151 @@
+generated: '2026-09-07'
+method: derived
+source: >-
+  openapi/esri-arcgis-geocoding-api-openapi.yml, openapi/esri-arcgis-places-api-openapi.yml,
+  openapi/esri-arcgis-portal-api-openapi.yml (components.schemas $ref graph and id-reference fields),
+  graphql/esri-arcgis-urban-api.graphql (introspected type graph),
+  https://developers.arcgis.com/rest/users-groups-and-items/
+provider: Esri ArcGIS
+providerId: esri-arcgis
+domains:
+  - name: Geocoding
+    entities: [GeocodeResponse, GeocodeCandidate, ReverseGeocodeResponse, Point, SpatialReference]
+  - name: Places
+    entities: [PlacesResponse, PlaceSummary, Place, Category, Point]
+  - name: Portal / content
+    entities: [Portal, User, GroupRef, Item, ItemCollection, SearchResults]
+  - name: Urban planning (GraphQL)
+    entities: [UrbanModel, UrbanDesignDatabase, Plan, Project, Branch, Parcel, Zone, ZoneType, Space, SpaceUseType, BuildingType, Indicator, Metric, MetricSource, MetricValue, Overlay, OverlayType, Viewpoint, StatusType, SuitabilityModel, Criteria]
+    note: Not $ref-derivable from OpenAPI; taken from the GraphQL mutation/type names in the introspected SDL.
+entities:
+  - name: Portal
+    domain: portal
+    key: id
+    description: An ArcGIS Online or ArcGIS Enterprise organization.
+  - name: User
+    domain: portal
+    key: username
+    description: A named user in a portal.
+  - name: GroupRef
+    domain: portal
+    key: id
+  - name: Item
+    domain: portal
+    key: id
+    id_note: >-
+      Portal item ids are 32-character lowercase hex strings; they are opaque and carry no type prefix,
+      so an agent cannot tell a web map from a feature service by id alone - it must read item.type.
+  - name: ItemCollection
+    domain: portal
+  - name: SearchResults
+    domain: portal
+  - name: GeocodeResponse
+    domain: geocoding
+  - name: GeocodeCandidate
+    domain: geocoding
+  - name: ReverseGeocodeResponse
+    domain: geocoding
+  - name: PlacesResponse
+    domain: places
+  - name: PlaceSummary
+    domain: places
+    key: placeId
+  - name: Place
+    domain: places
+    key: placeId
+  - name: Category
+    domain: places
+    key: categoryId
+    description: One of the 1,000+ place feature categories.
+  - name: Point
+    domain: geometry
+  - name: SpatialReference
+    domain: geometry
+    key: wkid
+    description: >-
+      A well-known spatial reference identifier (wkid / latestWkid). This is the join key that makes
+      every geometry in the platform comparable, and the one field a client must not drop.
+  - name: Error
+    domain: cross-cutting
+    description: The shared ArcGIS error envelope - see errors/esri-arcgis-problem-types.yml.
+relationships:
+  - from: GeocodeResponse
+    to: GeocodeCandidate
+    kind: has_many
+    via: candidates
+  - from: GeocodeResponse
+    to: SpatialReference
+    kind: has_one
+    via: spatialReference
+  - from: GeocodeCandidate
+    to: Point
+    kind: has_one
+    via: location
+  - from: ReverseGeocodeResponse
+    to: Point
+    kind: has_one
+    via: location
+  - from: Point
+    to: SpatialReference
+    kind: has_one
+    via: spatialReference
+  - from: PlacesResponse
+    to: PlaceSummary
+    kind: has_many
+    via: results
+  - from: PlaceSummary
+    to: Point
+    kind: has_one
+    via: location
+  - from: PlaceSummary
+    to: Category
+    kind: has_many
+    via: categories
+  - from: PlaceSummary
+    to: Place
+    kind: belongs_to
+    via: placeId
+  - from: Place
+    to: Point
+    kind: has_one
+    via: location
+  - from: Place
+    to: Category
+    kind: has_many
+    via: categories
+  - from: SearchResults
+    to: Item
+    kind: has_many
+    via: results
+  - from: ItemCollection
+    to: Item
+    kind: has_many
+    via: items
+  - from: User
+    to: GroupRef
+    kind: has_many
+    via: groups
+  - from: Item
+    to: User
+    kind: belongs_to
+    via: owner
+  - from: Item
+    to: Portal
+    kind: belongs_to
+    via: orgId
+graphql_graph:
+  endpoint: https://urban-api.arcgis.com/graphql
+  sdl: graphql/esri-arcgis-urban-api.graphql
+  types: 441
+  query_fields: 7
+  mutation_fields: 96
+  roots:
+    - urbanModel / urbanModels
+    - urbanDesignDatabase / urbanDesignDatabases
+  note: >-
+    The Urban API is the richest relational surface Esri exposes - an urban model owns plans, projects,
+    branches, parcels, zones, spaces, metrics and scenario analyses, each with create/update/delete
+    mutations. The full field-level graph is in the SDL rather than duplicated here.
+counts:
+  openapi_entities: 16
+  openapi_relationships: 16

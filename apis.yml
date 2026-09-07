@@ -94,7 +94,7 @@ apis:
   - Places
   - Points of Interest
   humanURL: https://developers.arcgis.com/documentation/mapping-and-location-services/place-finding/
-  baseURL: https://places-api.arcgis.com/arcgis/rest/services
+  baseURL: https://places-api.arcgis.com/arcgis/rest/services/places-service/v1
   properties:
   - url: https://developers.arcgis.com/documentation/mapping-and-location-services/place-finding/
     type: Documentation
@@ -111,6 +111,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/esri-arcgis-geocoding-api-openapi.yml
+  - type: Overlay
+    url: overlays/esri-arcgis-geocoding-api-overlay.yaml
   - type: Portal
     url: https://developers.arcgis.com/
   - type: Documentation
@@ -129,6 +131,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/esri-arcgis-places-api-openapi.yml
+  - type: Overlay
+    url: overlays/esri-arcgis-places-api-overlay.yaml
   - type: Portal
     url: https://developers.arcgis.com/
   - type: Documentation
@@ -147,6 +151,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/esri-arcgis-portal-api-openapi.yml
+  - type: Overlay
+    url: overlays/esri-arcgis-portal-api-overlay.yaml
   - type: Portal
     url: https://developers.arcgis.com/
   - type: Documentation
@@ -155,6 +161,77 @@ apis:
     url: https://developers.arcgis.com/documentation/security-and-authentication/
   - type: Reference
     url: https://developers.arcgis.com/rest/
+- aid: esri-arcgis:esri-arcgis-urban-api
+  name: ArcGIS Urban API
+  description: >-
+    A GraphQL API for ArcGIS Urban - urban models, plans, projects, branches, parcels, zones, spaces,
+    building types, indicators, metrics, overlays, viewpoints and scenario analyses (elevation profile,
+    line of sight, shadowcast, viewshed, suitability, sunlight). Anonymous introspection is open, so the
+    full schema is machine-readable without a credential; executing queries requires an ArcGIS token.
+  humanURL: https://developers.arcgis.com/arcgis-urban-api/
+  baseURL: https://urban-api.arcgis.com/graphql
+  tags:
+  - GraphQL
+  - Urban Planning
+  - GIS
+  - 3D
+  - Scenario Planning
+  properties:
+  - type: GraphQL
+    url: graphql/esri-arcgis-urban-api.graphql
+  - type: Documentation
+    url: https://developers.arcgis.com/arcgis-urban-api/
+  - type: Authentication
+    url: https://developers.arcgis.com/documentation/security-and-authentication/
+- aid: esri-arcgis:esri-arcgis-mcp-location-services
+  name: MCP for ArcGIS Location Services (beta)
+  description: >-
+    Esri-hosted Model Context Protocol server exposing ArcGIS Location Services - geocoding, reverse
+    geocoding, routing, elevation, static maps and GeoEnrichment - as seven MCP tools. Remote HTTP
+    transport; an ArcGIS API key or OAuth 2.0 access token is required.
+  humanURL: https://developers.arcgis.com/ai/mcp-arcgis-location-services/
+  baseURL: https://location-services-mcp.arcgis.com/beta/mcp
+  tags:
+  - MCP
+  - AI
+  - Geocoding
+  - Routing
+  - Elevation
+  properties:
+  - type: MCPServer
+    url: mcp/esri-arcgis-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/esri-arcgis-tool-crosswalk.yml
+  - type: Documentation
+    url: https://developers.arcgis.com/ai/mcp-arcgis-location-services/
+  - type: GettingStarted
+    url: https://developers.arcgis.com/ai/mcp-arcgis-location-services/get-started/
+  - type: Reference
+    url: https://developers.arcgis.com/ai/mcp-arcgis-location-services/tools/
+- aid: esri-arcgis:esri-arcgis-ogc-services
+  name: ArcGIS Server OGC Web Services
+  description: >-
+    ArcGIS Server publishes any map or feature service through the OGC interfaces - WMS, WFS, WCS, WMTS
+    and KML. The two capabilities documents registered here were fetched from Esri's public ArcGIS Server
+    sample deployment on arcgisonline.com and are the self-describing contracts of that interface; every
+    production OGC endpoint is a customer deployment of the same product on the customer's own domain.
+  humanURL: https://enterprise.arcgis.com/en/server/latest/publish-services/windows/ogc-services-in-arcgis-server.htm
+  baseURL: https://sampleserver6.arcgisonline.com/arcgis/services
+  tags:
+  - OGC
+  - WMS
+  - WFS
+  - Geospatial
+  - Standards
+  properties:
+  - type: GetCapabilities
+    url: openapi/esri-arcgis-arcgis-server-wms-capabilities.xml
+  - type: GetCapabilities
+    url: openapi/esri-arcgis-arcgis-server-wfs-capabilities.xml
+  - type: Documentation
+    url: https://enterprise.arcgis.com/en/server/latest/publish-services/windows/ogc-services-in-arcgis-server.htm
+  - type: Conformance
+    url: conformance/esri-arcgis-conformance.yml
 common:
 - type: AgenticAccess
   url: agentic-access/esri-arcgis-agentic-access.yml
@@ -164,6 +241,60 @@ common:
   url: authentication/esri-arcgis-authentication.yml
 - type: OAuthScopes
   url: scopes/esri-arcgis-scopes.yml
+- type: MCPServer
+  url: mcp/esri-arcgis-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/esri-arcgis-tool-crosswalk.yml
+- type: WellKnown
+  url: well-known/esri-arcgis-well-known.yml
+- type: LLMsTxt
+  url: llms/esri-arcgis-llms.txt
+- type: Packages
+  url: packages/esri-arcgis-packages.yml
+- type: SDKs
+  url: packages/esri-arcgis-packages.yml
+- type: Components
+  url: components/esri-arcgis-components.yml
+- type: Conformance
+  url: conformance/esri-arcgis-conformance.yml
+- type: Compliance
+  url: conformance/esri-arcgis-conformance.yml
+- type: ErrorCatalog
+  url: errors/esri-arcgis-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/esri-arcgis-lifecycle.yml
+- type: StatusPage
+  url: lifecycle/esri-arcgis-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/esri-arcgis-lifecycle.yml
+- type: Conventions
+  url: conventions/esri-arcgis-conventions.yml
+- type: ChangeLog
+  url: changelog/esri-arcgis-changelog.yml
+- type: DataModel
+  url: data-model/esri-arcgis-data-model.yml
+- type: Webhooks
+  url: asyncapi/esri-arcgis-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: VulnerabilityDisclosure
+  url: security/esri-arcgis-vulnerability-disclosure.yml
+- type: Security
+  url: security/esri-arcgis-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: security/esri-arcgis-trust-center.yml
+- type: RateLimits
+  url: rate-limits/esri-arcgis-rate-limits.yml
+- type: Plans
+  url: plans/esri-arcgis-plans-pricing.yml
+- type: FinOps
+  url: finops/esri-arcgis-finops.yml
+- type: Vocabulary
+  url: vocabulary/esri-arcgis-vocabulary.yml
+- type: Rules
+  url: rules/esri-arcgis-jsonschema-spectral-rules.yml
+- type: Website
+  url: https://www.esri.com/
 - type: LinkedIn
   url: https://www.linkedin.com/company/esri-arcgis
 name: ESRI ArcGIS
@@ -191,6 +322,12 @@ tags:
 - Mapping
 - Location
 - Spatial Analysis
+- Geocoding
+- Routing
+- Places
+- OGC
+- GraphQL
+- MCP
 properties:
 - url: https://developers.arcgis.com/
   type: Portal
@@ -206,8 +343,10 @@ properties:
   type: TermsOfService
 - url: https://www.esri.com/en-us/privacy/overview
   type: PrivacyPolicy
-- url: https://trust.arcgis.com/en/
+- url: https://status.arcgis.com/
   type: StatusPage
+- url: https://trust.arcgis.com/en/
+  type: TrustCenter
 - url: https://community.esri.com/t5/developers/ct-p/developers
   type: Support
 - url: https://www.esri.com/arcgis-blog/
@@ -216,6 +355,14 @@ properties:
   type: Website
 - url: https://github.com/Esri
   type: GitHubOrganization
+- url: https://location.arcgis.com/pricing/
+  type: Pricing
+- url: https://location.arcgis.com/sign-up/
+  type: SignUp
+- url: https://www.postman.com/esridevs/esri-arcgis-services
+  type: Postman
+- url: https://developers.arcgis.com/rest/geocode/whats-new-world-geocoding-service/
+  type: ChangeLog
 - url: openapi/esri-arcgis-platform-openapi.yml
   type: OpenAPI
 - url: json-schema/esri-arcgis-feature-schema.json
@@ -225,4 +372,19 @@ properties:
 maintainer:
   name: Kin Lane
   email: kin@apievangelist.com
-modified: '2026-04-28'
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+position: Producing
+image: https://www.esri.com/content/dam/esrisites/en-us/media/social-media/social-sharing-image-default.jpg
+created: '2026-04-28'
+modified: '2026-09-07'
+x-enrichment:
+  date: '2026-09-07'
+  status: enriched
+  artifacts_added: 27
+  pass: local-v3
+x-parent: esri
+x-relationship: product

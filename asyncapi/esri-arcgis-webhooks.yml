@@ -1,0 +1,130 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://developers.arcgis.com/rest/users-groups-and-items/webhooks/,
+  https://developers.arcgis.com/rest/users-groups-and-items/create-webhooks/
+provider: Esri ArcGIS
+providerId: esri-arcgis
+asyncapi_spec_published: false
+asyncapi_note: >-
+  Esri publishes no AsyncAPI document for any ArcGIS surface. The event surface below is transcribed from
+  the ArcGIS REST API webhook reference; nothing here was generated.
+type: webhooks
+summary: >-
+  ArcGIS Online and ArcGIS Enterprise organizations can register outbound webhooks that POST a payload to
+  a caller-supplied URL when items, groups, users or roles change. Introduced at version 10.7.
+  ArcGIS Enterprise additionally supports feature service and geoprocessing webhooks, managed through the
+  ArcGIS Server Administrative API rather than the portal.
+management_api:
+  base: https://www.arcgis.com/sharing/rest/portals/[portalID]/webhooks
+  operations:
+    - name: createWebhook
+      method: POST
+      path: /portals/[portalID]/webhooks/createWebhook
+      docs: https://developers.arcgis.com/rest/users-groups-and-items/create-webhooks/
+    - name: listWebhooks
+      method: GET
+      path: /portals/[portalID]/webhooks
+      docs: https://developers.arcgis.com/rest/users-groups-and-items/webhooks/
+    - name: listSpecificWebhook
+      method: GET
+      path: /portals/[portalID]/webhooks/[webhookID]
+      docs: https://developers.arcgis.com/rest/users-groups-and-items/list-specific-webhook/
+    - name: updateWebhook
+      method: POST
+      path: /portals/[portalID]/webhooks/[webhookID]/update
+      docs: https://developers.arcgis.com/rest/users-groups-and-items/update-webhook/
+    - name: activateWebhook
+      method: POST
+      path: /portals/[portalID]/webhooks/[webhookID]/activate
+      docs: https://developers.arcgis.com/rest/users-groups-and-items/activate-webhook/
+    - name: deactivateWebhook
+      method: POST
+      path: /portals/[portalID]/webhooks/[webhookID]/deactivate
+      docs: https://developers.arcgis.com/rest/users-groups-and-items/deactivate-webhook/
+    - name: deleteWebhook
+      method: POST
+      path: /portals/[portalID]/webhooks/[webhookID]/delete
+      docs: https://developers.arcgis.com/rest/users-groups-and-items/delete-webhook/
+    - name: notificationStatus
+      method: GET
+      path: /portals/[portalID]/webhooks/[webhookID]/notificationStatus
+    - name: listServiceWebhooks
+      method: GET
+      path: /portals/[portalID]/webhooks/listServiceWebhooks
+subscription:
+  parameters:
+    - name: name
+      required: true
+    - name: url
+      required: true
+      description: The payload URL; queried during creation to confirm the portal can reach it.
+    - name: secret
+      required: false
+      description: >-
+        A user-defined string added to the HEADER of the webhook payload so the receiver can authenticate
+        the message. There is no documented HMAC signature scheme - the secret is echoed, not used to sign.
+    - name: changes
+      required: true
+      values: [manualChanges, allChanges]
+      default: manualChanges
+    - name: events
+      required: conditional
+      description: Required when changes=manualChanges; a comma-separated list of event trigger URIs.
+  delivery:
+    deactivation_policy:
+      config_key: config.deactivationPolicy
+      fields: [numberOfFailures, daysInPast]
+      example: '{"deactivationPolicy":{"numberOfFailures":5,"daysInPast":5}}'
+      description: >-
+        Esri auto-deactivates a webhook after numberOfFailures delivery failures within daysInPast days.
+        There is no documented retry/backoff schedule and no replay endpoint.
+events:
+  items:
+    - uri: /items
+      description: All trigger events for all items.
+    - uri: /items/add
+      description: An item is added to the portal.
+    - uri: /items/delete
+      description: Any item is deleted.
+    - uri: /items/update
+    - uri: /items/move
+    - uri: /items/publish
+    - uri: /items/share
+    - uri: /items/unshare
+    - uri: /items/protect
+    - uri: /items/unprotect
+    - uri: /items/reassign
+    - uri: /items/[itemID]
+      description: All trigger events for one specific item.
+  groups:
+    - uri: /groups
+    - uri: /groups/add
+    - uri: /groups/delete
+    - uri: /groups/update
+    - uri: /groups/invite
+    - uri: /groups/request
+    - uri: /groups/remove
+    - uri: /groups/reassign
+    - uri: /groups/protect
+    - uri: /groups/unprotect
+    - uri: /groups/[groupID]
+  users:
+    - uri: /users
+    - uri: /users/add
+    - uri: /users/delete
+    - uri: /users/update
+    - uri: /users/enable
+    - uri: /users/disable
+    - uri: /users/signin
+    - uri: /users/signout
+    - uri: /users/[userName]
+  roles:
+    - uri: /roles
+event_count: 32
+gaps:
+  - No AsyncAPI (or other machine-readable) description of the payload schema is published.
+  - >-
+    No HMAC request signing - the shared secret is placed in a header rather than used to sign the body,
+    so a receiver cannot verify payload integrity.
+  - No documented redelivery/replay endpoint; failed deliveries lead to auto-deactivation instead.

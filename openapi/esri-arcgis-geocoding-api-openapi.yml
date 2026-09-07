@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: ESRI ArcGIS Platform Geocoding API
   description: ESRI ArcGIS Platform REST API for sharing, managing, and accessing GIS content including feature services, maps, layers, users, and portal items. The API enables geospatial data management, spatial analysis, geocoding, routing, and organizational administration for ArcGIS Online and ArcGIS Enterprise deployments.
@@ -147,25 +147,6 @@ paths:
                 $ref: '#/components/schemas/ReverseGeocodeResponse'
 components:
   schemas:
-    SpatialReference:
-      type: object
-      properties:
-        wkid:
-          type: integer
-          description: Well-known ID for the spatial reference (e.g., 4326 for WGS84)
-        latestWkid:
-          type: integer
-    Point:
-      type: object
-      properties:
-        x:
-          type: number
-          description: Longitude
-        y:
-          type: number
-          description: Latitude
-        spatialReference:
-          $ref: '#/components/schemas/SpatialReference'
     ReverseGeocodeResponse:
       type: object
       properties:
@@ -196,6 +177,23 @@ components:
               type: string
         location:
           $ref: '#/components/schemas/Point'
+    SpatialReference:
+      type: object
+      properties:
+        wkid:
+          type: integer
+          description: Well-known ID for the spatial reference (e.g., 4326 for WGS84)
+        latestWkid:
+          type: integer
+    GeocodeResponse:
+      type: object
+      properties:
+        spatialReference:
+          $ref: '#/components/schemas/SpatialReference'
+        candidates:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeocodeCandidate'
     GeocodeCandidate:
       type: object
       properties:
@@ -209,15 +207,17 @@ components:
         attributes:
           type: object
           additionalProperties: true
-    GeocodeResponse:
+    Point:
       type: object
       properties:
+        x:
+          type: number
+          description: Longitude
+        y:
+          type: number
+          description: Latitude
         spatialReference:
           $ref: '#/components/schemas/SpatialReference'
-        candidates:
-          type: array
-          items:
-            $ref: '#/components/schemas/GeocodeCandidate'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

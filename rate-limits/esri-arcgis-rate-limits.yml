@@ -4,11 +4,17 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Esri ArcGIS
 providerId: esri-arcgis
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+# Provenance: originally written by the API Evangelist bulk sweep dated 2026-05-04.
+# Re-verified 2026-09-07 against https://location.arcgis.com/pricing/ (HTTP 200): every
+# monthly inclusion ceiling below was read from that page. The negative finding was also
+# re-confirmed - Esri publishes no per-second/per-minute quota and no RateLimit-* or
+# Retry-After response header anywhere in the developer documentation.
+method: searched
+modified: '2026-09-07'
+verified: '2026-09-07'
+verification_source: https://location.arcgis.com/pricing/
+verification_http_status: 200
+reconciled: true
 tags:
   - Rate Limiting
   - GIS
@@ -26,6 +32,14 @@ notes: Per-second / per-minute rate-limit numbers are not centrally published; t
 responseCodes:
   throttled: 429
   serviceUnavailable: 503
+responseHeaders:
+  published: false
+  headers: []
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header is documented for any ArcGIS surface. An agent
+    gets no runtime signal of remaining allowance - consumption is visible only in the ArcGIS Location
+    Platform usage dashboard, after the fact. This is the single largest agent-readiness gap on the
+    platform's runtime semantics (see conventions/esri-arcgis-conventions.yml).
 limits:
   - name: Basemap tiles — monthly inclusion
     scope: api-key
@@ -61,6 +75,27 @@ limits:
     metric: places_per_month
     limit: 100
     timeFrame: month
+    notes: >-
+      Applies separately to each attribute family - place ($0.05/1,000), address ($0.10/1,000),
+      details ($0.13/1,000) and location ($0.35/1,000).
+  - name: Basemap sessions — monthly inclusion
+    scope: api-key
+    metric: sessions_per_month
+    limit: 1000
+    timeFrame: month
+    notes: Above 1K sessions/month, billed at $4.00/1,000.
+  - name: Static maps — monthly inclusion
+    scope: api-key
+    metric: images_per_month
+    limit: 1000
+    timeFrame: month
+    notes: Above 1K static maps/month, billed at $0.90/1,000.
+  - name: Service areas — monthly inclusion
+    scope: api-key
+    metric: service_areas_per_month
+    limit: 5000
+    timeFrame: month
+    notes: Above 5K service areas/month, billed at $50.00/1,000.
   - name: Per-service request throttle
     scope: api-key
     metric: varies
