@@ -193,6 +193,12 @@ apis:
   baseURL: https://location-services-mcp.arcgis.com/beta/mcp
   tags:
   - MCP
+  - Artificial Intelligence
+  - Geocoding
+  - Routing
+  - Elevation
+  tags_raw:
+  - MCP
   - AI
   - Geocoding
   - Routing
